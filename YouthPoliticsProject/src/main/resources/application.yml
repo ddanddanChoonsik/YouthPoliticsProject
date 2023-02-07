@@ -1,0 +1,19 @@
+server:
+  port: 9001
+spring:
+  devtools:
+    livereload:
+      enabled: true
+      
+# mysql
+  #datasource:
+    #driver-class-name: 드라이버명
+    #url: jdbc: mysql:// 
+    #username: 
+    #password:
+   
+# mybatis
+mybatis:
+  type-aliases-package: data.mapper,data.dto
+  mapper-locations:
+  - /mapper/**/*.xml
