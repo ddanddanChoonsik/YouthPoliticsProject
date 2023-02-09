@@ -14,6 +14,6 @@ spring:
    
 # mybatis
 mybatis:
-  type-aliases-package: data.mapper,data.dto
+  type-aliases-package: data.mapper
   mapper-locations:
   - /mapper/**/*.xml
