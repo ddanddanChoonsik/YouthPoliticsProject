@@ -13,9 +13,6 @@ const Menu = () => {
                 <li>청년공간</li>
                 <li>청년고용지원</li>
                 <li>고객지원센터</li>
-                <li>삭제예정</li>
-                <li>삭제예정</li>
-                <li>삭제ㄴㄴㄴ예정</li>
             </ul>
             <div className="login">
                 <button type="button" class="btn btn-primary" style={{marginRight:'10px'}}>Join</button>
