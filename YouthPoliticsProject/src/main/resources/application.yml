@@ -5,12 +5,12 @@ spring:
     livereload:
       enabled: true
       
-# mysql
-  #datasource:
-    #driver-class-name: 드라이버명
-    #url: jdbc: mysql:// 
-    #username: 
-    #password:
+# mysql (임시 데이터베이스 설정)
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pigpick?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
    
 # mybatis
 mybatis:
