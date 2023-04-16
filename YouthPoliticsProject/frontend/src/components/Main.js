@@ -2,49 +2,61 @@ import React, { useEffect,useState} from 'react';
 import TestImg from '../images/test.gif';
 import XMLParser from 'react-xml-parser'; //xml parsing json
 import axios from 'axios';
+import '../styles/main.css';
 
 const Main = () => {
-    //청년정책 api key
-    // const openApiVlak= "c4ef1792d2b792033d1e4126";
-    // const pageIndex=1;
-    // const display=1;
-    // const url=`https://www.youthcenter.go.kr/opi/empList.do?pageIndex=${pageIndex}&display=${display}&openApiVlak=${openApiVlak}`;
-    // console.log("url:",url); //값 들어옴
+        //api data 받아서 client에 뿌릴예정
+        const [apidata,setApiData]=useState();
+        const [apiarr,setApiArr] = useState([]);
+        const vsor = []; //하나하나
+        const vc = apiarr.length;
 
-    // axios.get(url).then((Response)=>{
-    //     const data = Response.data;
-    //     console.log("data:",data);
-    // })
-
-    // const express = require('express');
-    // const cors = require('cors');
-  
-    // let corsOption = {
-    //     origin: 'http://localhost:3000' // 허락하는 요청 주소
-    //     credentials: true // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
-    // } 
-  
-    // app.use(cors(corsOption)); // CORS 미들웨어 추가
-    useEffect(() => {
-        async function fetchdata() {
-          const { data } = await axios.get(
-            '?pageIndex=1&display=1&openApiVlak=c4ef1792d2b792033d1e4126',
-            );
-          console.log(data);
+        //api 호출
+        const youthPolicyApi = async () => {
+            const url ='http://localhost:3001/api';
+            const res = await fetch(url).then((res) => res.json());
+            const emp = res.empsInfo.emp; //api 호출값
+            const value=Object.values(emp);
+            setApiArr(value);
+            console.log("apiarr:",apiarr);
+            
         }
-        fetchdata();
-      }, []);
+
+        //api value 값자체로 출력
+        for(var i=0; i < vc; i++){
+            // for(var j=0; j < apiarr[i].length ; j++){
+                if(apiarr[i]._text){
+                    vsor.push(apiarr[i]._text);
+                }else{
+                    vsor.push(apiarr[i]._cdata);
+                }
+            // }
+        }
+         console.log("vsor:",vsor); //2차원 arr일경우 undefind
+
+
+            // for(var i=0; i < vc ; i++){
+            //     if(apiarr[i]._text){
+            //         vsor.push(apiarr[i]._text);
+            //     }else{
+            //         vsor.push(apiarr[i]._cdata);
+            //     }
+            // }
+  
+
+          const apilist = vsor.map((row,idx)=> <li key={idx} >{row}</li>)
+
+        useEffect(()=>{
+            // getTest();
+            //온라인청년정책 api
+            youthPolicyApi();
+        },[])
+        
+
     return (
         <div id='main'>
             <div className='mainContent'>
-                <p>대충 내용 작성예정1</p>
-                <p>대충 내용 작성예정2</p>
-                <p>대충 내용 작성예정3</p>
-                <p>대충 내용 작성예정4</p>
-                <p>대충 내용 작성예정5</p>
-                <p>대충 내용 작성예정6</p>
-                <p>대충 내용 작성예정7</p>
-                <p>대충 내용 작성예정8</p>
+               <ul>{apilist}</ul>
             </div>
             <div className='mainImg'>
                 <img src={TestImg} alt="test용"/>
