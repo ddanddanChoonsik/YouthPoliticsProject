@@ -1,9 +1,14 @@
 package data.dto;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
 @Data
-public class YouthPolicy {
+@Alias("youthpolicy")
+public class YouthPolicyDto {
+	//정책dto
+	private int num; //정책번호 (기본키)
 	private String bizId; //정책 ID	</bizId>
 	private String polyBizSecd;	//정책일련번호	</polyBizSecd>
 	private String polyBizTy;		//기관 및 지자체 구분	</polyBizTy>
