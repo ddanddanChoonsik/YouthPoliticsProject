@@ -9,14 +9,14 @@ const port =process.env.PORT || 3001;
 require("dotenv").config();
 console.log("dotenv:",process.env.REACT_APP_YOUTH_POLITICS_API_KEY)
 app.use(cors());
+app.use(bodyParser.json());
 
 const url = 'https://www.youthcenter.go.kr/opi/empList.do';
 const key =process.env.REACT_APP_YOUTH_POLITICS_API_KEY;
-const requestUrl = `${url}?pageIndex=1&display=1&openApiVlak=${key}`;
+const requestUrl = `${url}?pageIndex=1&display=3&openApiVlak=${key}`;
 
 //practice api
-app.use(bodyParser.json());
-app.use('/api1', (req, res)=> res.json({username:'bryan'}));
+//app.use('/api1', (req, res)=> res.json({username:'bryan'}));
 
 app.use('/api',(req,res)=>{
     request(requestUrl, (err,response,body)=>{
