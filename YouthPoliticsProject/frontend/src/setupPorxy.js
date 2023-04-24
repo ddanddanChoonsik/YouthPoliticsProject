@@ -2,8 +2,8 @@
 
     module.exports = function(app){
         app.use(
-            createProxyMiddleware('/api', {
-            target: 'https://www.youthcenter.go.kr/opi/empList.do',
+            createProxyMiddleware('/test', {
+            target: 'http://localhost:3001',
             changeOrigin: true,
             }),
   );

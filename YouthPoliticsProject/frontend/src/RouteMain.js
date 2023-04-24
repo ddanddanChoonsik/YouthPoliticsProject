@@ -2,21 +2,36 @@ import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import { Header,Main, Menu } from "./components";
 import {LoginForm, JoinForm,KakaoLogin} from "./pages/login";
-import { Profile } from "./pages/mypage";
+
+import {PolicyList,PolicyDetail} from './pages/youthpolicy';
+import {NoticeList} from './pages/notice';
+import {GroupList} from './pages/group';
+import {Profile} from './pages/mypage';
 
 const RouteMain = () => {
     return (
-        <div>
+        <div id="main">
             <Routes>
-                <Route path="/" elemet={<Main/>}/>
+                <Route exact path="/" element={<Main/>}/>
 
+               {/* youthpolicy */}
+               <Route path="/policy/list/:curr" element={<PolicyList/>}/>
+               {/*정책id값을 가져와서 detail 출력 */}
+               <Route path="/policy/:bizId/:curr" element={<PolicyDetail/>}/>
                 {/* Join & Login */}
-                <Route path="/join" elemet={<JoinForm/>}/>
+                {/* <Route path="/join" elemet={<JoinForm/>}/>
                 <Route path="/login" elemet={<LoginForm/>}/>
-                <Route path="/kakao-join" elemet={<KakaoLogin/>}/>
+                <Route path="/kakao-join" elemet={<KakaoLogin/>}/> */}
 
                 {/* Mypage */}
-                <Route path="/mypage/profile" elemet={<Profile/>}/>
+                <Route path="/mypage/profile"  element={<Profile/>}/>
+
+
+                {/* Notice */}
+                <Route path="/notice/list"  element={<NoticeList/>}/>
+
+                {/* Group */}
+                <Route path="/group/list"  element={<GroupList/>}/>
             </Routes>
         </div>
     );

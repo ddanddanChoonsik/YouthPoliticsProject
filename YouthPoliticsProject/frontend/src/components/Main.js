@@ -3,67 +3,151 @@ import TestImg from '../images/test.gif';
 import XMLParser from 'react-xml-parser'; //xml parsing json
 import axios from 'axios';
 import '../styles/main.css';
+import '../styles/night.css';
+//mui list
+import { Link } from 'react-router-dom'
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
 
 const Main = () => {
-        //api data 받아서 client에 뿌릴예정
-        const [apidata,setApiData]=useState();
+        // //api data 받아서 client에 뿌릴예정
+        //const [apidata,setApiData]=useState();
         const [apiarr,setApiArr] = useState([]);
-        const vsor = []; //하나하나
-        const vc = apiarr.length;
-      
 
-        //api 호출
+        // //api 호출
         const youthPolicyApi = async () => {
                         const url ='http://localhost:3001/api';
                         const res = await fetch(url).then((res) => res.json());
-                        const emp = res.empsInfo.emp; //api 호출값
-                        console.log("emp:",emp); //accrRqisCn: {_cdata: '제한없음'} 
-                        console.log("emp key:",Object.keys(emp)); //[0,1,2]
-                        setApiArr(emp);
+                        const emp = res.empsInfo.emp; //api 호출값       
+                        setApiArr(emp);                                  
                         } 
                                                                
-                        // for(let i=0; i<apiarr.length;i++){
-                        //     if(apiarr[i]==apiarr[2]){
-                        //         console.log("apiarr[i]:",apiarr[i]);
-                        //     }
-                        // }
-
-                             for(let i=0; i<Object.keys(apiarr).length; i++){
-                                 let key = Object.keys(apiarr[i]);   //0: "rownum" 1: "bizId" 2: "polyBizSecd"
-                                  for(let a=0; a<key.length; a++){
-                                        let sub = Object.keys(apiarr[i][key[a]]);    //_cdata , _text 
-                                        //console.log("key: " + key[a] + " / val: " + apiarr[i][key[a]][sub[0]]);
-
-                                        //console.log("key data:",key[0]);//ROWNUM
-                                        // if(apiarr[0][key[a]]._text){
-                                        //     console.log(key[a]+":"+apiarr[0][key[a]]._text)
-                                        // } else{
-                                        //     console.log(key[a]+":"+apiarr[0][key[a]]._cdata)
-                                        // }
-
-                                        vsor.push(key[a],apiarr[i][key[a]][sub[0]]); 
-                                 }
+                               const resultList = new Array();
+                                for(let i=0; i<Object.keys(apiarr).length; i++){
+                                    let result = {};
+                                    let key = Object.keys(apiarr[i]);
+                                    for(let a=0; a<key.length; a++){
+                                        let sub = Object.keys(apiarr[i][key[a]])
+                                        result[key[a]] = apiarr[i][key[a]][sub[0]];
+                                    }
+                                    resultList.push(result);
                                 }
+                                //console.log(resultList);
                                    
-                                
-        console.log("vc:",vc); //3
-        const apilist = vsor.map((row,idx)=> <li key={idx} >{row}</li>)
-
         useEffect(()=>{
             // getTest();
             //온라인청년정책 api
             youthPolicyApi();
+            console.log("메인");
         },[])
         
 
     return (
-        <div id='main'>
+        <div id='mainpage'>
             <div className='mainContent'>
-               <ul>{apilist}</ul>
+                <div className='apiList'>
+               {
+                Object.values(resultList).map((r,idx) =>(
+                    <ul>
+                        <li>{idx+1}번 정책</li>
+                         {/* <li>{r.accrRqisCn}</li>
+                         <li>{r.ageInfo}</li> */}
+                         <li>정책 ID:{r.bizId}</li>
+                         <li>기관 및 지자체 구분 : {r.plcyTpNm}</li>
+                         <li>신청기관명 : {r.cnsgNmor}</li>
+                         <li>정책명 : {r.polyBizSjnm}</li>
+                         <li>신청기간 : {r.rqutPrdCn}</li>
+                         {/* <li>{r.empmSttsCn}</li>
+                         <li>{r.majrRqisCn}</li> */}                    
+                         {/* <li>{r.polyBizSecd}</li> */}                  
+                         {/* <li>{r.polyBizTy}</li>
+                         <li>{r.polyItcnCn}</li> */}
+                         {/* <li>{r.empmSttsCn}</li>
+                         <li>{r.rqutProcCn}</li>
+                         <li>{r.plcyTpNm}</li>
+                         <li>{r.rqutUrla}</li>
+                         <li>{r.splzRlmRqisCn}</li>
+                         <li>{r.sporCn}</li>
+                         <li>{r.sporScvl}</li> */}
+                    </ul>
+                ))
+               }
+               </div>
             </div>
             <div className='mainImg'>
-                <img src={TestImg} alt="test용"/>
+                {/* <img src={TestImg} alt="test용"/> */}
+                <div class="wrapper">
+                    <div class="planet">
+                        <div class="moon">
+
+                        </div>
+                    </div>
+                    <div class="moon-spinner">
+                        <div class="moon2">
+
+                        </div>
+
+                    </div>
+                    </div>
+                <div class="night" style={{top:'-379px'}}>
+
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    
+                </div>
+                <div class="night" style={{top:'-32px',right:'38px'}}>
+                        
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                </div>
+                <div class="night" style={{top:'150px',right:'215'}}>
+
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    <div class="shooting_star"></div>
+                    
+                </div>
             </div>
+
+            {/* <p>메인</p> */}
         </div>
     );
 };
