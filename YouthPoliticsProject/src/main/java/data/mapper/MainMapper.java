@@ -2,13 +2,12 @@ package data.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import data.dto.MemberDto;
-import data.dto.YouthPolicyDto;
+//import data.dto.MemberDto;
+//import data.dto.YouthPolicyDto;
 //import data.dto.GroupDto;
 
 @Mapper
 public interface MainMapper {
-	
 	
 	//모든 유저수
 	public int allUser();

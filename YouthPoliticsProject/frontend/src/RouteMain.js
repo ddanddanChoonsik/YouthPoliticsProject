@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Header,Main, Menu } from "./components";
 import {LoginForm, JoinForm,KakaoLogin} from "./pages/login";
 
-import {PolicyList,PolicyDetail} from './pages/youthpolicy';
+import {PolicyList,PolicyDetail,PolicyArea} from './pages/youthpolicy';
 import {NoticeList} from './pages/notice';
 import {GroupList} from './pages/group';
 import {Profile} from './pages/mypage';
@@ -18,6 +18,9 @@ const RouteMain = () => {
                <Route path="/policy/list/:curr" element={<PolicyList/>}/>
                {/*정책id값을 가져와서 detail 출력 */}
                <Route path="/policy/:bizId/:curr" element={<PolicyDetail/>}/>
+               <Route path="/policy/area" element={<PolicyArea/>}/>
+
+                
                 {/* Join & Login */}
                 {/* <Route path="/join" elemet={<JoinForm/>}/>
                 <Route path="/login" elemet={<LoginForm/>}/>

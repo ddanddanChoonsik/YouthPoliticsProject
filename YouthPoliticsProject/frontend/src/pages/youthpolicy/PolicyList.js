@@ -1,6 +1,9 @@
 import React, { useEffect ,useState} from 'react';
 import '../../styles/policy.css';
+import '../../styles/policyfilter.css';
 import PolicyDetail from './PolicyDetail';
+import PolicyFilter from './PolicyFilter';
+
 
 import Pagination from '@mui/material/Pagination';
 import { Link, useNavigate,useLocation,useParams } from 'react-router-dom';
@@ -109,8 +112,9 @@ const PolicyList = () => {
     return (
         <div id='policy'>
                 <div className='policyList'>
+                    <PolicyFilter />
                     {/* <button onClick={onClick}>testtest</button> */}
-                    <Stack spacing={4} justifyContent="center" alignItems="center">
+                    <Stack spacing={3} justifyContent="center" alignItems="center">
                     <TableContainer component={Paper} >
                         <Table  size="small" aria-label="a dense table" style={{minWidth:'1500px'}}>
                             <TableHead>

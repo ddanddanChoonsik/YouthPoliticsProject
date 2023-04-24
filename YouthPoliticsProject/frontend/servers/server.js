@@ -6,12 +6,12 @@ const bodyParser = require('body-parser');
 const convert = require("xml-js");
 const port =process.env.PORT || 3001;
 require("dotenv").config(); // dotenv 불러오기
-//console.log("dotenv:",process.env.REACT_APP_YOUTH_POLITICS_API_KEY)
+console.log("dotenv:",process.env.REACT_APP_SPRING_URL)
 app.use(cors());
 app.use(bodyParser.json());
 const url = process.env.REACT_APP_YOUTH_POLITICS_API_URL;
 const key =process.env.REACT_APP_YOUTH_POLITICS_API_KEY;
-const requestUrl = `${url}?pageIndex=1&display=5&openApiVlak=${key}`;   
+const requestUrl = `${url}?pageIndex=1&display=5&openApiVlak=${key}`; 
 
 //practice api (테스트용)
 //app.use('/api1', (req, res)=> res.json({username:'bryan'}));
@@ -29,7 +29,7 @@ app.post('/pageNum', (req, res) => {
         });
     }
     res.status(200).json({
-        status: 'succes',
+        status: 'succes', 
         data: req.body,
       })
 
@@ -78,7 +78,6 @@ app.post('/pid', (req, res) => {
       return pid;
 
   });
-
 
 
 //dtailpage로 bizId값을 넘겨서 출력 (get)

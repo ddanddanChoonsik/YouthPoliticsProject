@@ -2,7 +2,8 @@ div#policy{
     display: flex;
     flex-direction: column;
     width:100%;
-    height:916px;
+    height:100%
+    /* height:916px; */
   }
 
 div#policy div.policyList{

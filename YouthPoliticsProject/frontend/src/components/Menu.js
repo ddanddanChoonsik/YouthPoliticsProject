@@ -61,7 +61,7 @@ const Menu = ({location}) => {
             </div>
             <ul className="nav"> 
             <li onClick={YouthPolicy}>청년정책</li>
-                <li>청년공간</li>
+                <li><Link to="/policy/area">청년공간</Link></li>
                 <li ><Link to="/group/list">청년모임</Link></li>
                 <li><Link to="/notice/list">공지사항</Link></li>
             </ul>
