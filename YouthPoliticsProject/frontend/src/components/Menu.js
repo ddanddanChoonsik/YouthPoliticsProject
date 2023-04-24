@@ -49,6 +49,7 @@ const Menu = ({location}) => {
 
     const YouthPolicy =(e)=>{
         navi("/policy/list/1");
+        window.location.replace("/policy/list/1");
     }
     return (
         <div id="menu">

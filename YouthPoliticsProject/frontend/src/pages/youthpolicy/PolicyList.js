@@ -27,7 +27,6 @@ const PolicyList = () => {
      const youthPolicyApi = async () => {
                      const url ='http://localhost:3001/list';   
                      const res = await fetch(url).then((res) => res.json());
-                     //console.log("list:",res);
                      const emp = res.empsInfo.emp; //api 호출값       
                      setApiArr(emp);                                
                      }                                  
@@ -46,12 +45,10 @@ const PolicyList = () => {
                                  
      //pagination
      const handleChange = (event, value) => {
-            //  if(params==undefined||":curr"){value=1;
-            // return value;
-            // }else{
-            //     return value;
-            // }
-            fetch("http://localhost:3001/pageNum", { //text 주소에서 받을 예정
+        if(value==undefined){
+            value=1;
+        }
+        fetch("http://localhost:3001/pageNum", { //text 주소에서 받을 예정
             method: "post", //통신방법
             headers: {
             "content-type": "application/json",
@@ -68,6 +65,13 @@ const PolicyList = () => {
                     console.log("e:",e);
                 }) 
         };
+
+
+
+
+
+
+
                         // 정책하나 클릭시 policydetail로 넘어감            
                         const onClick = (e) => {
                             const bizId= Object.values(e.target)[1].value; //bizId
@@ -97,14 +101,10 @@ const PolicyList = () => {
                                     youthPolicyApi();
                                     if(handleChange){
                                         handleChange();
+                                }else{
+                                    youthPolicyApi();
                                 }
                         },[])
-
-                        useEffect(()=>{
-                            console.log("location:",location);
-                            console.log("location curr:",params);
-                            console.log("page:",page);
-                        },[location])
 
     return (
         <div id='policy'>
