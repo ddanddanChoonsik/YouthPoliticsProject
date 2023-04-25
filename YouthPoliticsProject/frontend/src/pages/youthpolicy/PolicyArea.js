@@ -8,7 +8,6 @@ const PolicyArea = () => {
     const [allUser,setAllUser] =useState();
 
     const AllUserCount=()=>{
-        //"http://localhost:9001/allUser"
         axios.get(allUserUrl).then(res=>{
             setAllUser(res.data);
             console.log("all user count:",res.data);
