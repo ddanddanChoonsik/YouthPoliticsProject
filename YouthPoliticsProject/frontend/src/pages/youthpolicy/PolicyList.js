@@ -48,10 +48,10 @@ const PolicyList = () => {
                                  
      //pagination
      const handleChange = (event, value) => {
-        if(value==undefined){
-            value=1;
+        if(value===undefined){
+            return value=1;
         }
-        fetch("http://localhost:3001/pageNum", { //text 주소에서 받을 예정
+        fetch("http://localhost:3001/pageNum", { //text 주소    서 받을 예정
             method: "post", //통신방법
             headers: {
             "content-type": "application/json",
@@ -68,7 +68,6 @@ const PolicyList = () => {
                     console.log("e:",e);
                 }) 
         };
-
                         // 정책하나 클릭시 policydetail로 넘어감            
                         const onClick = (e) => {
                             const bizId= Object.values(e.target)[1].value; //bizId
