@@ -4,6 +4,7 @@ import XMLParser from 'react-xml-parser'; //xml parsing json
 import axios from 'axios';
 import '../styles/main.css';
 import '../styles/night.css';
+
 //mui list
 import { Link } from 'react-router-dom'
 import List from '@mui/material/List';
@@ -18,6 +19,8 @@ import { isCompositeComponent } from 'react-dom/test-utils';
 import PolicyList from '../pages/youthpolicy/PolicyList'
 
 const Main = () => {
+
+      
         // //api data 받아서 client에 뿌릴예정
         //const [apidata,setApiData]=useState();
         const [apiarr,setApiArr] = useState([]);
@@ -50,7 +53,7 @@ const Main = () => {
 
          const getSearch =()=>{
             console.log("결과:",search);
-         }   
+        }   
         useEffect(()=>{
             // getTest();
             //온라인청년정책 api
@@ -70,14 +73,14 @@ const Main = () => {
                {
                 Object.values(resultList).map((r,idx) =>(
                     <ul>
-                        <li>{idx+1}번 정책</li>
+                        <li key={idx}>{idx+1}번 정책</li>
                          {/* <li>{r.accrRqisCn}</li>
                          <li>{r.ageInfo}</li> */}
-                         <li>정책 ID:{r.bizId}</li>
-                         <li>기관 및 지자체 구분 : {r.plcyTpNm}</li>
-                         <li>신청기관명 : {r.cnsgNmor}</li>
-                         <li>정책명 : {r.polyBizSjnm}</li>
-                         <li>신청기간 : {r.rqutPrdCn}</li>
+                         <li key={r.bizId}>정책 ID:{r.bizId}</li>
+                         <li key={r.plcyTpNm}>기관 및 지자체 구분 : {r.plcyTpNm}</li>
+                         <li key={r.cnsgNmor}>신청기관명 : {r.cnsgNmor}</li>
+                         <li key={r.polyBizSjnm}>정책명 : {r.polyBizSjnm}</li>
+                         <li key={r.rqutPrdCn}>신청기간 : {r.rqutPrdCn}</li>
                          {/* <li>{r.empmSttsCn}</li>
                          <li>{r.majrRqisCn}</li> */}                    
                          {/* <li>{r.polyBizSecd}</li> */}                  

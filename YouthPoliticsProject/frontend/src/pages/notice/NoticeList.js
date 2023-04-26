@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import {useDispatch, useSelector} from 'react-redux'; //redux
 const NoticeList = () => {
 
     let allUserUrl = process.env.REACT_APP_SPRING_URL+"allUser";
@@ -12,6 +12,10 @@ const NoticeList = () => {
     const [countNotice,setCountNotice] = useState();
     const [allNotice,setAllNotice] = useState([]);
     const [user,setUser]=useState([]);
+
+
+    const aaa = useSelector( (state) => state); //redux
+    const dispatch = useDispatch();
 
     const AllUserCount=()=>{
         axios.get(allUserUrl).then(res=>{
@@ -56,6 +60,8 @@ const NoticeList = () => {
 
     return (
         <div>
+             <p>리덕스:{aaa}</p>
+            <button onClick={()=>{dispatch({type:'증가'})}}>++</button>
             <p>공지사항 리스트</p>
             <p>기존 back-end spring-boot & mysql 연동 test</p>
             <p>{allUser}명</p>
