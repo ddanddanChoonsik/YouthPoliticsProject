@@ -1,0 +1,34 @@
+div.space-area{
+        background-color: rgb(232, 207, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height:917px;
+    align-items: center;
+}
+div.space{
+    background-color: rgb(232, 207, 255);
+    display: flex;
+    flex-direction: row;
+    height:fit-content;
+    justify-content: space-between;
+    width:90%;
+}
+div.space div.space-item :hover{
+    cursor: pointer;
+    background-color: rgb(255, 232, 210);
+    z-index: 9999%;
+}
+
+div.space div.space-item ul{
+    background-color:rgb(255, 180, 180);
+        text-align: center;
+
+}
+
+div.space div.space-item ul li{
+    list-style: none;
+    /* width:fit-content; */
+    text-align: center;
+}
+

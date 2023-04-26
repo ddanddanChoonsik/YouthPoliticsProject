@@ -24,8 +24,9 @@ public class NoticeController {
 		return noticeService.getTotalCount();
 	}
 	
-	@GetMapping("/allnotice")
+	@GetMapping("/getAllDatas")
 	public List<NoticeDto> getAllDatas(){
+		System.out.println("ok");
 		return noticeService.getAllDatas();
 	}
 	

@@ -9,9 +9,15 @@ require("dotenv").config(); // dotenv 불러오기
 console.log("dotenv:",process.env.REACT_APP_SPRING_URL)
 app.use(cors());
 app.use(bodyParser.json());
+
 const url = process.env.REACT_APP_YOUTH_POLITICS_API_URL;
+const youthspaceUrl= process.env.REACT_APP_YOUTH_POLITICS_SPACE_URL;
 const key =process.env.REACT_APP_YOUTH_POLITICS_API_KEY;
+
+//mainpage api url
 const requestUrl = `${url}?pageIndex=1&display=5&openApiVlak=${key}`; 
+//청년공간 api url
+const spaceUrl = `${youthspaceUrl}?pageIndex=1&display=3&pageType=1&openApiVlak=${key}`;
 
 //practice api (테스트용)
 //app.use('/api1', (req, res)=> res.json({username:'bryan'}));
@@ -107,6 +113,15 @@ app.use('/api',(req,res)=>{
             res.send(xmlToJson);
             })
         });
+
+app.use('/space',(req,res)=>{
+    request(spaceUrl, (err,response,body)=>{
+      var spaceresult = body;
+      var xmlToJson = convert.xml2js(spaceresult, {compact: true, space: 2});
+      console.log(xmlToJson);
+      res.send(xmlToJson);
+    })
+})
 
 
 //port 3001로 연결

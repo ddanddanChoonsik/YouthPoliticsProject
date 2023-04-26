@@ -13,11 +13,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import { isCompositeComponent } from 'react-dom/test-utils';
+
+import PolicyList from '../pages/youthpolicy/PolicyList'
 
 const Main = () => {
         // //api data 받아서 client에 뿌릴예정
         //const [apidata,setApiData]=useState();
         const [apiarr,setApiArr] = useState([]);
+        const [search,setSearch]= useState("");
 
         // //api 호출
         const youthPolicyApi = async () => {
@@ -38,7 +42,15 @@ const Main = () => {
                                     resultList.push(result);
                                 }
                                 //console.log(resultList);
-                                   
+    
+         const onSearch = (e) =>{
+                console.log("검색:",e.target.value);
+                setSearch(e.target.value);
+            }                       
+
+         const getSearch =()=>{
+            console.log("결과:",search);
+         }   
         useEffect(()=>{
             // getTest();
             //온라인청년정책 api
@@ -46,10 +58,14 @@ const Main = () => {
             console.log("메인");
         },[])
         
-
+    
     return (
         <div id='mainpage'>
             <div className='mainContent'>
+                <form>
+                <input type="search" name="txt" placeholder='검색' onChange={(e)=>onSearch(e)}/>&nbsp;
+                <input type="button" name="search" value='search' onClick={getSearch}/>
+                </form>
                 <div className='apiList'>
                {
                 Object.values(resultList).map((r,idx) =>(

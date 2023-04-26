@@ -69,12 +69,6 @@ const PolicyList = () => {
                 }) 
         };
 
-
-
-
-
-
-
                         // 정책하나 클릭시 policydetail로 넘어감            
                         const onClick = (e) => {
                             const bizId= Object.values(e.target)[1].value; //bizId
