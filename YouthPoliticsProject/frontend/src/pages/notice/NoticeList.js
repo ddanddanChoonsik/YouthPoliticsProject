@@ -58,8 +58,161 @@ const NoticeList = () => {
          getUsers();
     },[])
 
+    //!
+      //임시 데이터
+    //   const posts = [
+    //     {
+    //         num : 1, title : '제목1', created_at : '2023-04-16'
+    //     },
+    //     {
+    //         num : 2, title : '제목2', created_at : '2023-04-17'
+    //     },
+    //     {
+    //         num : 3, title : '제목3', created_at : '2023-04-18'
+    //     }
+    // ];
+
+    // const SearchBar = () => {
+    //     return (
+    //         <div className='searchbar'>
+    //             <input type="text" className='searchword'>
+    //             </input>
+    //             <button type='button'>
+    //                 <span>검색</span>
+    //             </button>
+    //         </div>
+    //     )
+    // };
+    
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage, setPostsPerPage] = useState(10);
+
+    // const totalPosts = posts.length;
+    // const indexOfLast = currentPage * postsPerPage;
+    // const indexOfFirst = indexOfLast - postsPerPage;
+    // const paginate = setCurrentPage;
+    
+
+    // const currentPosts = (posts) => {
+    //     let currentPosts = 0;
+    //     currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    //     return currentPosts;
+    // };
+
+    // const PageUl = styled.ul`
+    // float: left;
+    // list-style: none;
+    // text-align: center;
+    // border-radius: 3px;
+    // color: white;
+    // padding: 1px;
+    // border-top: 3px solid #186ead;
+    // border-bottom: 3px solid #186ead;
+    // background-color: rgba(0, 0, 0, 0.4);
+    // `;
+
+    // const PageLi = styled.li`
+    // display: inline-block;
+    // font-size: 17px;
+    // font-weight: 600;
+    // padding: 5px;
+    // border-radius: 5px;
+    // width: 25px;
+    // &:hover {
+    //     cursor: pointer;
+    //     color: white;
+    //     background-color: #263a6c;
+    // }
+    // &:focus::after {
+    //     color: white;
+    //     background-color: #263a6c;
+    // }
+    // `;
+
+    // const PageSpan = styled.span`
+    // &:hover::after,
+    // &:focus::after {
+    //     border-radius: 100%;
+    //     color: white;
+    //     background-color: #263a6c;
+    // }
+    // `;
+
+    // //기능 파일에 페이지네이션 기능 추가
+    // const Pagination = ({postsPerPage, totalPosts, paginate}) => {
+    //     const pageNumbers = [];
+    //     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    //         pageNumbers.push(i);
+    //     }
+
     return (
         <div>
+            {/* ! */}
+              {/* return (
+            <div className='pagination'>
+                <nav>
+                    <PageUl>
+                    {pageNumbers.map((number) => (
+                        <PageLi key={number} className="page-item">
+                        <PageSpan onClick={() => paginate(number)} className="page-link">
+                            {number}
+                        </PageSpan>
+                        </PageLi>
+                    ))}
+                    </PageUl>
+                </nav>
+            </div>
+        )
+    };
+
+    return (
+        
+        
+        <div className='noticeListPage'>
+            <p>공지사항 리스트</p>
+            <div>
+                <SearchBar></SearchBar>
+            </div>
+            <div>
+                <table className='noticelist'>
+                <thread>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>등록일</th>
+                    </tr>
+                </thread>
+                <tbody>
+                    {
+                        posts.map(item => {
+                            return (
+                                <tr>
+                                    <td>{item.num}</td>
+                                    <td>{item.title}</td>
+                                    <td>{item.created_at}</td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+                </table>
+            </div>
+            <div>
+                <Pagination
+                postsPerPage={postPerPage}
+                totalPosts={totalPosts}
+                paginate={setCurrentPage}
+                ></Pagination>
+            </div>
+            <div>
+                <button>공지사항 작성</button>
+            </div>
+        </div>
+        
+        //관리자 계정 => 글작성 버튼
+    );
+}; */}
+
              <p>리덕스:{aaa}</p>
             <button onClick={()=>{dispatch({type:'증가'})}}>++</button>
             <p>공지사항 리스트</p>
