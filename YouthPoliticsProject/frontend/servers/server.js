@@ -17,7 +17,7 @@ const key =process.env.REACT_APP_YOUTH_POLITICS_API_KEY;
 //mainpage api url
 const requestUrl = `${url}?pageIndex=1&display=5&openApiVlak=${key}`; 
 //청년공간 api url
-const spaceUrl = `${youthspaceUrl}?pageIndex=1&display=3&pageType=1&openApiVlak=${key}`;
+const spaceUrl = `${youthspaceUrl}?pageIndex=1&display=15&pageType=1&openApiVlak=${key}`;
 
 //practice api (테스트용)
 //app.use('/api1', (req, res)=> res.json({username:'bryan'}));
