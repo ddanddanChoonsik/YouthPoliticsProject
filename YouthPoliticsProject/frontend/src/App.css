@@ -1,7 +1,7 @@
 *{
   margin:0;
   padding:0;
-  text-align: center;
+  /* text-align: center; */
   clear: both;
   /* overflow: hidden; */
 }
@@ -9,6 +9,7 @@
 body{
   height:100%;
   width: 100%;
+  text-align: center;
 }
 
 div#main{

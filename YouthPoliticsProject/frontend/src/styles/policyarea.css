@@ -7,14 +7,35 @@ div.space-area{
         align-items: center;
 }
 div.space{
-    background-color: rgb(232, 207, 255);
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     height:fit-content;
+    text-align: center;
     /* justify-content: space-between; */
     width:30%;
     height:inherit;
+    overflow: hidden;
 }
+
+div#map {
+    width:100%;
+    height:inherit;
+}
+
+div.space-item{
+    overflow-y: scroll;
+}
+
+/* * :not(.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root > li){
+    /* padding-top: 0; */
+    /*text-align: left;*/
+/*}  */
+/* * :not(.space-item > li){
+    /* padding-top: 0; */
+ /*   text-align: left;
+} */
+
 /* div.space div.space-item :hover{
     cursor: pointer;
     background-color: rgb(255, 232, 210);
@@ -32,9 +53,4 @@ div.space div.space-item ul li{
     /* width:fit-content; */
     /* text-align: center; */
 /* }  */
-
-div#map {
-    width:100%;
-    height:inherit;
-}
 

@@ -5,16 +5,19 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 // import ListSubheader from '@mui/material/ListSubheader';
+import Button from '@mui/material/Button';
 import ListItemButton from '@mui/material/ListItemButton';
 const PolicyArea = () => {
 
     const url='http://localhost:3001/space';
     const[allSpace,setAllSpace]=useState([]);
     const { kakao } = window;
-
     //test data
     const [spaceName,setSpaceName]=useState();
     const [spaceAddr,setSpaceAddr]=useState();
+
+    const [selectAddr,setSelectAddr]=useState();
+    const [selectSpcName,setSelectSpcName]=useState();
 
     const youthAreaApi= async()=>{
         axios.get(url).then(res=>{
@@ -35,43 +38,25 @@ const PolicyArea = () => {
         }
         resultList.push(result);
     }
-
-    const findArea = (e) =>{
-
-        //console.log("event target:", Object.values(Object.values(e.target.childNodes[6])[1])[0][1]);
-           //testObject.values(e.target)[1].value
-            // setSpaceName(Object.values(resultList[0].spcName));
-            // setSpaceAddr(Object.values(resultList[0].address));
-            // setSpaceName(Object.values(Object.values(e.target.childNodes[2])[1])[0][1]);
-            // setSpaceAddr(Object.values(Object.values(e.target.childNodes[6])[1])[0][1]);
-               // console.log(e.target.childNodes[2]);
-                //  console.log("1번청년공간:",resultList[0].spcName);
-                //  console.log("1번청년공간:",resultList[0].address);
-    }
-    
-     //mui list
+     
+    //mui list
      const [selectedIndex, setSelectedIndex] = React.useState();
      const handleListItemClick = (event, index,addr,spcName) => {
        setSelectedIndex(index);
        setSelectAddr(addr);
        setSelectSpcName(spcName);
-       console.log("index:",index);
-       kakaomapscript();
+       //console.log("index:",index);
+       console.log("mui list"); //2
+       kakaomap();
      };
- 
-     const [selectAddr,setSelectAddr]=useState();
-     const [selectSpcName,setSelectSpcName]=useState();
 
      const handleMap = (addr,spcName) =>{
             setSelectAddr(addr);
             setSelectSpcName(spcName);
-            console.log("addr:",addr);
-            console.log("spcName:",spcName);
-            kakaomapscript();
+            //kakaomapscript();
      }
 
-    const kakaomapscript = () => {
-
+    const kakaomap = () => {
         const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         const mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -85,7 +70,8 @@ const PolicyArea = () => {
             const geocoder = new kakao.maps.services.Geocoder();
             // 주소로 좌표를 검색합니다
             geocoder.addressSearch(selectAddr==undefined?"경기도 파주시 주라위길 159":selectAddr, function(result, status) {
-                console.log("주소지:",selectAddr);
+                // console.log("주소지:",Object.values(allSpace[0].address)[0]);
+                  //1
             // geocoder.addressSearch("경기도 파주시 주라위길 159", function(result, status) {
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
@@ -100,7 +86,7 @@ const PolicyArea = () => {
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:fit-content;text-align:center;padding:6px;">${selectSpcName==undefined?"두원공과대학교":selectSpcName}</div>`
+                    content: `<div style="width:fit-content;text-align:center;height:fit-content;">${selectSpcName==undefined?"두원공과대학교":selectSpcName}</div>`
                 });
                 infowindow.open(map, marker);
 
@@ -109,63 +95,22 @@ const PolicyArea = () => {
             } 
         }); 
     }
-
-    //추후수정
-    const kakaomapscriptedite = () => {
-
-        const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
-        const mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 2 // 지도의 확대 레벨
-            };  
-
-            // 지도를 생성합니다    
-            const map = new kakao.maps.Map(mapContainer, mapOption);
-
-            // 주소-좌표 변환 객체를 생성합니다
-            const geocoder = new kakao.maps.services.Geocoder();
-            // 주소로 좌표를 검색합니다
-            geocoder.addressSearch("경기도 파주시 주라위길 159", function(result, status) {
-                console.log("주소지:",selectAddr);
-            // geocoder.addressSearch("경기도 파주시 주라위길 159", function(result, status) {
-            // 정상적으로 검색이 완료됐으면 
-            if (status === kakao.maps.services.Status.OK) {
-
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: coords
-                });
-
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                var infowindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:fit-content;text-align:center;padding:6px;">두원공과대학교</div>`
-                });
-                infowindow.open(map, marker);
-
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
-            } 
-        }); 
-    }
-
     useEffect(()=>{
         youthAreaApi();
      
     },[])
 
     useEffect(()=>{
-        kakaomapscript();
+        kakaomap();
     },[selectAddr,selectSpcName])
 
     return (
         <div>   
-            <div className='space-area'>
-                
+            <div className='space-area'>  
             <div className='space'>
-            <h2>청년공간</h2>
+            <span>청년공간</span>
+           <span>{resultList.length} 개 <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i class="fa-solid fa-filter" />&nbsp;Filter</Button></span>
+           <div className='space-item'>
             <List
                 sx={{
                     width: '100%',
@@ -175,15 +120,17 @@ const PolicyArea = () => {
                     overflow: 'auto',
                     maxHeight: 'inherit',
                     '& ul': { padding: 0 },
-                }}
-                subheader={<li />}>
+                }}>
+                {/* subheader={<li />} */}
                         <li>
                                 <ul>
                                 {
                                     Object.values(resultList).map((row,idx)=>(
                                         <ListItemButton selected={selectedIndex === row.rownum} onClick={(event) => handleListItemClick(event,row.rownum,row.address,row.spcName)} onChange={(event) => handleListItemClick(event,row.rownum,row.address,row.spcName)}>
                                         <ListItem key={`item-${row.rownum}`}>
-                                            <ListItemText primary={`# ${row.rownum} ${row.spcName}`} />
+                                        <ListItemText primary={`# ${row.rownum}`} style={{width:'fit-content'}}/>
+                                            <ListItemText primary= {row.spcName} secondary={row.address}/>
+                                            {/* <ListItemText secondary={row.address}/> */}
                                         </ListItem>
                                         <ListItemButton class="fa-solid fa-location-dot" style={{color: '#0f67ff'}} onChange={(event)=>handleMap(row.address,row.spcName)} onClick={(event)=>handleMap(row.address,row.spcName)}/>
                                     </ListItemButton>
@@ -214,7 +161,10 @@ const PolicyArea = () => {
                                 </ul>
                 </li>
                     </List>
-
+                    </div>
+                    </div>
+                <div id='map'></div>
+                </div>
                  {/* <List
                     sx={{
                         width: '100%',
@@ -245,9 +195,6 @@ const PolicyArea = () => {
         </li>
       {/* ))} */}
     {/* </List> */} 
-                </div>
-                <div id='map'></div>
-                </div>
         </div>
     );
 };
