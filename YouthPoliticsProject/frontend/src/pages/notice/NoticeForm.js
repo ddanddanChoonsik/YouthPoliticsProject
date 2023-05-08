@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/notice.css';
 
 const NoticeForm = () => {
     return (

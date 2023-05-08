@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Alias("member")
 @Data
-
 public class MemberDto {
 	private int num;
 	private String name;

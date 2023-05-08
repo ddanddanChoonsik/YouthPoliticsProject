@@ -21,6 +21,8 @@ public class MemberController {
 	
 	@GetMapping("/getUser")
 	public List<MemberDto> getUserDatas(){
+		System.out.println(memberService.getUserDatas());
 		return memberService.getUserDatas();
+		
 	}
 }

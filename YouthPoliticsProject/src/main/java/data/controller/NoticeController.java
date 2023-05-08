@@ -30,5 +30,10 @@ public class NoticeController {
 		return noticeService.getAllDatas();
 	}
 	
+	@GetMapping("/notice/form")
+	public String noticeForm() {
+		return "notice/NoticeForm";
+	}
+	
 	
 }

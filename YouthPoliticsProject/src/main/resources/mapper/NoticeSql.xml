@@ -5,7 +5,8 @@
 	<select id="getAllDatas" resultType="notice">
 		 <!-- select notice.num,`member`.`name`,notice.title,notice.content,notice.created_at
 		  from notice join `member` on notice.member_num = `member`.num -->
-		  select n.num,`member`.name,n.title,n.content,n.created_at from notice as n left outer join `member` on n.member_num = `member`.num
+		  <!--  select n.num,`member`.name,n.title,n.content,n.created_at from notice as n left outer join `member` on n.member_num = `member`.num-->
+		  select * from notice
 	</select>
 
 	<select id="getTotalCount" resultType="int">
