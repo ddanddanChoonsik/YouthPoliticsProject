@@ -27,6 +27,7 @@ public class NoticeController {
 	@GetMapping("/getAllDatas")
 	public List<NoticeDto> getAllDatas(){
 		System.out.println("ok");
+		System.out.println(noticeService.getAllDatas());
 		return noticeService.getAllDatas();
 	}
 	

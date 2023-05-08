@@ -15,12 +15,12 @@ public class MemberDto {
 	private String email;
 	private int type;
 	private String tel;
-	@JsonFormat(pattern= "yyyy-MM-dd")
+	@JsonFormat(pattern= "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Timestamp birthday;
 	private String zoncode;
 	private String address1;
 	private String address2;
-	@JsonFormat(pattern= "yyyy-MM-dd")
+	@JsonFormat(pattern= "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Timestamp registered_at;
 	private String profile;
 }

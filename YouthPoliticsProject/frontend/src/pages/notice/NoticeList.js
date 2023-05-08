@@ -31,33 +31,41 @@ const NoticeList = () => {
     const [apiarr,setApiArr] = useState([]);
     const navi = useNavigate();  
     const params = useParams();
+
+    //페이지네이션 페이지 갯수
     const [page, setPage] = useState(1);
+    //const pageConut = parseInt(countNotice/20 + 1) ; 
+    const [pageCount,setPageCount]= useState(5);
 
     //pagination
-    const handleChange = (event, value) => {
-        if(value===undefined){
-            return value=1;
-        }
-        fetch("http://localhost:3001/pageNum", { 
-            method: "post", //통신방법
-            headers: {
-            "content-type": "application/json",
-            },
-                   body: JSON.stringify({page:value}), //page 의 value값 넘겨주기 성공 page : (ex. 1,2, ...)
-                }).then((res)=>{
-                return res.json();
-                }).then((res)=>{ 
-                    setPage(res.data.page); //(ex. 1,2, ...)
-                    navi(`/notice/list/${value}`);
-                }).catch(e=>{
-                    console.log("e:",e);
-                }) 
-        };
+    const handleChange =(e, value)=>{
+        console.log("handlechange:",value);
+        setPage(value);
+    }
+    // const handleChange = (event, value) => {
+    //     if(value===undefined){
+    //         return value=1;
+    //     }
+    //     fetch("http://localhost:3001/pageNum", { 
+    //         method: "post", //통신방법
+    //         headers: {
+    //         "content-type": "application/json",
+    //         },
+    //                body: JSON.stringify({page:value}), //page 의 value값 넘겨주기 성공 page : (ex. 1,2, ...)
+    //             }).then((res)=>{
+    //             return res.json();
+    //             }).then((res)=>{ 
+    //                 setPage(res.data.page); //(ex. 1,2, ...)
+    //                 navi(`/notice/list/${value}`);
+    //             }).catch(e=>{
+    //                 console.log("e:",e);
+    //             }) 
+    //     };
 
-    const pageConut = parseInt(countNotice/20 + 1) ; //페이지네이션 페이지 갯수
 
-    const aaa = useSelector( (state) => state); //redux
-    const dispatch = useDispatch();
+    //redux
+    // const aaa = useSelector( (state) => state); 
+    // const dispatch = useDispatch();
 
     const AllUserCount=()=>{
         axios.get(allUserUrl).then(res=>{
@@ -78,7 +86,7 @@ const NoticeList = () => {
 
     const getAllData=()=>{
         axios.get(alldataUrl).then(res=>{
-            console.log(res.data);
+            console.log("공지사항 :",res.data);
             setAllNotice(res.data);
         }).catch(err=>{
             console.log("err:",err);
@@ -169,7 +177,7 @@ const NoticeList = () => {
                     </TableContainer>
                                     
                     <div>
-                        <Pagination count={pageConut} page={page!=Number(Object.values(params))?Number(Object.values(params)):page} onChange={handleChange} color="primary" /> 
+                        <Pagination count={pageCount} page={page} onChange={handleChange} color="primary" /> 
                     </div> 
                        
                     
