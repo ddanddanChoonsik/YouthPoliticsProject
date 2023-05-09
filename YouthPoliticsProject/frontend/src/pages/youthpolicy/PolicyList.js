@@ -146,8 +146,33 @@ const PolicyList = () => {
 
             
                 <Pagination count={20} page={page!=Number(Object.values(params))?Number(Object.values(params)):page} onChange={handleChange} color="primary" />
+
                 {/* <Typography>Page: {page}</Typography> */}
                 </Stack>
+                            {/* test ui */}
+                {/* <div className='policyList1'>
+                {Object.values(resultList).map((r,idx) => (
+                    <div className='policyData'>
+                        <div className='policyFstItem'>
+                            <div className='polyBizSjnm'>청년지원형 기숙사 입주생 모집 사업</div>
+                            <div className='plcyTpNm'>창업지원</div>
+                            <div className='polyBizTy'>중앙부처</div>
+                        </div>
+                        <div className='policySndItem'>
+                        <div className='cnsgNmor'>한국장학재단</div>
+                            <div className='rqutPrdCn'><i class="fa-solid fa-calendar"></i>&nbsp;22.12.15 ~ 23.1.11</div>
+                            <div className='rqutUrla'> • 사이트링크주소</div>
+                        </div>
+                    </div>
+                                                ))}
+                </div> */}
+
+
+
+
+
+
+
                 {/* <table className="table table-hover">
                     <thead>
                         <tr>

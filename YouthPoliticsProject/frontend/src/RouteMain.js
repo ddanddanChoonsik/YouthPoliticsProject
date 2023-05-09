@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import { Header,Main, Menu } from "./components";
-import {LoginForm, JoinForm,KakaoLogin} from "./pages/login";
 
+import {LoginForm, JoinForm} from "./pages/login";
 import {PolicyList,PolicyDetail,PolicyArea} from './pages/youthpolicy';
 import {NoticeList} from './pages/notice';
 import {GroupList} from './pages/group';
@@ -22,8 +22,8 @@ const RouteMain = () => {
 
                 
                 {/* Join & Login */}
-                <Route path="/join" elemet={<JoinForm/>}/>
-                <Route path="/login" elemet={<LoginForm/>}/>
+                <Route path="/login" element={<LoginForm/>}/>
+                <Route path="/join" element={<JoinForm/>}/>
                 {/* <Route path="/kakao-join" elemet={<KakaoLogin/>}/> */}
 
                 {/* Mypage */}
