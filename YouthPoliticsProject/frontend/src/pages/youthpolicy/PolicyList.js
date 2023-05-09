@@ -105,7 +105,7 @@ const PolicyList = () => {
     return (
         <div id='policy'>
                 <div className='policyList'>
-                    <PolicyFilter />
+                    {/* <PolicyFilter /> */}
                     {/* <button onClick={onClick}>testtest</button> */}
                     <Stack spacing={3} justifyContent="center" alignItems="center">
                     <TableContainer component={Paper} >
@@ -128,8 +128,8 @@ const PolicyList = () => {
                                 {/* <TableCell component="th" scope="row" value={r.bizId}>{idx+1}</TableCell> */}
                                 <TableCell component="th" scope="row" value={r.bizId}>{r.rownum}</TableCell>
                                 <TableCell align="center"value={r.bizId}>{r.bizId}</TableCell>
-                                <TableCell align="center" value={r.bizId}>{r.polyBizSecd}</TableCell>
                                 <TableCell align="center" value={r.bizId}>{r.plcyTpNm}</TableCell>
+                                <TableCell align="center" value={r.bizId}>{r.polyBizTy}</TableCell>
                                 <TableCell align="center" value={r.bizId}>{r.polyBizSjnm}</TableCell>
                                 <TableCell align="center" value={r.bizId}>{r.rqutPrdCn}</TableCell>
                                 <TableCell align="center" value={r.bizId}>{r.cnsgNmor}</TableCell>
@@ -143,6 +143,7 @@ const PolicyList = () => {
                             </TableBody>
                         </Table>
                 </TableContainer>
+
             
                 <Pagination count={20} page={page!=Number(Object.values(params))?Number(Object.values(params)):page} onChange={handleChange} color="primary" />
                 {/* <Typography>Page: {page}</Typography> */}
