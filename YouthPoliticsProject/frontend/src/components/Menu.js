@@ -31,10 +31,16 @@ const Menu = ({location}) => {
 
     const LoginClick =(e) =>{
         // console.log("event:",e.target);
-        setLogin(Ayong);
-        setLoginOk(true);
+        // setLogin(Ayong);
+        // setLoginOk(true);
+        navi("/login");
         handleClose();
     }
+    const JoinClick = (e) =>{
+        navi("/join");
+        handleClose();
+    }
+
 
     const LogOutClick = (e)=>{
         setLogin();
@@ -97,8 +103,9 @@ const Menu = ({location}) => {
                 MenuListProps={{'aria-labelledby': 'basic-button',}}
                 style={{height:'inherit'}}
             >
+                {/* <MenuItem onClick={LoginClick}>Login</MenuItem> */}
                 <MenuItem onClick={LoginClick}>Login</MenuItem>
-                <MenuItem onClick={handleClose}>Join</MenuItem>
+                <MenuItem onClick={JoinClick}>Join</MenuItem>
                 </MuiMenu>
                    }
 

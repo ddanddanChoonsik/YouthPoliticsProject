@@ -22,9 +22,9 @@ const RouteMain = () => {
 
                 
                 {/* Join & Login */}
-                {/* <Route path="/join" elemet={<JoinForm/>}/>
+                <Route path="/join" elemet={<JoinForm/>}/>
                 <Route path="/login" elemet={<LoginForm/>}/>
-                <Route path="/kakao-join" elemet={<KakaoLogin/>}/> */}
+                {/* <Route path="/kakao-join" elemet={<KakaoLogin/>}/> */}
 
                 {/* Mypage */}
                 <Route path="/mypage/profile"  element={<Profile/>}/>
