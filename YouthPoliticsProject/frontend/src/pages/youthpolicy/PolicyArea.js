@@ -56,6 +56,8 @@ const PolicyArea = () => {
             //kakaomapscript();
      }
 
+
+
     const kakaomap = () => {
         const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         const mapOption = {
@@ -63,6 +65,7 @@ const PolicyArea = () => {
                 level: 2 // 지도의 확대 레벨
             };  
 
+           
             // 지도를 생성합니다    
             const map = new kakao.maps.Map(mapContainer, mapOption);
 
