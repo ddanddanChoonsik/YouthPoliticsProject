@@ -150,7 +150,7 @@ const PolicyList = () => {
                             <div className='polyBizTy'>{r.polyBizTy}</div>
                         </div>
                         <div className='policySndItem'>
-                        <div className='cnsgNmor'>{r.cnsgNmor}</div>
+                        <div className='cnsgNmor'>{r.cnsgNmor==="-"?"실행기관 미정":r.cnsgNmor}</div>
                             <div className='rqutPrdCn'><i class="fa-solid fa-calendar"></i>&nbsp;{r.rqutPrdCn}</div>
                             <div className='rqutUrla'> {/*•*/}   {
                                     r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i class="fa-solid fa-house-signal" style={{color:'green'}}/></a>:<i class="fa-solid fa-house-circle-xmark"></i>

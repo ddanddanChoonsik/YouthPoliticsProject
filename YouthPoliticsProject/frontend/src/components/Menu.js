@@ -34,6 +34,7 @@ const Menu = ({location}) => {
         // setLogin(Ayong);
         // setLoginOk(true);
         navi("/login");
+        // navi("/join");
         handleClose();
     }
     const JoinClick = (e) =>{
