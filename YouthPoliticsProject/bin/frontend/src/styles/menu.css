@@ -1,0 +1,58 @@
+/*menu css*/
+
+#menu{
+    width:100%;
+    height: 5%;
+    display: flex;
+  }
+  
+  #menu div.icon{
+    color: #0300ac;
+    /* color:white; */
+    display: inline-flex;
+    width:10%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #menu div.icon span{
+    font-weight:bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #menu ul.nav{
+    list-style-type: none;   
+    /* background-color: #61dafb; */
+    display: inline-flex;
+    width:75%;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  #menu ul.nav li{
+     color: #0300ac;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  #menu div.login{
+    width:15%;
+    /* background-color: #ffff00; */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #menu div.login .btn-primary{
+    width:30%;
+    height:auto;
+  }
+  
+  a{
+    text-decoration: none;
+    color: inherit;
+  }

@@ -1,0 +1,54 @@
+/*Main Content1*/
+
+div#mainpage{
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+    height:916px;
+  }
+  
+  div#mainpage div.mainContent{
+  width:40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(133, 174, 252);
+  }
+div#mainpage div.mainContent div.apiList{
+    display: flex;
+    flex-direction: column;
+    
+}
+  div#mainpage div.mainContent ul{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+    width: initial;
+	  background-color: rgba(255, 255, 255, 0.932);
+		border-radius: 5px;
+    margin-top:5px;
+    padding:3px;
+    }
+    
+    div#mainpage div.mainContent ul li{
+      height:auto;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      list-style-type: none;
+  }
+  
+   div#mainpage div.mainImg {
+    width:70%;
+	 /* background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%); */
+   	background: url("http://www.psdgraphics.com/file/night-sky-stars.jpg");
+	 height: initial;
+	 overflow: hidden;
+	 display: flex;
+	 font-family: 'Anton', sans-serif;
+	 /* justify-content: center; */
+	 align-items: center;
+}

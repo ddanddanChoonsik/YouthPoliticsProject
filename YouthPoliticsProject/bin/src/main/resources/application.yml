@@ -1,0 +1,26 @@
+server:
+  port: 9001
+spring:
+  devtools:
+    livereload:
+      enabled: true
+      
+# mysql (임시 데이터베이스 설정 // local)
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/youth_policy?serverTimezone=Asia/Seoul
+#    username: root
+#    password: 1234
+    
+# mysql (aws)
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://youthpolicydb.c92unsfxsgxy.us-east-1.rds.amazonaws.com:3306/youthpolicy?serverTimezone=Asia/Seoul
+    username: admin
+    password: 12341234    
+   
+# mybatis
+mybatis:
+  type-aliases-package: data.mapper,data.dto
+  mapper-locations:
+  - /mapper/**/*.xml

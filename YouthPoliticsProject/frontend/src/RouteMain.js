@@ -4,7 +4,7 @@ import { Header,Main, Menu } from "./components";
 
 import {LoginForm, JoinForm} from "./pages/login";
 import {PolicyList,PolicyDetail,PolicyArea} from './pages/youthpolicy';
-import {NoticeList} from './pages/notice';
+import {NoticeList,NoticeForm,NoticeDetail} from './pages/notice';
 import {GroupList} from './pages/group';
 import {Profile} from './pages/mypage';
 
@@ -32,6 +32,9 @@ const RouteMain = () => {
 
                 {/* Notice */}
                 <Route path="/notice/list"  element={<NoticeList/>}/>
+                <Route path="/notice/form"  element={<NoticeForm/>}/>
+                <Route path="/notice/detail"  element={<NoticeDetail/>}/>
+
 
                 {/* Group */}
                 <Route path="/group/list"  element={<GroupList/>}/>

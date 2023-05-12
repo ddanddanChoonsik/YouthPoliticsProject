@@ -1,0 +1,17 @@
+div.filter_container{
+    border: 1px solid black;
+    width:auto;
+    height:fit-content;
+    background-color:#fffae8;
+}
+
+div.filter_itme{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+div.items{
+    display: flex;
+
+}

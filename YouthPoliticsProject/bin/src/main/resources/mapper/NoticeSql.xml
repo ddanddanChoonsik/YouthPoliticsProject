@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.NoticeMapper">
+	
+	<select id="getAllDatas" resultType="notice">
+		 <!-- select notice.num,`member`.`name`,notice.title,notice.content,notice.created_at
+		  from notice join `member` on notice.member_num = `member`.num -->
+		  <!--  select n.num,`member`.name,n.title,n.content,n.created_at from notice as n left outer join `member` on n.member_num = `member`.num-->
+		  select * from notice
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from notice
+	</select>
+
+</mapper>

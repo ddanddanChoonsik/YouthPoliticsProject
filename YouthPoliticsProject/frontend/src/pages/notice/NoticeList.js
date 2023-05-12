@@ -31,6 +31,7 @@ const NoticeList = () => {
     const [apiarr,setApiArr] = useState([]);
     const navi = useNavigate();  
     const params = useParams();
+    const location = useLocation();
 
     //페이지네이션 페이지 갯수
     const [page, setPage] = useState(1);
@@ -102,6 +103,12 @@ const NoticeList = () => {
         })
     }
 
+    //detail 페이지 전환
+    const onClick = (e, num) => {
+        console.log("공지사항 num : ", num);
+        navi(`/notice/${num}`);
+    }
+
     /*
     const [searchInput, setSearchInput] = useState("");
     const searchHandler = (e) => {
@@ -164,7 +171,8 @@ const NoticeList = () => {
                                 </TableHead>
                                 <TableBody>
                                 {Object.values(allNotice).map((row,idx) => (
-                                    <TableRow value={row.num} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    <TableRow value={row.num} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        onClick={(e, num) => onClick(e, row.num)}>
                                     <TableCell component="th" scope="row" value={row.num}>{row.num}</TableCell>
                                     <TableCell align="center"value={row.num}>{row.title}</TableCell>
                                     <TableCell align="center" value={row.num}>{row.content}</TableCell>
