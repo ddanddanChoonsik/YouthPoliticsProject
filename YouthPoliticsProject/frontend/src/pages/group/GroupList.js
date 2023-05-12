@@ -4,7 +4,7 @@ const GroupList = () => {
     return (
         <div>
             <p>모임리스트</p>
-            <div className='policyList1'>
+            {/* <div className='policyList1'>
                     <div className='policyData'>
                         <div className='policyFstItem'>
                             <div className='polyBizSjnm'>청년지원형 기숙사 입주생 모집 사업</div>
@@ -17,7 +17,7 @@ const GroupList = () => {
                             <div className='rqutUrla'> • 사이트링크주소</div>
                         </div>
                     </div>
-                </div>
+                </div> */}
         </div>
     );
 };

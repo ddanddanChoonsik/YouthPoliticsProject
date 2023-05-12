@@ -69,15 +69,12 @@ const PolicyList = () => {
                 }) 
         };
                         // 정책하나 클릭시 policydetail로 넘어감            
-                        const onClick = (e) => {
-                            const bizId= Object.values(e.target)[1].value; //bizId
-                            //console.log("data:",e.target); //ok
+                        const onClick = (e,bzId) => {
+                            console.log("bzId:",bzId);
                                 fetch("http://localhost:3001/pid", { //text 주소에서 받을 예정
                                     method: "post", //통신방법
-                                    headers: {
-                                    "content-type": "application/json",
-                                    },
-                                    body: JSON.stringify({id:bizId}), //id 의 value값 넘겨주기 성공 id : "R2023121904983" "R2023122005003"
+                                    headers: {"content-type": "application/json",},
+                                    body: JSON.stringify({id:bzId}), //id 의 value값 넘겨주기 성공 id : "R2023121904983" "R2023122005003"
                                 }).then((res)=>{
                                 return res.json();
                                 }).then((res)=>{
@@ -108,7 +105,7 @@ const PolicyList = () => {
                     {/* <PolicyFilter /> */}
                     {/* <button onClick={onClick}>testtest</button> */}
                     <Stack spacing={3} justifyContent="center" alignItems="center">
-                    <TableContainer component={Paper} >
+                    {/* <TableContainer component={Paper} >
                         <Table  size="small" aria-label="a dense table" style={{minWidth:'1500px'}}>
                             <TableHead>
                             <TableRow>
@@ -126,7 +123,7 @@ const PolicyList = () => {
                             {Object.values(resultList).map((r,idx) => (
                                 <TableRow value={r.bizId} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} onClick={(e)=>onClick(e)}>
                                 {/* <TableCell component="th" scope="row" value={r.bizId}>{idx+1}</TableCell> */}
-                                <TableCell component="th" scope="row" value={r.bizId}>{r.rownum}</TableCell>
+                               {/* <TableCell component="th" scope="row" value={r.bizId}>{r.rownum}</TableCell>
                                 <TableCell align="center"value={r.bizId}>{r.bizId}</TableCell>
                                 <TableCell align="center" value={r.bizId}>{r.plcyTpNm}</TableCell>
                                 <TableCell align="center" value={r.bizId}>{r.polyBizTy}</TableCell>
@@ -142,36 +139,32 @@ const PolicyList = () => {
                             ))}
                             </TableBody>
                         </Table>
-                </TableContainer>
-
+                </TableContainer> */}
+                 {/* test ui */}
+                 <div className='policyList1'>
+                {Object.values(resultList).map((r,idx) => (
+                    <div className='policyData' onClick={(e,bzId)=>onClick(e,r.bizId)}>
+                        <div className='policyFstItem'>
+                            <div className='polyBizSjnm'>{r.polyBizSjnm}</div>
+                            <div className='plcyTpNm'>{r.plcyTpNm}</div>
+                            <div className='polyBizTy'>{r.polyBizTy}</div>
+                        </div>
+                        <div className='policySndItem'>
+                        <div className='cnsgNmor'>{r.cnsgNmor}</div>
+                            <div className='rqutPrdCn'><i class="fa-solid fa-calendar"></i>&nbsp;{r.rqutPrdCn}</div>
+                            <div className='rqutUrla'> {/*•*/}   {
+                                    r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i class="fa-solid fa-house-signal" style={{color:'green'}}/></a>:<i class="fa-solid fa-house-circle-xmark"></i>
+                                    }</div>
+                        </div>
+                    </div>
+                            ))}
+                </div> 
             
                 <Pagination count={20} page={page!=Number(Object.values(params))?Number(Object.values(params)):page} onChange={handleChange} color="primary" />
 
                 {/* <Typography>Page: {page}</Typography> */}
                 </Stack>
-                            {/* test ui */}
-                {/* <div className='policyList1'>
-                {Object.values(resultList).map((r,idx) => (
-                    <div className='policyData'>
-                        <div className='policyFstItem'>
-                            <div className='polyBizSjnm'>청년지원형 기숙사 입주생 모집 사업</div>
-                            <div className='plcyTpNm'>창업지원</div>
-                            <div className='polyBizTy'>중앙부처</div>
-                        </div>
-                        <div className='policySndItem'>
-                        <div className='cnsgNmor'>한국장학재단</div>
-                            <div className='rqutPrdCn'><i class="fa-solid fa-calendar"></i>&nbsp;22.12.15 ~ 23.1.11</div>
-                            <div className='rqutUrla'> • 사이트링크주소</div>
-                        </div>
-                    </div>
-                                                ))}
-                </div> */}
-
-
-
-
-
-
+                           
 
                 {/* <table className="table table-hover">
                     <thead>

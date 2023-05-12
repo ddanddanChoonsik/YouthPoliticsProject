@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const convert = require("xml-js");
 const port =process.env.PORT || 3001;
 require("dotenv").config(); // dotenv 불러오기
-console.log("dotenv:",process.env.REACT_APP_SPRING_URL)
+// console.log("dotenv:",process.env.REACT_APP_SPRING_URL)
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -49,7 +49,7 @@ app.post('/pageNum', (req, res) => {
 //policy list 청년정책api
 app.use('/list',(req,res)=>{
     //console.log("pn:",pn);
-    const policyrequestUrl = `${url}?pageIndex=${pn}&display=20&openApiVlak=${key}`;  //policy list
+    const policyrequestUrl = `${url}?pageIndex=${pn}&display=8&openApiVlak=${key}`;  //policy list
     request(policyrequestUrl, (err,response,body)=>{
             var result = body
             var currNum = pn;
@@ -114,11 +114,12 @@ app.use('/api',(req,res)=>{
             })
         });
 
+
 app.use('/space',(req,res)=>{
     request(spaceUrl, (err,response,body)=>{
       var spaceresult = body;
       var xmlToJson = convert.xml2js(spaceresult, {compact: true, space: 2});
-      console.log(xmlToJson);
+      console.log("space:",xmlToJson);
       res.send(xmlToJson);
     })
 })
