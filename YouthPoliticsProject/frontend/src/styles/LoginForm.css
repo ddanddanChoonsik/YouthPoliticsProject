@@ -10,6 +10,9 @@
 
 .loginform{
   width:50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .appForm {
@@ -18,6 +21,7 @@
   padding: 25px 40px;
   overflow: auto;
 }
+
 
 .pageSwitcher {
   display: flex;
@@ -51,6 +55,8 @@
   border-bottom-right-radius: 25px;
 }
 
+
+
 .formCenter {
   margin-bottom: 100px;
 }
@@ -80,7 +86,7 @@
 }
 
 .formField {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .formFieldLabel {
@@ -136,7 +142,7 @@
 }
 
 .formFieldTermsLink {
-  color: white;
+  color: #646f7d;
   border-bottom: 1px solid #6b5b95;
   text-decoration: none;
   display: inline-block;
@@ -144,6 +150,6 @@
   margin-left: 5px;
 }
 
-.socialMediaButtons {
-  padding: 10px 100px 10px 0px;
+.socialMediaButtons .kakaoButton img{
+  cursor: pointer;
 }

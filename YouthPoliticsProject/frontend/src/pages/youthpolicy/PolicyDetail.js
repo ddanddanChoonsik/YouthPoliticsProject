@@ -1,6 +1,10 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { Button } from '@mui/material';
 import { useNavigate,useParams,useLocation } from 'react-router-dom';
+// import {SmallMenu} from './SmallMenu';
 
 const PolicyDetail = () => {
     const navi = useNavigate();
@@ -9,6 +13,18 @@ const PolicyDetail = () => {
     //const srchPolicyId =Object.values(params);
    const [apidata,setApiData] = useState([]);
    const [parCurr,setParCurr]=useState();
+
+
+   const [anchorEl, setAnchorEl] = React.useState(null); //배열...
+   const editopen = Boolean(anchorEl); //배열
+   const handleClick = (event) => {
+     setAnchorEl(event.currentTarget);
+     console.log("?:",event.currentTarget);
+   };
+   const handleClose = () => {
+     setAnchorEl(null);
+   };
+
 
     const getData= async()=>{
         const url ='http://localhost:3001/bizId'; ///bizId url
@@ -30,18 +46,18 @@ const PolicyDetail = () => {
                 detailList.push(result);
                 console.log(detailList);
 
-    useEffect(()=>{
-        console.log("정책디테일");
-        setParCurr(params.curr);
-        //console.log("parCurr:",parCurr);
-        getData();
-        //console.log("params:",params); //bizId 잘옴
-    },[]);
+            useEffect(()=>{
+                console.log("정책디테일");
+                setParCurr(params.curr);
+                //console.log("parCurr:",parCurr);
+                getData();
+                //console.log("params:",params); //bizId 잘옴
+            },[]);
 
-    useEffect(()=>{
-        console.log("location:",location);  //pathname:'/policy/R2023062003523/curr2'
-        console.log("params:",params.curr);
-    },[location])
+            useEffect(()=>{
+                console.log("location:",location);  //pathname:'/policy/R2023062003523/curr2'
+                console.log("params:",params.curr);
+            },[location])
 
 
     return (
@@ -51,27 +67,68 @@ const PolicyDetail = () => {
 <div className='list'>
 {
        Object.values(detailList).map((r,idx) =>(
-           <ul>
+           <div className='detaildata'>
               {/* <li>인덱스 번호 :{idx+1}번 정책</li> */}
-                <li>정책 ID : {r.bizId}</li>
-                <li>정책일련번호 : {r.polyBizSecd}</li>
-                <li>기관 및 지자체 구분 : {r.polyBizTy}</li>
-                <li>정책명 : {r.polyBizSjnm}</li>
-                <li>정책소개 : {r.polyItcnCn}</li>
-                <li>정책유형 : {r.plcyTpNm}</li>
-                <li>지원규모 : {r.sporScvl}</li>
-                <li>지원내용 : {r.sporCn}</li>
-                <li>참여요건 - 연령 : {r.ageInfo}</li>
-                <li>참여요건 - 취업상태 : {r.empmSttsCn}</li>
-                <li>참여요건 - 학력 : {r.accrRqisCn}</li>
-                <li>참여요건 - 전공 : {r.majrRqisCn}</li>
-                <li>참여요건 - 특화분야 : {r.splzRlmRqisCn}</li>
-                <li>신청기관명 : {r.cnsgNmor}</li>
-                <li>신청기간 : {r.rqutPrdCn}</li>
-                <li>신청절차 : {r.rqutProcCn}</li>
-                <li>심사발표 : {r.empmSttsCn}</li>
-                <li>사이트링크주소 : {r.rqutUrla}</li>
-           </ul>
+                {/* 정책 ID / 정책일련번호*/}
+                {/* <div>{r.bizId} / {r.polyBizSecd} </div> */}
+
+                {/* 정책명 */}
+                <div  className='detaildata' style={{display:'inline-flex',width:'99.5%',alignItems:'center'}}>
+                <div style={{justifyContent:'left',width:'100%'}}>
+                    {r.polyBizSjnm}
+                    </div>
+                <div style={{justifyContent:'right'}} >  
+                        <Button
+                          id="basic-button"
+                          aria-controls={editopen ? 'basic-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={editopen ? 'true' : undefined}
+                          onClick={handleClick}
+                          sx={{color:'gray'}}
+                        >
+                          ⋮
+                        </Button>
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={editopen}
+                          onClose={handleClose}
+                          MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                          }}
+                        >
+                          <MenuItem onClick={handleClose}>공유하기</MenuItem>
+                          <MenuItem onClick={handleClose}>즐겨찾기</MenuItem>
+                        </Menu>
+
+                        {/* <SmallMenu/> */}
+                      </div>
+                      </div>
+
+                {/* 정책유형:plcyTpNm / 기관 및 지자체 구분 : polyBizTy  */}
+                <div className='detaildata'>{r.plcyTpNm} / {r.polyBizTy}</div>
+              
+                <div className='detaildata'>
+                {/* 정책소개 : polyItcnCn / 지원내용 : sporCn / 지원규모 : sporScvl */}
+                    <pre>
+                        {r.polyItcnCn}<br/><br/>
+                        {r.sporCn}<br/><br/>
+                        {r.sporScvl}<br/><br/>
+
+                        참여요건 - 연령 : {r.ageInfo}<br/>
+                        참여요건 - 취업상태 : {r.empmSttsCn}<br/>
+                        참여요건 - 학력 : {r.accrRqisCn}<br/>
+                        참여요건 - 전공 : {r.majrRqisCn}<br/>
+                        참여요건 - 특화분야 : {r.splzRlmRqisCn}<br/><br/>
+
+                        신청기관명 : {r.cnsgNmor} <br/>
+                        신청기간 : {r.rqutPrdCn} <br/>
+                        신청절차 : {r.rqutProcCn} <br/>
+                        심사발표 : {r.empmSttsCn}<br/>
+                        사이트링크주소 : {r.rqutUrla}<br/>
+                    </pre>   
+                </div>
+           </div>
        ))
       }
      </div> 

@@ -1,9 +1,11 @@
 import React from 'react';
+import SignUpForm from "./SignUpForm";
+import "../../styles/LoginForm.css";
 
 const JoinForm = () => {
     return (
         <div>
-            <p>일반회원가입</p>
+            <SignUpForm/>
         </div>
     );
 };
