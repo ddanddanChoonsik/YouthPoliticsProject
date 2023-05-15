@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import { useNavigate,useParams,useLocation } from 'react-router-dom';
-// import {SmallMenu} from './SmallMenu';
+ import SmallMenu from './SmallMenu';
 
 const PolicyDetail = () => {
     const navi = useNavigate();
@@ -13,17 +13,16 @@ const PolicyDetail = () => {
     //const srchPolicyId =Object.values(params);
    const [apidata,setApiData] = useState([]);
    const [parCurr,setParCurr]=useState();
+    const [parow,setParRow]=useState();
 
-
-   const [anchorEl, setAnchorEl] = React.useState(null); //배열...
-   const editopen = Boolean(anchorEl); //배열
-   const handleClick = (event) => {
-     setAnchorEl(event.currentTarget);
-     console.log("?:",event.currentTarget);
-   };
-   const handleClose = () => {
-     setAnchorEl(null);
-   };
+//    const [anchorEl, setAnchorEl] = React.useState(null); //배열...
+//    const editopen = Boolean(anchorEl); //배열
+//    const handleClick = (event) => {
+//      setAnchorEl(event.currentTarget);
+//    };
+//    const handleClose = () => {
+//      setAnchorEl(null);
+//    };
 
 
     const getData= async()=>{
@@ -32,32 +31,35 @@ const PolicyDetail = () => {
             const emp = res.empsInfo.emp;
             //const emval=Object.values(res.empsInfo.emp);
             setApiData(emp);
-            console.log("emp:",emp);
+            //console.log("emp:",emp);
             //console.log("e:",emval[1]._text);
+        
         }
 
         const detailList = new Array();
         let result = {};
         let key = Object.keys(apidata);
         for(let i=0; i<Object.keys(apidata).length; i++){   
-                let sub = Object.keys(apidata[key[i]]);
-                result[key[i]] = apidata[key[i]][sub[0]];                          
+                        let sub = Object.keys(apidata[key[i]]);
+                        result[key[i]] = apidata[key[i]][sub[0]];                          
                              }
-                detailList.push(result);
-                console.log(detailList);
+                detailList.push(result);                            
+            
+
 
             useEffect(()=>{
-                console.log("정책디테일");
+               //console.log("정책디테일");
                 setParCurr(params.curr);
+                setParRow(params.rownum);
                 //console.log("parCurr:",parCurr);
                 getData();
-                //console.log("params:",params); //bizId 잘옴
-            },[]);
+                console.log("params:",params); //bizId 잘옴
+            },[location]);
 
-            useEffect(()=>{
-                console.log("location:",location);  //pathname:'/policy/R2023062003523/curr2'
-                console.log("params:",params.curr);
-            },[location])
+            // useEffect(()=>{
+            //     console.log("location:",location);  //pathname:'/policy/R2023062003523/curr2'
+            //     console.log("params:",params.curr);
+            // },[location])
 
 
     return (
@@ -74,34 +76,12 @@ const PolicyDetail = () => {
 
                 {/* 정책명 */}
                 <div  className='detaildata' style={{display:'inline-flex',width:'99.5%',alignItems:'center'}}>
-                <div style={{justifyContent:'left',width:'100%'}}>
-                    {r.polyBizSjnm}
+                <div className='parrownum'>{params.rownum}</div>
+                <div  style={{justifyContent:'left',width:'100%'}}>
+                     {r.polyBizSjnm}
                     </div>
                 <div style={{justifyContent:'right'}} >  
-                        <Button
-                          id="basic-button"
-                          aria-controls={editopen ? 'basic-menu' : undefined}
-                          aria-haspopup="true"
-                          aria-expanded={editopen ? 'true' : undefined}
-                          onClick={handleClick}
-                          sx={{color:'gray'}}
-                        >
-                          ⋮
-                        </Button>
-                        <Menu
-                          id="basic-menu"
-                          anchorEl={anchorEl}
-                          open={editopen}
-                          onClose={handleClose}
-                          MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                          }}
-                        >
-                          <MenuItem onClick={handleClose}>공유하기</MenuItem>
-                          <MenuItem onClick={handleClose}>즐겨찾기</MenuItem>
-                        </Menu>
-
-                        {/* <SmallMenu/> */}
+                         <SmallMenu/> 
                       </div>
                       </div>
 
@@ -132,9 +112,18 @@ const PolicyDetail = () => {
        ))
       }
      </div> 
+     {/* onClick={()=>navi(`/policy/${policybizId}/${parCurr}/${parow-1}`)} */}
      <div className='btnlist'>
+      {params.rownum==1?"":
+        <button className='past' style={{width:'200px',height:'50px',margin:'0',fontSize:'15px',borderRadius:'10px'}}>
+        <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        }&nbsp;&nbsp;
      <button  onClick={() => navi(`/policy/list/${parCurr}`)} style={{width:'200px',height:'50px',margin:'0',fontSize:'15px',borderRadius:'10px'}}>
-     <i class="fa-solid fa-table-list" style={{textAlign:'center',height:'fit-content',fontSize:'25px', color:'#0a2c66'}}></i>
+     <i class="fa-solid fa-table-list" style={{textAlign:'center',height:'fit-content',fontSize:'15px', color:'#0a2c66'}}></i>
+     </button>&nbsp;&nbsp;
+     <button className='next' style={{width:'200px',height:'50px',margin:'0',fontSize:'15px',borderRadius:'10px'}}>
+     <i class="fa-solid fa-chevron-right"></i>
      </button>
      </div>
 

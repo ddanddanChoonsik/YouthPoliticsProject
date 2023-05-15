@@ -3,6 +3,7 @@ import '../../styles/policy.css';
 import '../../styles/policyfilter.css';
 import PolicyDetail from './PolicyDetail';
 import PolicyFilter from './PolicyFilter';
+import SmallMenu from './SmallMenu';
 
 
 import Pagination from '@mui/material/Pagination';
@@ -26,6 +27,8 @@ const PolicyList = () => {
      const location = useLocation();
      const params = useParams();
      const [page, setPage] = useState(1);
+     const [onedata,setOneData] =useState();
+
      // //api 호출 (pagination 총값도 가져와야함)
      const youthPolicyApi = async () => {
                      const url ='http://localhost:3001/list';   
@@ -43,7 +46,6 @@ const PolicyList = () => {
                                  }
                                  resultList.push(result);
                              }
-                             //console.log(resultList);
 
                                  
      //pagination
@@ -69,23 +71,50 @@ const PolicyList = () => {
                 }) 
         };
                         // 정책하나 클릭시 policydetail로 넘어감            
-                        const onClick = (e,bzId) => {
+                        const onClick = (e,bzId,rnum) => {
                             console.log("bzId:",bzId);
                                 fetch("http://localhost:3001/pid", { //text 주소에서 받을 예정
                                     method: "post", //통신방법
                                     headers: {"content-type": "application/json",},
-                                    body: JSON.stringify({id:bzId}), //id 의 value값 넘겨주기 성공 id : "R2023121904983" "R2023122005003"
+                                    body: JSON.stringify({id:bzId,num:rnum}), //id 의 value값 넘겨주기 성공 id : "R2023121904983" "R2023122005003"
                                 }).then((res)=>{
                                 return res.json();
                                 }).then((res)=>{
                                     //console.log("res.id:",res.data.id); //bizId
                                     const policybizId = res.data.id;
-                                    navi(`/policy/${policybizId}/${page}`);
- 
+                                    const rownum= res.data.num
+                                    navi(`/policy/${policybizId}/${page}/${rownum}`);
                                     //console.log("hand:",page);  //unfiend
                                 }).catch(e=>{
                                     console.log("e:",e);
                                 })
+                                };
+
+                            // 정책하나 클릭시 전체값 전달   (추후수정)       
+                            const onClick2 = (e,rs) => {
+                            console.log("bzId:",rs.bizId); //bizId
+                            console.log('rownum:',rs.rownum);
+                            //const policybizId=rs.bizId;
+                            setOneData(rs);
+                            //navi(`/policy/${policybizId}/${page}`);
+                            
+                            //const policybizId=rs.
+                            //navi(`/policy/${policybizId}/${page}`);
+
+                                // fetch("http://localhost:3001/pid", { //text 주소에서 받을 예정
+                                //     method: "post", //통신방법
+                                //     headers: {"content-type": "application/json",},
+                                //     body: JSON.stringify({result:rs}), //id 의 value값 넘겨주기 성공 id : "R2023121904983" "R2023122005003"
+                                // }).then((res)=>{
+                                // return res.json();
+                                // }).then((res)=>{
+                                //     //console.log("res.id:",res.data.id); //bizId
+                                //     const policybizId = res.data.result;
+                                //     navi(`/policy/${policybizId}/${page}`);
+                                //     //console.log("hand:",page);  //unfiend
+                                // }).catch(e=>{
+                                //     console.log("e:",e);
+                                // })
                                 };
 
                                 useEffect(()=>{
@@ -143,19 +172,26 @@ const PolicyList = () => {
                  {/* test ui */}
                  <div className='policyList1'>
                 {Object.values(resultList).map((r,idx) => (
-                    <div className='policyData' onClick={(e,bzId)=>onClick(e,r.bizId)}>
+                    <div className='polyData'>
+                    <div className='policyData' onClick={(e,bzId,rnum)=>onClick(e,r.bizId,r.rownum)}>
+                    {/* <div className='policyData' onClick={(e,rs)=>onClick2(e,r)}>  */}
                         <div className='policyFstItem'>
                             <div className='polyBizSjnm'>{r.polyBizSjnm}</div>
                             <div className='plcyTpNm'>{r.plcyTpNm}</div>
-                            <div className='polyBizTy'>{r.polyBizTy}</div>
+                            <div className='polyBizTy'>{r.polyBizTy}</div>  
+
                         </div>
                         <div className='policySndItem'>
-                        <div className='cnsgNmor'>{r.cnsgNmor==="-"?"실행기관 미정":r.cnsgNmor}</div>
+                        <div className='cnsgNmor'>{r.cnsgNmor==="-"?"-":r.cnsgNmor}</div>
                             <div className='rqutPrdCn'><i class="fa-solid fa-calendar"></i>&nbsp;{r.rqutPrdCn}</div>
                             <div className='rqutUrla'> {/*•*/}   {
                                     r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i class="fa-solid fa-house-signal" style={{color:'green'}}/></a>:<i class="fa-solid fa-house-circle-xmark"></i>
                                     }</div>
                         </div>
+                    </div>
+                    <div>
+                    <div className='polyListmenu'><SmallMenu/> </div>
+                    </div>
                     </div>
                             ))}
                 </div> 
@@ -164,7 +200,6 @@ const PolicyList = () => {
 
                 {/* <Typography>Page: {page}</Typography> */}
                 </Stack>
-                           
 
                 {/* <table className="table table-hover">
                     <thead>

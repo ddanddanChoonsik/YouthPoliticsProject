@@ -48,6 +48,12 @@ div#policy div.policyList .css-34nofg-MuiTableRow-root:hover{
     text-align: left;
   }
 
+  div.parrownum{
+      background-color:white;
+      margin-right:5px;
+      align-Items:center;
+  }
+
   div.detaildata div.detaildata{
     background-color:white;
     padding:3px;
@@ -83,21 +89,24 @@ div#policy div.policyList .css-34nofg-MuiTableRow-root:hover{
     height:fit-content;
 }
 
-.policyData{
+.polyData{
     padding: 18px;
     width:900px;
     height: fit-content;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 5px;
     background-color: #ffffff;
-        border: 1.5px solid #dddddb;
+    border: 1.5px solid #dddddb;
     border-radius: 13px;
 }
 
-.policyData:hover{
+.polyData:hover{
   border: 2px solid rgb(0, 89, 255);
   cursor:pointer;
+}
+.policyData{
+  width:100%;
 }
 
 .policyFstItem{ 
@@ -106,6 +115,11 @@ div#policy div.policyList .css-34nofg-MuiTableRow-root:hover{
     justify-content: left;
     height: fit-content;
     align-items: center;
+}
+.polyListmenu{
+  justify-content:right;
+  z-index: 99999%;
+  width: fit-content;
 }
 .polyBizSjnm{
     font-weight:700;

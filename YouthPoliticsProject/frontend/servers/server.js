@@ -66,6 +66,7 @@ app.use('/list',(req,res)=>{
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.json());
 var pid = "";
+ var rownum="";
 app.post('/pid', (req, res) => {
     if (!req.body.id) {
         return res.status(400).json({
@@ -77,11 +78,12 @@ app.post('/pid', (req, res) => {
         status: 'succes',
         data: req.body,
       })
-
       var bid =req.body.id;
-      console.log("bid:",bid);
+      var num=req.body.num;
+      //console.log("bid:",bid);
       pid =bid;
-      return pid;
+      rownum=num;
+      return pid,rownum;
 
   });
 
@@ -89,15 +91,16 @@ app.post('/pid', (req, res) => {
 //dtailpage로 bizId값을 넘겨서 출력 (get)
 app.use('/bizId',(req,res)=>{
   console.log("pid:",pid);
+  console.log("rownum:",rownum);
   const testUrl = `${url}?pageIndex=1&display=1&openApiVlak=${key}&srchPolicyId=${pid}`;
     request(testUrl,(err,response,body)=>{
         var result = body;
         var xmlToJson = convert.xml2json(result, {compact: true, spaces: 4});
         //console.log("res.values.bizId:",xmlToJson);
         res.send(xmlToJson);
+     console.log(xmlToJson);
     })
 })
-
 
 //main 청년정책api
 app.use('/api',(req,res)=>{
@@ -108,7 +111,7 @@ app.use('/api',(req,res)=>{
             //console.log(`response =>${response}`)   //[Object Object]     
             var xmlToJson = convert.xml2json(result, {compact: true, spaces: 4});
            // console.log(`xml to json => ${xmlToJson}`)
-            
+  
             //json 형태 출력
             res.send(xmlToJson);
             })

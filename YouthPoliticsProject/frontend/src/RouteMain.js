@@ -17,7 +17,7 @@ const RouteMain = () => {
                {/* youthpolicy */}
                <Route path="/policy/list/:curr" element={<PolicyList/>}/>
                {/*정책id값을 가져와서 detail 출력 */}
-               <Route path="/policy/:bizId/:curr" element={<PolicyDetail/>}/>
+               <Route path="/policy/:bizId/:curr/:rownum" element={<PolicyDetail/>}/>
                <Route path="/policy/area" element={<PolicyArea/>}/>
 
                 
@@ -28,7 +28,6 @@ const RouteMain = () => {
 
                 {/* Mypage */}
                 <Route path="/mypage/profile"  element={<Profile/>}/>
-
 
                 {/* Notice */}
                 <Route path="/notice/list"  element={<NoticeList/>}/>
