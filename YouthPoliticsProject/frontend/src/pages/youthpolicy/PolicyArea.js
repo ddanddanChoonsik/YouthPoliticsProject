@@ -57,6 +57,38 @@ const PolicyArea = () => {
      }
 
 
+     const [myloc,setMyLoc]=useState('');
+     //내위치 찾기(위도,경도)->내위치 주소로 가져오기
+     const currentLocation = (position) =>{
+        navigator.geolocation.getCurrentPosition(function(position) {
+
+			let lat = position.coords.latitude; // 위도
+			let lng = position.coords.longitude; // 경도
+
+            const locPosition = new kakao.maps.LatLng(lat, lng);
+            console.log("locPosition:",locPosition); // 결과 잘나옴
+
+            function getAddr(lat,lng){
+                let geocoder = new kakao.maps.services.Geocoder();
+
+                let coord = new kakao.maps.LatLng(lat, lng);
+                let callback = function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        console.log(result);
+                        console.log("좌표로 내위치 주소찾기:",result[0].address.address_name);
+                        const myaddr=result[0].address.address_name;
+                        setMyLoc(myaddr);
+                        
+                    }
+                }
+                geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+            }
+            getAddr(lat,lng);
+
+                    })
+
+        return true;
+     }
 
     const kakaomap = () => {
         const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
@@ -64,18 +96,15 @@ const PolicyArea = () => {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 2 // 지도의 확대 레벨
             };  
-
-           
             // 지도를 생성합니다    
             const map = new kakao.maps.Map(mapContainer, mapOption);
 
             // 주소-좌표 변환 객체를 생성합니다
             const geocoder = new kakao.maps.services.Geocoder();
             // 주소로 좌표를 검색합니다
-            geocoder.addressSearch(selectAddr==undefined?"경기도 파주시 주라위길 159":selectAddr, function(result, status) {
+            geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr, function(result, status) {
+                console.log("selectAddr",selectAddr);
                 // console.log("주소지:",Object.values(allSpace[0].address)[0]);
-                  //1
-            // geocoder.addressSearch("경기도 파주시 주라위길 159", function(result, status) {
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
 
@@ -89,7 +118,7 @@ const PolicyArea = () => {
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:fit-content;text-align:center;height:fit-content;">${selectSpcName==undefined?"두원공과대학교":selectSpcName}</div>`
+                    content: `<div style="width:fit-content;text-align:center;height:fit-content;">${selectSpcName==undefined?"내위치":selectSpcName}</div>`
                 });
                 infowindow.open(map, marker);
 
@@ -99,20 +128,24 @@ const PolicyArea = () => {
         }); 
     }
     useEffect(()=>{
-        youthAreaApi();
-     
+        youthAreaApi();        
+        currentLocation();
     },[])
 
     useEffect(()=>{
-        kakaomap();
-    },[selectAddr,selectSpcName])
+        kakaomap(myloc);
+    },[selectAddr,selectSpcName,myloc])
 
     return (
         <div>   
             <div className='space-area'>  
             <div className='space'>
             <span>청년공간</span>
-           <span>{resultList.length} 개 <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i class="fa-solid fa-filter" />&nbsp;Filter</Button></span>
+           <span>
+            {resultList.length} 개 
+            <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i class="fa-solid fa-filter" />&nbsp;Filter</Button>
+            <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i class="fa-solid fa-rotate" />&nbsp;Refresh</Button>
+           </span>
            <div className='space-item'>
             <List
                 sx={{
