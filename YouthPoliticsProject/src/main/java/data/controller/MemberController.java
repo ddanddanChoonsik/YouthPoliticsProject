@@ -25,4 +25,5 @@ public class MemberController {
 		return memberService.getUserDatas();
 		
 	}
+	
 }
