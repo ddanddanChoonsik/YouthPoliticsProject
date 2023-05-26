@@ -5,5 +5,8 @@
 	<select id="getUserDatas" resultType="member">
 		 select * from `member` 
 	</select>
-	
+	<!-- <insert id="insertMember" parameterType="member">
+	insert into member (name,id,password,email,tel,birthday,zoncode,address1,address2,registered_at,type)
+			values (#{name},#{id},#{password},#{email},#{tel},#{birthday},#{zoncode},#{address1},#{address2},now(),1)
+	</insert> -->
 </mapper>

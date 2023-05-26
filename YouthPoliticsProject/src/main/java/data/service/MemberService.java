@@ -19,5 +19,10 @@ public class MemberService implements MemberServiceInter {
 		// TODO Auto-generated method stub
 		return memberMapper.getUserDatas();
 	}
+	
+	/*
+	 * @Override public void insertMember(MemberDto dto) {
+	 * memberMapper.insertMember(dto); }
+	 */
 
 }

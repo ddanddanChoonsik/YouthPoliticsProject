@@ -10,6 +10,7 @@ import data.dto.MemberDto;
 public interface MemberMapper {
 
 	public List<MemberDto> getUserDatas();
+	/* public void insertMember(MemberDto dto); */
 	
 
 }

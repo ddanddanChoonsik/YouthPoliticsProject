@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 const SignUpForm = () => {
 
 
-let joinUrl = `${process.env.REACT_APP_SPRING_URL}auth/join`;
+// let joinUrl = `${process.env.REACT_APP_SPRING_URL}auth/join`;
 
 const navi=useNavigate();
 const [joinData,setJoinData]=useState({
@@ -57,27 +57,35 @@ const {
 //submit 호출될 함수
 const onSave=(data)=>{
     // e.preventDefault(); //기본이벤트(submit이 action으로 넘어가는것)를 무효화
-  console.log(data);
+  console.log("data:",data);
   
-  if(!btnOk){
-    alert("아이디 중복체크를 해주세요");
-    return;
-}
+//   if(!btnOk){
+//     alert("아이디 중복체크를 해주세요");
+//     return;
+// }
 
 console.log({
     ...data,
-    birthday:birth.year+birth.month+birth.day
+    birthday:birth.year+"-"+birth.month+"-"+birth.day
 });
 
-// const url = process.env.REACT_APP_SPRING_URL + "member/insert";
-axios.post(joinUrl, {
-    ...data,
+console.log(typeof (data.year+"-"+data.month+"-"+data.day));
+//.toISOString().split('T')[0];
+const fullbirthday =new Date(data.year+"-"+data.month+"-"+data.day);
+console.log(fullbirthday);
+ const url = process.env.REACT_APP_SPRING_URL+"member/insert";
+axios.post(url, {
+    name:joinData.name,
+    id:joinData.id,
+    password:joinData.password,
+    email:joinData.email,
+    tel:joinData.tel,
     address1:joinData.address1,
     address2:joinData.address2,
     zonecode:joinData.zonecode,
-    birthday:data.year+data.month+data.day})
+    birthday:fullbirthday})
 .then(res => {
-//   alert("insert 성공");
+   alert("insert 성공");
     console.log(res.data);
     navi("/login");
 })
