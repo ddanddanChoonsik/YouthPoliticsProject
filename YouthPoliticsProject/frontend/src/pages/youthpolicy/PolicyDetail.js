@@ -4,7 +4,12 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Button } from '@mui/material';
 import { useNavigate,useParams,useLocation } from 'react-router-dom';
- import SmallMenu from './SmallMenu';
+import SmallMenu from './SmallMenu';
+
+
+//bookmark mui
+import Checkbox from '@mui/material/Checkbox';
+import StarIcon from '@mui/icons-material/Star';
 
 const PolicyDetail = () => {
     const navi = useNavigate();
@@ -14,6 +19,20 @@ const PolicyDetail = () => {
    const [apidata,setApiData] = useState([]);
    const [parCurr,setParCurr]=useState();
     const [parow,setParRow]=useState();
+
+
+    //bookmark
+    const [starcheck,setStarCheck]=useState([1,0]);
+    
+    const starChange = (e,r)=>{   
+    console.log("bookmark.checked:",e.target.checked);
+    //return true or false
+    console.log("bookmark.value:",r);
+    // r value ok
+    setStarCheck([e.target.checked, e.target.checked]);   
+                                }
+
+
 
 //    const [anchorEl, setAnchorEl] = React.useState(null); //배열...
 //    const editopen = Boolean(anchorEl); //배열
@@ -76,6 +95,11 @@ const PolicyDetail = () => {
 
                 {/* 정책명 */}
                 <div  className='detaildata' style={{display:'inline-flex',width:'99.5%',alignItems:'center'}}>
+                <div className='bookmark'>
+                    <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />} 
+                                check={starcheck} onChange={(e)=>starChange(e,r)}
+                            />
+                </div>
                 <div className='parrownum'>{params.rownum}</div>
                 <div  style={{justifyContent:'left',width:'100%'}}>
                      {r.polyBizSjnm}

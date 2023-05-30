@@ -4,12 +4,12 @@ import '../../styles/policyfilter.css';
 import PolicyDetail from './PolicyDetail';
 import PolicyFilter from './PolicyFilter';
 import SmallMenu from './SmallMenu';
+import axios from 'axios';
 
-
+//pagination mui
 import Pagination from '@mui/material/Pagination';
 import { Link, useNavigate,useLocation,useParams } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
-import axios from 'axios';
 
 //table mui
 import Table from '@mui/material/Table';
@@ -20,6 +20,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+
+
+//bookmark mui
+import Checkbox from '@mui/material/Checkbox';
+import StarIcon from '@mui/icons-material/Star';
+
 
 const PolicyList = () => {
      const [apiarr,setApiArr] = useState([]);
@@ -117,6 +123,18 @@ const PolicyList = () => {
                                 // })
                                 };
 
+                                const [starcheck,setStarCheck]=useState([1,0]);
+
+                                const starChange = (e,r)=>{   
+                                    console.log("bookmark.checked:",e.target.checked);
+                                    //return true or false
+                                    console.log("bookmark.value:",r);
+                                    // r value ok
+                                    setStarCheck([e.target.checked, e.target.checked]);
+
+                                    
+                                }
+
                                 useEffect(()=>{
                                     console.log("정책리스트");
                                     //온라인청년정책 api
@@ -173,6 +191,13 @@ const PolicyList = () => {
                  <div className='policyList1'>
                 {Object.values(resultList).map((r,idx) => (
                     <div className='polyData'>
+                        <div>
+                        <div className="bookmark">
+                            <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />} 
+                                check={starcheck} onChange={(e)=>starChange(e,r)}
+                            />
+                            </div>
+                        </div>
                     <div className='policyData' onClick={(e,bzId,rnum)=>onClick(e,r.bizId,r.rownum)}>
                     {/* <div className='policyData' onClick={(e,rs)=>onClick2(e,r)}>  */}
                         <div className='policyFstItem'>
