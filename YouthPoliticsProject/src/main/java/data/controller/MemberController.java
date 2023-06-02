@@ -29,10 +29,10 @@ public class MemberController {
 		
 	}
 	
-	/*
-	 * @PostMapping("/insert") public void insert(@RequestBody MemberDto dto) { //
-	 * 비밀번호 암호화 dto.setPassword(Util.encode(dto.getPassword()));
-	 * memberService.insertMember(dto); }
-	 */
+	  @PostMapping("/insert") public void insert(@RequestBody MemberDto dto) { //
+	  //비밀번호 암호화 
+	  dto.setPassword(Util.encode(dto.getPassword()));
+	  memberService.insertMember(dto); }
+	 
 	
 }

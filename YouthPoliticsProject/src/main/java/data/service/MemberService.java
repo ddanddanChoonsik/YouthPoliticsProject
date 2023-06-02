@@ -20,9 +20,11 @@ public class MemberService implements MemberServiceInter {
 		return memberMapper.getUserDatas();
 	}
 	
-	/*
-	 * @Override public void insertMember(MemberDto dto) {
-	 * memberMapper.insertMember(dto); }
-	 */
+	
+	  @Override
+	  public void insertMember(MemberDto dto) {
+	  memberMapper.insertMember(dto); 
+	  }
+	 
 
 }

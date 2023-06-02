@@ -7,5 +7,5 @@ import data.dto.MemberDto;
 public interface MemberServiceInter {
 
 	public List<MemberDto> getUserDatas();
-	/* public void insertMember(MemberDto dto); */
+	 public void insertMember(MemberDto dto); 
 }

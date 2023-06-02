@@ -58,7 +58,6 @@ const PolicyArea = () => {
 
 
      const [myloc,setMyLoc]=useState('');
-
      //내위치 찾기(위도,경도)->내위치 주소로 가져오기
      const currentLocation = (position) =>{
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -75,10 +74,10 @@ const PolicyArea = () => {
                 let coord = new kakao.maps.LatLng(lat, lng);
                 let callback = function(result, status) {
                     if (status === kakao.maps.services.Status.OK) {
-                        console.log("좌표로 내위치 주소찾기:",result[0].address.address_name);
+                        //console.log("좌표로 내위치 주소찾기:",result[0].address.address_name);
                         const myaddr=result[0].address.address_name;
                         setMyLoc(myaddr);
-                        
+                        console.log("좌표로 내위치 주소찾기:",myaddr);
                     }
                 }
                 geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
@@ -90,6 +89,10 @@ const PolicyArea = () => {
         return true;
      }
 
+     //청년공간 내 위치 반경 마커
+
+
+     //카카오 지도
     const kakaomap = (setMyLoc) => {
         const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         const mapOption = {
@@ -104,12 +107,10 @@ const PolicyArea = () => {
 
             // 주소로 좌표를 검색합니다
             geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr, function(result, status) {
-            //geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr, function(result, status) {
                 //console.log("selectAddr",selectAddr);
 
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
-
                 
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
@@ -128,8 +129,11 @@ const PolicyArea = () => {
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
             } 
+        
         }); 
     }
+
+
     useEffect(()=>{
         youthAreaApi();        
         currentLocation();
