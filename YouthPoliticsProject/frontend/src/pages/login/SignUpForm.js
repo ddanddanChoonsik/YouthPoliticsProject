@@ -25,15 +25,19 @@ const [joinData,setJoinData]=useState({
     address2:'',
     tel:'',
     birthday:'',
-    zonecode:''
+    zoncode:''
 });
+
+const [addr1,setAddr1]=useState('');
+const [addr2,setAddr2]=useState('');
+const [zoncode1,setZonecode1]=useState('');
+
 const [birth,setBirth]=useState({
     year:'',
     month:'',
     day:''
   });
 
-const [addr2,setAddr2]=useState('');
 
 // const [address1, setAddress1] = useState(''); // 주소
 // const [address2, setAddress2] = useState(''); // 상세주소
@@ -57,42 +61,53 @@ const {
 //submit 호출될 함수
 const onSave=(data)=>{
     // e.preventDefault(); //기본이벤트(submit이 action으로 넘어가는것)를 무효화
-  console.log("data:",data);
-  
-//   if(!btnOk){
-//     alert("아이디 중복체크를 해주세요");
-//     return;
-// }
+            console.log("name:",data.name);
+            console.log("id:",data.id);
+            console.log("password:",data.password);
+            console.log("email:",data.email);
+            console.log("tel:",data.tel);
+            console.log("address1:",addr1);
+            console.log("address2:",addr2);
+            console.log("zoncode:",zoncode1);
+            console.log("birth:",data.year+"-"+data.month+"-"+data.day);
+            
+          //   if(!btnOk){
+          //     alert("아이디 중복체크를 해주세요");
+          //     return;
+          // }
 
-console.log({
-    ...data,
-    birthday:birth.year+"-"+birth.month+"-"+birth.day
-});
+          // console.log({
+          //     ...data,
+          //     birthday:birth.year+"-"+birth.month+"-"+birth.day
+          // });
 
-console.log(typeof (data.year+"-"+data.month+"-"+data.day));
-//.toISOString().split('T')[0];
-const fullbirthday =new Date(data.year+"-"+data.month+"-"+data.day);
-console.log(fullbirthday);
- const url = process.env.REACT_APP_SPRING_URL+"member/insert";
-axios.post(url, {
-    name:joinData.name,
-    id:joinData.id,
-    password:joinData.password,
-    email:joinData.email,
-    tel:joinData.tel,
-    address1:joinData.address1,
-    address2:joinData.address2,
-    zonecode:joinData.zonecode,
-    birthday:fullbirthday})
-.then(res => {
-   alert("insert 성공");
-    console.log(res.data);
-    navi("/login");
-})
-.catch(err => {
-    console.log(err);
-})
-}
+          //console.log(typeof (data.year+"-"+data.month+"-"+data.day));
+          //.toISOString().split('T')[0];
+
+          const fullbirthday =new Date(data.year+"-"+data.month+"-"+data.day);
+          const fullbirthday2 =data.year+"-"+data.month+"-"+data.day;
+          //console.log(fullbirthday2);
+          const url = process.env.REACT_APP_SPRING_URL+"member/insert";
+          axios.post(url, {
+              name:data.name,
+              id:data.id,
+              password:data.password,
+              email:data.email,
+              tel:data.tel,
+              address1:addr1,
+              address2:addr2,
+              zoncode:zoncode1,
+              birthday:fullbirthday2
+            })
+          .then(res => {
+            alert("insert 성공");
+              console.log("data:",res.data);
+              navi("/login");
+          })
+          .catch(err => {
+              console.log(err);
+          })
+          }
 
 
 
@@ -106,7 +121,7 @@ const onDataChange=(e)=>{
         ...joinData,
         [name]:value
     });
-    console.log(joinData.password);
+    console.log("onDataChange:",value);
 }
 
 
@@ -197,8 +212,13 @@ const onEmailCheck=()=>{
           console.log(kakaoData)
           console.log(fullAddress)
           console.log(kakaoData.zonecode)
-          setJoinData({...joinData, address1: fullAddress, address2: extraAddress, zonecode: kakaoData.zonecode});
-          handleClose()
+          //setJoinData({...joinData, address1: fullAddress, address2: extraAddress, zoncode: kakaoData.zonecode});
+          setJoinData({address1: fullAddress, address2: extraAddress, zoncode: kakaoData.zonecode});
+          handleClose();
+          setAddr1(fullAddress);
+          setAddr2(extraAddress);
+          setZonecode1(kakaoData.zonecode);
+          console.log(joinData);
           
       }
 
@@ -338,7 +358,7 @@ const onEmailCheck=()=>{
            <div className='join-zoncode-wrap'>
                   <input type='text' className="form-control"
                              name="zonecode" placeholder='우편번호'
-                             value={joinData.zonecode}
+                             value={joinData.zoncode} onChange={onDataChange}
                             required/>
                             <Button onClick={handleOpen} style={{marginLeft:'5px'}}>
                                 <button type='button' className='checkbtn' style={{width:'300px'}}>주소찾기</button>
@@ -348,11 +368,11 @@ const onEmailCheck=()=>{
                             <div className='join-addr-wrap'>
                             <input type='text' className="join-control"
                              name="address1" placeholder='주소'
-                             value={joinData.address1}
+                             value={joinData.address1} onChange={onDataChange}
                             required/>
 
                             <input type='text' className="join-control"
-                             name="address2" placeholder='상세주소'
+                             name="address2" placeholder='상세주소' onChange={onDataChange}
                             //  onChange={onAddr2Change}
                                value={joinData.address2}
                             />
@@ -469,184 +489,3 @@ const onEmailCheck=()=>{
 };
 
 export default SignUpForm;
-
-
-// import React, { Component } from "react";
-// import { Link } from "react-router-dom";
-
-// class SignUpForm extends Component {
-//   constructor() {
-//     super();
-
-//     this.state = {
-//       email: "",
-//       password: "",
-//       name: "",
-//       hasAgreed: false
-//     };
-
-//     this.handleChange = this.handleChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   handleChange(event) {
-//     let target = event.target;
-//     let value = target.type === "checkbox" ? target.checked : target.value;
-//     let name = target.name;
-
-//     this.setState({
-//       [name]: value
-//     });
-//   }
-
-//   handleSubmit(e) {
-//     e.preventDefault();
-
-//     console.log("The form was submitted with the following data:");
-//     console.log(this.state);
-//   }
-
-//   render() {
-//     return (
-//       <div className="formCenter">
-//         {/* <form onSubmit={this.handleSubmit} className="formFields">
-//           <div className="formField">
-//             <label className="formFieldLabel" htmlFor="name">
-//               Full Name
-//             </label>
-//             <input
-//               type="text"
-//               id="name"
-//               className="formFieldInput"
-//               placeholder="Enter your full name"
-//               name="name"
-//               value={this.state.name}
-//               onChange={this.handleChange}
-//             />
-//           </div>
-//           <div className="formField">
-//             <label className="formFieldLabel" htmlFor="password">
-//               Password
-//             </label>
-//             <input
-//               type="password"
-//               id="password"
-//               className="formFieldInput"
-//               placeholder="Enter your password"
-//               name="password"
-//               value={this.state.password}
-//               onChange={this.handleChange}
-//             />
-//           </div>
-//           <div className="formField">
-//             <label className="formFieldLabel" htmlFor="email">
-//               E-Mail Address
-//             </label>
-//             <input
-//               type="email"
-//               id="email"
-//               className="formFieldInput"
-//               placeholder="Enter your email"
-//               name="email"
-//               value={this.state.email}
-//               onChange={this.handleChange}
-//             />
-//           </div>
-
-//           <div className="formField">
-//             <label className="formFieldCheckboxLabel">
-//               <input
-//                 className="formFieldCheckbox"
-//                 type="checkbox"
-//                 name="hasAgreed"
-//                 value={this.state.hasAgreed}
-//                 onChange={this.handleChange}
-//               />{" "}
-//               I agree all statements in{" "}
-//               <a href="null" className="formFieldTermsLink">
-//                 terms of service
-//                 asdfdsfdfs
-//               </a>
-//             </label>
-//           </div>
-
-//           <div className="formField">
-//             <button className="formFieldButton">Sign Up</button>{" "}
-//             <Link to="/sign-in" className="formFieldLink">
-//               I'm already member
-//             </Link>
-//           </div>
-//         </form> */}
-
-// <form className="formFields">
-//           <div className="formField">
-//             <label className="formFieldLabel" htmlFor="name">
-//               Full Name
-//             </label>
-//             <input
-//               type="text"
-//               id="name"
-//               className="formFieldInput"
-//               placeholder="Enter your full name"
-//               name="name"
-//               // value={this.state.name}
-//               // onChange={this.handleChange}
-//             />
-//           </div>
-//           <div className="formField">
-//             <label className="formFieldLabel" htmlFor="password">
-//               Password
-//             </label>
-//             <input
-//               type="password"
-//               id="password"
-//               className="formFieldInput"
-//               placeholder="Enter your password"
-//               name="password"
-//               // value={this.state.password}
-//               // onChange={this.handleChange}
-//             />
-//           </div>
-//           <div className="formField">
-//             <label className="formFieldLabel" htmlFor="email">
-//               E-Mail Address
-//             </label>
-//             <input
-//               type="email"
-//               id="email"
-//               className="formFieldInput"
-//               placeholder="Enter your email"
-//               name="email"
-//               // value={this.state.email}
-//               // onChange={this.handleChange}
-//             />
-//           </div>
-
-//           <div className="formField">
-//             <label className="formFieldCheckboxLabel">
-//               <input
-//                 className="formFieldCheckbox"
-//                 type="checkbox"
-//                 name="hasAgreed"
-//                 // value={this.state.hasAgreed}
-//                 // onChange={this.handleChange}
-//               />{" "}
-//               I agree all statements in{" "}
-//               <a href="null" className="formFieldTermsLink">
-//                 terms of service
-//               </a>
-//             </label>
-//           </div>
-
-//           <div className="formField">
-//             <button className="formFieldButton">Sign Up</button>{" "}
-//             <Link to="/sign-in" className="formFieldLink">
-//               I'm already member
-//             </Link>
-//           </div>
-//         </form>
-//         </div>
-//     );
-//   }
-// }
-// export default SignUpForm;
