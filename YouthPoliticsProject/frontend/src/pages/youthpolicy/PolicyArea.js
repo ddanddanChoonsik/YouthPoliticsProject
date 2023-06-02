@@ -16,7 +16,7 @@ const PolicyArea = () => {
     const [spaceName,setSpaceName]=useState();
     const [spaceAddr,setSpaceAddr]=useState();
 
-    const [selectAddr,setSelectAddr]=useState(myloc);
+    const [selectAddr,setSelectAddr]=useState();
     const [selectSpcName,setSelectSpcName]=useState();
 
     const youthAreaApi= async()=>{
@@ -43,7 +43,7 @@ const PolicyArea = () => {
      const [selectedIndex, setSelectedIndex] = React.useState();
      const handleListItemClick = (event, index,addr,spcName) => {
        setSelectedIndex(index);
-       setSelectAddr(addr);
+        setSelectAddr(addr);
        setSelectSpcName(spcName);
        //console.log("index:",index);
        console.log("mui list"); //2
@@ -51,7 +51,7 @@ const PolicyArea = () => {
      };
 
      const handleMap = (addr,spcName) =>{
-            setSelectAddr(addr);
+             setSelectAddr(addr);
             setSelectSpcName(spcName);
             //kakaomapscript();
      }
@@ -104,11 +104,13 @@ const PolicyArea = () => {
 
             // 주소로 좌표를 검색합니다
             geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr, function(result, status) {
-                console.log("selectAddr",selectAddr);
+            //geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr, function(result, status) {
+                //console.log("selectAddr",selectAddr);
 
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
 
+                
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
                 // 결과값으로 받은 위치를 마커로 표시합니다
@@ -135,7 +137,7 @@ const PolicyArea = () => {
 
     useEffect(()=>{
         kakaomap(myloc);
-    },[selectAddr,selectSpcName,myloc])
+    },[selectSpcName,myloc])
 
     return (
         <div>   
