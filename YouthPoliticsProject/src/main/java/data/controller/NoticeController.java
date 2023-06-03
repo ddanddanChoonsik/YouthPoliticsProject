@@ -45,7 +45,7 @@ public class NoticeController {
 	 @GetMapping("/getDetailData") 
 	 public NoticeDto getDetailData(@RequestParam int num)
 	 {		
-		System.out.println("디텔");
+//		System.out.println("디텔");
 		 //System.out.println("공지사항 상세보기 : ", noticeService.getDetailData(num));
 		 return noticeService.getDetailData(num);
 	 }
