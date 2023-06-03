@@ -28,6 +28,11 @@ public class NoticeService implements NoticeServiceInter{
 		return noticeMapper.getAllDatas();
 	}
 	
+	@Override
+	public NoticeDto getDetailData(int num) {
+		return noticeMapper.getDetailData(num);
+	}
+	
 //	@Override
 //	public void insertNotice(NoticeDto dto) {
 //		

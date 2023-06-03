@@ -9,6 +9,7 @@ public interface NoticeServiceInter {
 
 	public int getTotalCount();
 	public List<NoticeDto> getAllDatas();
+	public NoticeDto getDetailData(int num);
 //	public void insertNotice(NoticeDto dto);
 //	public void insertFile(Map<String,String> map);
 }

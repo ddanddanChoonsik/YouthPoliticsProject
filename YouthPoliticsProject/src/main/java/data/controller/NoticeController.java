@@ -28,13 +28,26 @@ public class NoticeController {
 	public List<NoticeDto> getAllDatas(){
 		System.out.println("ok");
 		System.out.println(noticeService.getAllDatas());
-		return noticeService.getAllDatas();
+		return noticeService.getAllDatas()
 	}
 	
 	@GetMapping("/notice/form")
 	public String noticeForm() {
 		return "notice/NoticeForm";
 	}
+	
+	/*
+	 * @GetMapping("/notice/getDetailData") public List<NoticeDto> getDetailData(int
+	 * num) { System.out.println("공지사항 상세보기:" + noticeService.getDetailData(num));
+	 * return noticeService.getDetailData(num); }
+	 */
+	 @GetMapping("/getDetailData") 
+	 public NoticeDto getDetailData(@RequestParam int num)
+	 {
+		 System.out.println("공지사항 상세보기 : ", noticeService.getDetailData(num))
+		 return noticeService.getDetailData(num);
+	 }
+	
 	
 	
 }

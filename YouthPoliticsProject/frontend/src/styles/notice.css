@@ -33,3 +33,66 @@ div#notice div.newNotice{
     padding-right: 10px;
     padding-bottom: 10px;
 }
+
+
+/*detail*/
+div#detail {
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    height:100%;
+    background-color: rgb(211, 227, 255);
+    background-size: cover;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+div#detail div.noticeDetail{
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 900px;
+}
+
+div#detail div.noticeTitle{
+    background-color:white;
+    padding:20px;
+    margin-bottom:5px;
+    display: flex;
+    border-radius: 13px;
+    height:inherit;
+    justify-content: space-between;
+}
+
+
+.title{
+    text-align: left;
+    font-size: large;
+}
+
+.created_at{
+    text-align: center; 
+    width: 100px;
+}
+
+div#detail div.noticeContent{
+    background-color:white;
+    padding:20px;
+    margin-bottom:5px;
+    height: 500px;
+    text-align: left;
+    border-radius: 13px;
+}
+
+
+div#detail div.return button{
+    width: 100px;
+    height:35px;
+    margin:0;
+    font-size:15px;
+    border-radius:10px;
+    background-color: lightskyblue;
+    border-color: ghostwhite;
+    color: whitesmoke;
+}
