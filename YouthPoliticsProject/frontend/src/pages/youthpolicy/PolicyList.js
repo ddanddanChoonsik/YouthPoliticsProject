@@ -95,6 +95,7 @@ const PolicyList = () => {
                                     console.log("e:",e);
                                 })
                                 };
+                            
 
                             // 정책하나 클릭시 전체값 전달   (추후수정)       
                             const onClick2 = (e,rs) => {
@@ -123,6 +124,7 @@ const PolicyList = () => {
                                 // })
                                 };
 
+                                //bookmark
                                 const [starcheck,setStarCheck]=useState([1,0]);
 
                                 const starChange = (e,r)=>{   

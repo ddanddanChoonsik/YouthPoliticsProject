@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.YouthPolicyMapper">
+
+	<!-- <insert id="insertBookMark" parameterType="bookmark">
+		insert into policy_member(policy_num,member_num,bookmark,policy_request,bizId)
+		 values (0,1,#{bookmark},0,#{bizId})
+	</insert> -->
+</mapper>
