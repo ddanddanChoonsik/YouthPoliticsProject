@@ -2,8 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.YouthPolicyMapper">
 
-	<!-- <insert id="insertBookMark" parameterType="bookmark">
+	<insert id="insertBookMark" parameterType="bookmark">
 		insert into policy_member(policy_num,member_num,bookmark,policy_request,bizId)
 		 values (0,1,#{bookmark},0,#{bizId})
-	</insert> -->
+	</insert> 
+	<select id="getBookMarkCheck" parameterType="int" resultType="bookmark">
+		select bookmark,bizId from policy_member where member_num=1
+	</select>
 </mapper>

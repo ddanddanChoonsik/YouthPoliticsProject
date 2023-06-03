@@ -1,5 +1,8 @@
 package data.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import data.dto.PolicyBookMarkDto;
@@ -12,4 +15,8 @@ public interface YouthPolicyMapper {
 	
 	//bookmark insert
 	public void insertBookMark(PolicyBookMarkDto bdto);
+	
+	//bookmark select
+	public List<PolicyBookMarkDto> getBookMarkCheck(int member_num);
+	
 }
