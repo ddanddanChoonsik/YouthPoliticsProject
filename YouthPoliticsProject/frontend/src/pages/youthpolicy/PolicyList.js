@@ -125,22 +125,44 @@ const PolicyList = () => {
                                 };
 
                                 //bookmark
-                                const [starcheck,setStarCheck]=useState([1,0]);
+                                let bookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/bookmark";
+                                let selectBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/getbookmark";
+                                
+                                const [starcheck,setStarCheck]=useState();
+                                const [bookArr,setBookArr]=useState([]);
 
                                 const starChange = (e,r)=>{   
+                                     //return true or false
                                     console.log("bookmark.checked:",e.target.checked);
-                                    //return true or false
+                                   // r value ok
                                     console.log("bookmark.value:",r);
-                                    // r value ok
-                                    setStarCheck([e.target.checked, e.target.checked]);
-
-                                    
+                                    let rbizId = r.bizId;
+                                    let checked = e.target.checked;
+                                    axios.post(bookMarkUrl,{
+                                        bookmark: checked,
+                                        bizId:rbizId
+                                    }).then(res=>{
+                                        alert("즐겨찾기 추가 성공");
+                                    }).catch(err=>{
+                                        console.log("err:",err);
+                                    })
                                 }
+                                const selectStar =()=>{     
+                                axios.get(selectBookMarkUrl).then(res=>{
+                                    //console.log("북마크값 가져오기:",res.data);
+                                    setBookArr(res.data);
+                                })
+                            }  
+
+                            for(let i=0;i<bookArr.length;i++){
+                                console.log(bookArr[i]);
+                            }
 
                                 useEffect(()=>{
                                     console.log("정책리스트");
                                     //온라인청년정책 api
                                     youthPolicyApi();
+                                    selectStar();
                                     if(handleChange){
                                         handleChange();
                                 }else{
@@ -195,9 +217,11 @@ const PolicyList = () => {
                     <div className='polyData'>
                         <div>
                         <div className="bookmark">
-                            <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />} 
-                                check={starcheck} onChange={(e)=>starChange(e,r)}
+                        {/* checked={bookArr[0]===r.bizId?true:false} */}
+                        <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />} 
+                            checked={bookArr[0].bizId===r.bizId?true:false}  onChange={(e)=>starChange(e,r)}
                             />
+                    
                             </div>
                         </div>
                     <div className='policyData' onClick={(e,bzId,rnum)=>onClick(e,r.bizId,r.rownum)}>
