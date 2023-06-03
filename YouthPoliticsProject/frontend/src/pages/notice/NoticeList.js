@@ -106,7 +106,7 @@ const NoticeList = () => {
     //detail 페이지 전환
     const onClick = (e, num) => {
         console.log("공지사항 num : ", num);
-        navi(`/notice/detail?${num}`);
+        navi(`/notice/detail/${num}`);
     }
 
     /*

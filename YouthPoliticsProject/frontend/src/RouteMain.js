@@ -32,7 +32,7 @@ const RouteMain = () => {
                 {/* Notice */}
                 <Route path="/notice/list"  element={<NoticeList/>}/>
                 <Route path="/notice/form"  element={<NoticeForm/>}/>
-                <Route path="/notice/detail"  element={<NoticeDetail/>}/>
+                <Route path="/notice/detail/:num"  element={<NoticeDetail/>}/>
 
 
                 {/* Group */}

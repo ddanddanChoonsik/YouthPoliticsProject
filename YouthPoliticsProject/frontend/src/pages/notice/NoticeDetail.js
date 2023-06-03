@@ -13,9 +13,10 @@ const NoticeDetail = () => {
     const navi = useNavigate();
     const params = useParams();
     //const num = useState();
-    const num = 3;
+    //const num = 3;
+    const num = params.num;
 
-    let getDetailNotice = process.env.REACT_APP_SPRING_URL+"notice/getDetailData";
+    let getDetailNotice = process.env.REACT_APP_SPRING_URL+"notice/getDetailData?num="+num;
 
 
     //선택한 공지사항 SELECT한 데이터
@@ -29,8 +30,8 @@ const NoticeDetail = () => {
     }
 
     useEffect(() =>{
-        setDetailNotice(detailData(num));
-        console.log(params);
+        setDetailNotice(detailData(params.num));
+        console.log("파람",params);
     }, [])
 
 
