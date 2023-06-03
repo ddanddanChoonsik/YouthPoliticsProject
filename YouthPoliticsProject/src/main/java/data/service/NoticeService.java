@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import data.dto.NoticeDto;
 import data.mapper.NoticeMapper;
@@ -29,7 +30,8 @@ public class NoticeService implements NoticeServiceInter{
 	}
 	
 	@Override
-	public NoticeDto getDetailData(int num) {
+	public NoticeDto getDetailData(@RequestParam int num) {
+		System.out.println("실행");
 		return noticeMapper.getDetailData(num);
 	}
 	

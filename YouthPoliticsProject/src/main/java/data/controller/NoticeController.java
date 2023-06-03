@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import data.dto.NoticeDto;
@@ -28,7 +29,7 @@ public class NoticeController {
 	public List<NoticeDto> getAllDatas(){
 		System.out.println("ok");
 		System.out.println(noticeService.getAllDatas());
-		return noticeService.getAllDatas()
+		return noticeService.getAllDatas();
 	}
 	
 	@GetMapping("/notice/form")
@@ -43,8 +44,9 @@ public class NoticeController {
 	 */
 	 @GetMapping("/getDetailData") 
 	 public NoticeDto getDetailData(@RequestParam int num)
-	 {
-		 System.out.println("공지사항 상세보기 : ", noticeService.getDetailData(num))
+	 {		
+		System.out.println("디텔");
+		 //System.out.println("공지사항 상세보기 : ", noticeService.getDetailData(num));
 		 return noticeService.getDetailData(num);
 	 }
 	
