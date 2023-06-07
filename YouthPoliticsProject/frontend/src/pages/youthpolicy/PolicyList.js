@@ -132,41 +132,62 @@ const PolicyList = () => {
                                 const [bookArr,setBookArr]=useState([]);
 
                                 const starChange = (e,r)=>{   
-                                     //return true or false
-                                    console.log("bookmark.checked:",e.target.checked);
-                                   // r value ok
-                                    console.log("bookmark.value:",r);
+
                                     let rbizId = r.bizId;
                                     let checked = e.target.checked;
-                                    axios.post(bookMarkUrl,{
-                                        bookmark: checked,
-                                        bizId:rbizId
-                                    }).then(res=>{
-                                        alert("즐겨찾기 추가 성공");
-                                    }).catch(err=>{
-                                        console.log("err:",err);
-                                    })
+
+                                    if(checked){
+
+                                        axios.post(bookMarkUrl,{
+                                            bookmark: checked,
+                                            bizId:rbizId
+                                        }).then(res=>{
+                                            alert("즐겨찾기 추가 성공");
+                                        }).catch(err=>{
+                                            console.log("err:",err);
+                                        })
+
+                                }else{
+                                    alert("추후 삭제기능 예정");
                                 }
+                                  //return true or false
+                                  console.log("bookmark.checked:",e.target.checked);
+                                  // r value ok
+                                   console.log("bookmark.value:",r);
+
+                                }
+
+                             
                                 const selectStar =()=>{     
                                 axios.get(selectBookMarkUrl).then(res=>{
                                     //console.log("북마크값 가져오기:",res.data);
                                     setBookArr(res.data);
+
+                                   
                                 })
                             }  
+                            let checkit = []; 
+                            const data=()=>{
+                            for(let i =0; i< bookArr.length;i++){
+                                console.log(`res.data[${i}].bizId:`,bookArr[i].bizId);
+                                checkit.push(bookArr[i].bizId);
 
-                            for(let i=0;i<bookArr.length;i++){
-                                console.log(bookArr[i]);
-                            }
+                            }   
+                        };
+                        console.log("checkit:",checkit);
+                            //마지막만 나옴
 
                                 useEffect(()=>{
                                     console.log("정책리스트");
+                                    data();
                                     //온라인청년정책 api
                                     youthPolicyApi();
-                                    selectStar();
                                     if(handleChange){
                                         handleChange();
+                                        selectStar();
                                 }else{
                                     youthPolicyApi();
+                                    selectStar();
                                 }
                         },[])
 
@@ -217,11 +238,10 @@ const PolicyList = () => {
                     <div className='polyData'>
                         <div>
                         <div className="bookmark">
-                        {/* checked={bookArr[0]===r.bizId?true:false} */}
                         <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />} 
-                            checked={bookArr[0].bizId===r.bizId?true:false}  onChange={(e)=>starChange(e,r)}
+                            checked={checkit===r.bizId?true:false}  onChange={(e)=>starChange(e,r)}
                             />
-                    
+                        
                             </div>
                         </div>
                     <div className='policyData' onClick={(e,bzId,rnum)=>onClick(e,r.bizId,r.rownum)}>

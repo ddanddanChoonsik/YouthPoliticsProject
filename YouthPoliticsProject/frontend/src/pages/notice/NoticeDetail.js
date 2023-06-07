@@ -23,45 +23,38 @@ const NoticeDetail = () => {
     const detailData = () => {
         axios.get(getDetailNotice).then(res=>{
             setDetailNotice(res.data);
-            console.log("공지사항 :", res.data)
+            //console.log("공지사항 :", res.data);
         }).catch(err=>{
             console.log("err:",err);
         })
     }
 
     useEffect(() =>{
-        setDetailNotice(detailData(params.num));
-        console.log("파람",params);
+        //setDetailNotice(detailData(params.num));
+        detailData(params.num);
     }, [])
 
 
     return (
         <div id='detail'>
-            {/*<br/>
-            <h3>공지사항 상세보기</h3>
-    <br/>*/}
             <div className='noticeDetail' >
                 <div className='noticeTitle'>
                 {/*제목 / 작성일*/}
                     <div className='title' style={{}}>
-                        title
-                        {/*detailNotice.title*/}
+                       {detailNotice.title}
                     </div>
                     <div className='created_at' style={{}}>
-                        created_at
-                        {/*detailNotice.created_at*/}
+                        {detailNotice.created_at}
                     </div>
                 </div>
                 <div className='noticeContent'>
-                    contents
-                    {/*detailNotice.content*/}
+                    {detailNotice.content}
                 </div>
                 <div className='return'>
                     <button onClick={() => navi(`/notice/list`)}>
                         목록
                     </button>
                 </div>
-                <p></p>
             </div>
         </div>
     );

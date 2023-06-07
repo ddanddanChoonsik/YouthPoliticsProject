@@ -20,20 +20,6 @@ const PolicyDetail = () => {
    const [parCurr,setParCurr]=useState();
     const [parow,setParRow]=useState();
 
-
-    //bookmark
-    const [starcheck,setStarCheck]=useState([1,0]);
-    
-    const starChange = (e,r)=>{   
-    console.log("bookmark.checked:",e.target.checked);
-    //return true or false
-    console.log("bookmark.value:",r);
-    // r value ok
-    setStarCheck([e.target.checked, e.target.checked]);   
-                                }
-
-
-
 //    const [anchorEl, setAnchorEl] = React.useState(null); //배열...
 //    const editopen = Boolean(anchorEl); //배열
 //    const handleClick = (event) => {
@@ -64,6 +50,37 @@ const PolicyDetail = () => {
                              }
                 detailList.push(result);                            
             
+        
+        //bookmark
+            let bookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/bookmark";
+            let selectBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/getbookmark";
+            
+                                const [bookArr,setBookArr]=useState([]);
+
+                                const starChange = (e,r)=>{   
+                                     //return true or false
+                                    console.log("bookmark.checked:",e.target.checked);
+                                   // r value ok
+                                    console.log("bookmark.value:",r);
+                                    let rbizId = r.bizId;
+                                    let checked = e.target.checked;
+                                    axios.post(bookMarkUrl,{
+                                        bookmark: checked,
+                                        bizId:rbizId
+                                    }).then(res=>{
+                                        alert("즐겨찾기 추가 성공");
+                                    }).catch(err=>{
+                                        console.log("err:",err);
+                                    })
+                                }
+
+        const selectStar =()=>{     
+                                axios.get(selectBookMarkUrl).then(res=>{
+                                    //console.log("북마크값 가져오기:",res.data);
+                                    setBookArr(res.data);
+                                })
+                            }  
+
 
 
             useEffect(()=>{
@@ -71,15 +88,11 @@ const PolicyDetail = () => {
                 setParCurr(params.curr);
                 setParRow(params.rownum);
                 //console.log("parCurr:",parCurr);
+                 //console.log("location:",location);  //pathname:'/policy/R2023062003523/curr2'
+                //console.log("params:",params.curr);
                 getData();
                 console.log("params:",params); //bizId 잘옴
             },[location]);
-
-            // useEffect(()=>{
-            //     console.log("location:",location);  //pathname:'/policy/R2023062003523/curr2'
-            //     console.log("params:",params.curr);
-            // },[location])
-
 
     return (
 <div id='detail'>
@@ -97,7 +110,7 @@ const PolicyDetail = () => {
                 <div  className='detaildata' style={{display:'inline-flex',width:'99.5%',alignItems:'center'}}>
                 <div className='bookmark'>
                     <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />} 
-                                check={starcheck} onChange={(e)=>starChange(e,r)}
+                                checked={true} onChange={(e)=>starChange(e,r)}
                             />
                 </div>
                 <div className='parrownum'>{params.rownum}</div>
