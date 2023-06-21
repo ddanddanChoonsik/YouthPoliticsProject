@@ -16,7 +16,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 
-import {useDispatch, useSelector} from 'react-redux'; //redux
+
 const NoticeList = () => {
 
     let allUserUrl = process.env.REACT_APP_SPRING_URL+"allUser";
@@ -63,10 +63,6 @@ const NoticeList = () => {
     //             }) 
     //     };
 
-
-    //redux
-    // const aaa = useSelector( (state) => state); 
-    // const dispatch = useDispatch();
 
     const AllUserCount=()=>{
         axios.get(allUserUrl).then(res=>{

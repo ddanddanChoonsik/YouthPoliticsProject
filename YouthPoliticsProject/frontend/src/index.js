@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider, createStoreHook } from 'react-redux';
+import { Provider } from 'react-redux';
 import {createStore} from 'redux';
 // import rootReducer from './modules';
 import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
