@@ -150,8 +150,17 @@
   margin-left: 5px;
 }
 
+.kakaologinbtn{
+  width:fit-content;
+  height:fit-content;
+  border:0;
+  background-color: #ffffff;
+
+}
 .socialMediaButtons .kakaoButton img{
   cursor: pointer;
+  width:inherit;
+  height:inherit;
 }
 
 .formStyle{

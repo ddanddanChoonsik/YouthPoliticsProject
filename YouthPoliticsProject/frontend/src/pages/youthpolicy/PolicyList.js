@@ -25,6 +25,7 @@ import Typography from '@mui/material/Typography';
 //bookmark mui
 import Checkbox from '@mui/material/Checkbox';
 import StarIcon from '@mui/icons-material/Star';
+import { CoPresentOutlined } from '@mui/icons-material';
 
 
 const PolicyList = () => {
@@ -128,14 +129,16 @@ const PolicyList = () => {
                                 let bookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/bookmark";
                                 let selectBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/getbookmark";
                                 
-                                const [starcheck,setStarCheck]=useState();
-                                const [bookArr,setBookArr]=useState([]);
+                                const [checkit,setCheckIt]=useState([]);
+
 
                                 const starChange = (e,r)=>{   
 
                                     let rbizId = r.bizId;
                                     let checked = e.target.checked;
 
+
+                                    //북마크 체크시 db에 값전달
                                     if(checked){
 
                                         axios.post(bookMarkUrl,{
@@ -147,102 +150,62 @@ const PolicyList = () => {
                                             console.log("err:",err);
                                         })
 
-                                }else{
-                                    alert("추후 삭제기능 예정");
+                                    }else{
+                                        alert("추후 삭제기능 예정");
+                                    }
+
+                                    //return true or false
+                                    //console.log("bookmark.checked:",e.target.checked);
+                                    // r value ok
+                                    //console.log("bookmark.value:",r);
+
+                                    }
+
+
+                             const selectStar =()=>{     
+                                let dataArr = [];
+                                 axios.get(selectBookMarkUrl).then(res=>{
+                                    // setBookArr(res.data);
+                                    // console.log("북마크된값 가져오기 :",res.data);
+                                for(let i=0; i< res.data.length;i++){
+                                          console.log(`bookmark[${i}]값:${res.data[i].bizId}`);
+                                          dataArr.push(res.data[i].bizId);
                                 }
-                                  //return true or false
-                                  console.log("bookmark.checked:",e.target.checked);
-                                  // r value ok
-                                   console.log("bookmark.value:",r);
-
-                                }
-
-                             
-                                const selectStar =()=>{     
-                                axios.get(selectBookMarkUrl).then(res=>{
-                                    //console.log("북마크값 가져오기:",res.data);
-                                    setBookArr(res.data);
-
-                                   
+                                        setCheckIt(dataArr)
                                 })
-                            }  
-                            let checkit = []; 
-                            const data=()=>{
-                            for(let i =0; i< bookArr.length;i++){
-                                console.log(`res.data[${i}].bizId:`,bookArr[i].bizId);
-                                checkit.push(bookArr[i].bizId);
-
-                            }   
-                        };
-                        console.log("checkit:",checkit);
-                            //마지막만 나옴
+                             }  
 
                                 useEffect(()=>{
                                     console.log("정책리스트");
-                                    data();
+                                    selectStar();
+                                   
                                     //온라인청년정책 api
                                     youthPolicyApi();
                                     if(handleChange){
                                         handleChange();
-                                        selectStar();
                                 }else{
                                     youthPolicyApi();
-                                    selectStar();
-                                }
-                        },[])
 
+                                }
+                                console.log("checkit:",checkit);
+                            },[])
     return (
         <div id='policy'>
                 <div className='policyList'>
                     {/* <PolicyFilter /> */}
                     {/* <button onClick={onClick}>testtest</button> */}
                     <Stack spacing={3} justifyContent="center" alignItems="center">
-                    {/* <TableContainer component={Paper} >
-                        <Table  size="small" aria-label="a dense table" style={{minWidth:'1500px'}}>
-                            <TableHead>
-                            <TableRow>
-                                <TableCell>#</TableCell>
-                                <TableCell align="center">정책ID</TableCell> 
-                                <TableCell align="center">정책유형</TableCell>
-                                <TableCell align="center">기관 및 지자체 구분</TableCell>
-                                <TableCell align="center">정책명</TableCell>
-                                <TableCell align="center">신청기간</TableCell>
-                                <TableCell align="center">신청기관명</TableCell>
-                                <TableCell align="center">사이트링크주소</TableCell>
-                            </TableRow>
-                            </TableHead>
-                            <TableBody>
-                            {Object.values(resultList).map((r,idx) => (
-                                <TableRow value={r.bizId} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} onClick={(e)=>onClick(e)}>
-                                {/* <TableCell component="th" scope="row" value={r.bizId}>{idx+1}</TableCell> */}
-                               {/* <TableCell component="th" scope="row" value={r.bizId}>{r.rownum}</TableCell>
-                                <TableCell align="center"value={r.bizId}>{r.bizId}</TableCell>
-                                <TableCell align="center" value={r.bizId}>{r.plcyTpNm}</TableCell>
-                                <TableCell align="center" value={r.bizId}>{r.polyBizTy}</TableCell>
-                                <TableCell align="center" value={r.bizId}>{r.polyBizSjnm}</TableCell>
-                                <TableCell align="center" value={r.bizId}>{r.rqutPrdCn}</TableCell>
-                                <TableCell align="center" value={r.bizId}>{r.cnsgNmor}</TableCell>
-                                <TableCell align="center" value={r.bizId}>
-                                    {
-                                    r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i class="fa-solid fa-house-signal" style={{color:'green',fontSize:'18px'}}/></a>:<i class="fa-solid fa-house-circle-xmark"style={{fontSize:'14px'}}></i>
-                                    }
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            </TableBody>
-                        </Table>
-                </TableContainer> */}
                  {/* test ui */}
                  <div className='policyList1'>
-                {Object.values(resultList).map((r,idx) => (
-                    <div className='polyData'>
+                {resultList.map((r,idx) => (
+                    <div className='polyData' key={idx}>
                         <div>
                         <div className="bookmark">
-                        <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />} 
-                            checked={checkit===r.bizId?true:false}  onChange={(e)=>starChange(e,r)}
-                            />
-                        
+                        <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />}
+                            checked={checkit.includes(r.bizId)?true:false} onChange={(e)=>starChange(e,r)}
+                           />
                             </div>
+
                         </div>
                     <div className='policyData' onClick={(e,bzId,rnum)=>onClick(e,r.bizId,r.rownum)}>
                     {/* <div className='policyData' onClick={(e,rs)=>onClick2(e,r)}>  */}
@@ -254,9 +217,9 @@ const PolicyList = () => {
                         </div>
                         <div className='policySndItem'>
                         <div className='cnsgNmor'>{r.cnsgNmor==="-"?"-":r.cnsgNmor}</div>
-                            <div className='rqutPrdCn'><i class="fa-solid fa-calendar"></i>&nbsp;{r.rqutPrdCn}</div>
+                            <div className='rqutPrdCn'><i className="fa-solid fa-calendar"></i>&nbsp;{r.rqutPrdCn}</div>
                             <div className='rqutUrla'> {/*•*/}   {
-                                    r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i class="fa-solid fa-house-signal" style={{color:'green'}}/></a>:<i class="fa-solid fa-house-circle-xmark"></i>
+                                    r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i className="fa-solid fa-house-signal" style={{color:'green'}}/></a>:<i class="fa-solid fa-house-circle-xmark"></i>
                                     }</div>
                         </div>
                     </div>
@@ -267,68 +230,10 @@ const PolicyList = () => {
                             ))}
                 </div> 
             
-                <Pagination count={20} page={page!=Number(Object.values(params))?Number(Object.values(params)):page} onChange={handleChange} color="primary" />
+                <Pagination count={20} page={page!==Number(Object.values(params))?Number(Object.values(params)):page} onChange={handleChange} color="primary" />
 
                 {/* <Typography>Page: {page}</Typography> */}
                 </Stack>
-
-                {/* <table className="table table-hover">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">정책ID</th>
-                        <th scope="col">정책유형</th>
-                        <th scope="col">기관 및 지자체 구분</th>
-                        <th scope="col">정책명</th>
-                        <th scope="col">신청기간</th>
-                        <th scope="col">신청기관명</th>
-                        <th scope="col">사이트링크주소</th>
-                        </tr>
-                    </thead> */}
-                    {/* <tbody>
-                    {
-                Object.values(resultList).map((r,idx) =>(
-                         <tr value={r.bizId} onClick={(e)=>onClick(e)}> */}
-                        {/* //<tr onClick={getId}> */}
-                        {/* <th scope="row">{idx+1}</th>
-                        <td>{r.bizId}</td>
-                        <td>{r.plcyTpNm}</td>
-                        <td>{r.polyBizTy}</td>
-                        <td className='polyName'>{r.polyBizSjnm}</td>
-                        <td>{r.rqutPrdCn}</td>
-                        <td>{r.cnsgNmor}</td>
-                        <td>{r.rqutUrla}</td>
-                        <td style={{display:'none'}}>{r.bizId}</td>
-                        </tr>
-                        ))}
-                    </tbody>
-                    </table> */}
-               {/* {
-                Object.values(resultList).map((r,idx) =>(
-                    <ul>
-                         <li>인덱스 번호 :{idx+1}번 정책</li>
-                         <li>정책 ID :{r.bizId}</li>
-                         <li>정책일련번호 : {r.polyBizSecd}</li>
-                         <li>기관 및 지자체 구분 : {r.polyBizTy}</li>
-                         <li>정책명 : {r.polyBizSjnm}</li>
-                         <li>정책소개 : {r.polyItcnCn}</li>
-                         <li>정책유형 : {r.plcyTpNm}</li>
-                         <li>지원규모 : {r.sporScvl}</li>
-                         <li>지원내용 : {r.sporCn}</li>
-                         <li>참여요건 - 연령 : {r.ageInfo}</li>
-                         <li>참여요건 - 취업상태 : {r.empmSttsCn}</li>
-                         <li>참여요건 - 학력 : {r.accrRqisCn}</li>
-                         <li>참여요건 - 전공 : {r.majrRqisCn}</li>
-                         <li>참여요건 - 특화분야 : {r.splzRlmRqisCn}</li>
-                         <li>신청기관명 : {r.cnsgNmor}</li>
-                         <li>신청기간 : {r.rqutPrdCn}</li>
-                         <li>신청절차 : {r.rqutProcCn}</li>
-                         <li>심사발표 : {r.empmSttsCn}</li>
-                         <li>사이트링크주소 : {r.rqutUrla}</li>
-                    </ul>
-                ))
-               } */}
-   
                 </div>
         </div>
     );

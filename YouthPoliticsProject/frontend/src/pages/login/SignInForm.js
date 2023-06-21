@@ -1,11 +1,41 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React,{useEffect,useState} from 'react';
+import { Link,useNavigate } from "react-router-dom";
 import "../../styles/LoginForm.css";
 import Kakaoimg from "../../images/kakaologin.png";
-
+import axios from 'axios';
+//import KakaoLogin from 'react-kakao-login';
 
 const SignInForm = () => {
-  return (
+
+  const navi = useNavigate();
+  const {Kakao} = window;
+  const [isKakaoLogin, setIsKakaoLogin] = useState(false);
+
+  //   const initKakao = () => {
+  //     if (Kakao && !Kakao.isInitialized())
+  //     {
+  //       Kakao.init(jskey);
+  //       console.log(window.Kakao.isInitialized());
+  //     }
+  //   }
+    
+  //   useEffect(() => {
+  //     initKakao()
+  //   }, [])
+
+     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY_SY;
+     const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+    //const REST_API_KEY = "3fca2bcf4ac249e8d3ed096d7baa09cf";
+    //const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+ 
+
+    // const Kakaologin = ()=>{
+    // //  navi(KAKAO_AUTH_URL);
+    //   window.location.href(KAKAO_AUTH_URL);
+    // }
+
+    return (
     <div>
         <div className="formCenter">
          {/* <form className="formFields" onSubmit={this.handleSubmit}> */}
@@ -50,7 +80,11 @@ const SignInForm = () => {
           <div className="socialMediaButtons">
             <div className="kakaoButton">
               {/* <FacebookLoginButton onClick={() => alert("Hello")} /> */}
-              <img src={Kakaoimg} alt="카카오로그인" onClick={() => alert("Hello")}/>
+             {/* <button className="kakaologinbtn" ><img src={Kakaoimg} alt={"kakao-login"} style={{width:'fitContent',height:'fitContent'}}/></button>  */}
+             {/* <h1><a href={KAKAO_AUTH_URL}>Kakao Login</a></h1> */}
+             <a href={KAKAO_AUTH_URL}><img src={Kakaoimg} alt={"kakao-login"} style={{width:'fitContent',height:'fitContent'}}/></a>
+            {/*<button onClick={kakaoLogout}>로그아웃</button> */}
+            {/* <KakaoLogin token={kakaoClientId} onSuccess={KakaoOnSuccess} onFail={kakaoOnFailure} /> */}
             </div>
           </div>
         </form>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import { Header,Main, Menu } from "./components";
 
-import {LoginForm, JoinForm} from "./pages/login";
+import {LoginForm, JoinForm,Auth,AuthProfile} from "./pages/login";
 import {PolicyList,PolicyDetail,PolicyArea} from './pages/youthpolicy';
 import {NoticeList,NoticeForm,NoticeDetail} from './pages/notice';
 import {GroupList} from './pages/group';
@@ -25,10 +25,12 @@ const RouteMain = () => {
                 <Route path="/login" element={<LoginForm/>}/>
                 <Route path="/join" element={<JoinForm/>}/>
                 {/* <Route path="/kakao-join" elemet={<KakaoLogin/>}/> */}
-
+                {/* <Route path="/oauth/kakao/callback"  element={<Auth/>} /> */}
                 {/* Mypage */}
                 <Route path="/mypage/profile"  element={<Profile/>}/>
-
+                <Route path="/oauth/kakao/callback" element={<Auth />} />
+                <Route path="/authprofile" element={<AuthProfile />} />
+          
                 {/* Notice */}
                 <Route path="/notice/list"  element={<NoticeList/>}/>
                 <Route path="/notice/form"  element={<NoticeForm/>}/>
