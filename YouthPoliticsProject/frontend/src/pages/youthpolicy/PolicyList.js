@@ -128,30 +128,38 @@ const PolicyList = () => {
                                 //bookmark
                                 let bookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/bookmark";
                                 let selectBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/getbookmark";
-                                
                                 const [checkit,setCheckIt]=useState([]);
 
 
                                 const starChange = (e,r)=>{   
-
+                                    let deleteBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/deletebookmark?bizId="+r.bizId;
                                     let rbizId = r.bizId;
                                     let checked = e.target.checked;
-
-
+                                     console.log("checkedvalue:",checked);
+                                    //let checkedvalue = e.target.value;
                                     //북마크 체크시 db에 값전달
                                     if(checked){
-
                                         axios.post(bookMarkUrl,{
                                             bookmark: checked,
                                             bizId:rbizId
                                         }).then(res=>{
                                             alert("즐겨찾기 추가 성공");
+                                            setCheckVal(true);
+                                            selectStar();
                                         }).catch(err=>{
                                             console.log("err:",err);
                                         })
+                                    }
+                                    else if(checked ===false){
+                                        axios.delete(deleteBookMarkUrl).then(res=>{
+                                            
+                                             setCheckVal(false);
+                                             
+                                             //console.log("-liked value:",liked);
+                                           })
+                                        alert("db에서 삭제함",checkval);
+                                        selectStar();
 
-                                    }else{
-                                        alert("추후 삭제기능 예정");
                                     }
 
                                     //return true or false
@@ -161,14 +169,15 @@ const PolicyList = () => {
 
                                     }
 
-
+                            const [checkval,setCheckVal]=useState(false);
+                            //북마크체크한값 보기
                              const selectStar =()=>{     
                                 let dataArr = [];
                                  axios.get(selectBookMarkUrl).then(res=>{
                                     // setBookArr(res.data);
                                     // console.log("북마크된값 가져오기 :",res.data);
                                 for(let i=0; i< res.data.length;i++){
-                                          console.log(`bookmark[${i}]값:${res.data[i].bizId}`);
+                                        //   console.log(`bookmark[${i}]값:${res.data[i].bizId}`);
                                           dataArr.push(res.data[i].bizId);
                                 }
                                         setCheckIt(dataArr)
@@ -177,8 +186,6 @@ const PolicyList = () => {
 
                                 useEffect(()=>{
                                     console.log("정책리스트");
-                                    selectStar();
-                                   
                                     //온라인청년정책 api
                                     youthPolicyApi();
                                     if(handleChange){
@@ -187,8 +194,12 @@ const PolicyList = () => {
                                     youthPolicyApi();
 
                                 }
-                                console.log("checkit:",checkit);
                             },[])
+
+
+                            useEffect(()=>{
+                                selectStar();
+                            },[checkval])
     return (
         <div id='policy'>
                 <div className='policyList'>
@@ -203,13 +214,15 @@ const PolicyList = () => {
                         <div className="bookmark">
                         <Checkbox  sx={{padding:0}} size='small' icon={<StarIcon />} checkedIcon={<StarIcon />}
                             checked={checkit.includes(r.bizId)?true:false} onChange={(e)=>starChange(e,r)}
-                           />
+                          value={checkit.includes(r.bizId)?true:false}
+                          />
                             </div>
 
                         </div>
                     <div className='policyData' onClick={(e,bzId,rnum)=>onClick(e,r.bizId,r.rownum)}>
                     {/* <div className='policyData' onClick={(e,rs)=>onClick2(e,r)}>  */}
                         <div className='policyFstItem'>
+                        <div className='bizId'>{r.bizId}</div>
                             <div className='polyBizSjnm'>{r.polyBizSjnm}</div>
                             <div className='plcyTpNm'>{r.plcyTpNm}</div>
                             <div className='polyBizTy'>{r.polyBizTy}</div>  
