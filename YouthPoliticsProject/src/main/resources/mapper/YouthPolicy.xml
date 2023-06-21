@@ -9,4 +9,7 @@
 	<select id="getBookMarkCheck" parameterType="int" resultType="bookmark">
 		select bookmark,bizId from policy_member where member_num=1
 	</select>
+	<update id="deleteBookMark" parameterType="String">
+	delete from policy_member where bizId = #{bizId} and member_num =1
+	</update>
 </mapper>

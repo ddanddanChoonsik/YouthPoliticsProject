@@ -37,5 +37,10 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 		  return youthpolicyMapper.getBookMarkCheck(member_num);
 	  }
 	  
+	  @Override
+	  public void deleteBookMark(String bizId) {
+		  
+		  youthpolicyMapper.deleteBookMark(bizId);
+	  }; 
 
 }

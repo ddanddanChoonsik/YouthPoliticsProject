@@ -19,4 +19,7 @@ public interface YouthPolicyMapper {
 	//bookmark select
 	public List<PolicyBookMarkDto> getBookMarkCheck(int member_num);
 	
+	//bookmark delete
+	public void deleteBookMark(String bizId);
+	
 }

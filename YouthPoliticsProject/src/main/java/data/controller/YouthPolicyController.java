@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,4 +44,10 @@ public class YouthPolicyController {
 		 return youthPolicyService.getBookMarkCheck(member_num);
 	 }
 	 
+	 @DeleteMapping("/deletebookmark")
+	 public void deleteBookMark(@RequestParam String bizId) {
+		 youthPolicyService.deleteBookMark(bizId);
+		 System.out.println("delete성공:"+bizId);
+		 //추후 loginnum도 params로 넣어주기
+	 }
 }

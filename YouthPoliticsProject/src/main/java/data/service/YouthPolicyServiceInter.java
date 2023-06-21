@@ -10,4 +10,5 @@ public interface YouthPolicyServiceInter {
 	public void insertBookMark(PolicyBookMarkDto bdto);
 	//public int getBookMark(String bizId,int member_num);
 	public List<PolicyBookMarkDto> getBookMarkCheck(int member_num);
+	public void deleteBookMark(String bizId);
 }
