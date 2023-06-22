@@ -27,6 +27,9 @@ import Checkbox from '@mui/material/Checkbox';
 import StarIcon from '@mui/icons-material/Star';
 import { CoPresentOutlined } from '@mui/icons-material';
 
+//switch mui
+import Switch from '@mui/material/Switch';
+
 
 const PolicyList = () => {
      const [apiarr,setApiArr] = useState([]);
@@ -156,9 +159,10 @@ const PolicyList = () => {
                                              setCheckVal(false);
                                              
                                              //console.log("-liked value:",liked);
+                                             alert("db에서 삭제함",checkval);
+                                             selectStar();
                                            })
-                                        alert("db에서 삭제함",checkval);
-                                        selectStar();
+                                       
 
                                     }
 
@@ -184,6 +188,22 @@ const PolicyList = () => {
                                 })
                              }  
 
+                             //fillter toggle mui
+                             const [toggle,setToggle]=useState(false);
+                             const fillterHandleChange=(e)=>{
+
+                                let toggle_check = e.target.checked;
+
+                                    if(toggle_check){
+                                        setToggle(true);
+                                        console.log(toggle_check);
+                                    }else{
+                                        setToggle(false);
+                                        console.log(toggle_check);
+                                    }
+
+                             }
+
                                 useEffect(()=>{
                                     console.log("정책리스트");
                                     //온라인청년정책 api
@@ -204,7 +224,8 @@ const PolicyList = () => {
         <div id='policy'>
                 <div className='policyList'>
                     {/* <PolicyFilter /> */}
-                    {/* <button onClick={onClick}>testtest</button> */}
+                    <Switch  checked={toggle} onChange={(e)=>fillterHandleChange(e)} inputProps={{ 'aria-label': 'controlled' }} />
+                    {/* <Checkbox   sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/> */}
                     <Stack spacing={3} justifyContent="center" alignItems="center">
                  {/* test ui */}
                  <div className='policyList1'>
@@ -222,7 +243,7 @@ const PolicyList = () => {
                     <div className='policyData' onClick={(e,bzId,rnum)=>onClick(e,r.bizId,r.rownum)}>
                     {/* <div className='policyData' onClick={(e,rs)=>onClick2(e,r)}>  */}
                         <div className='policyFstItem'>
-                        <div className='bizId'>{r.bizId}</div>
+                        {/* <div className='bizId'>{r.bizId}</div> */}
                             <div className='polyBizSjnm'>{r.polyBizSjnm}</div>
                             <div className='plcyTpNm'>{r.plcyTpNm}</div>
                             <div className='polyBizTy'>{r.polyBizTy}</div>  
@@ -232,12 +253,12 @@ const PolicyList = () => {
                         <div className='cnsgNmor'>{r.cnsgNmor==="-"?"-":r.cnsgNmor}</div>
                             <div className='rqutPrdCn'><i className="fa-solid fa-calendar"></i>&nbsp;{r.rqutPrdCn}</div>
                             <div className='rqutUrla'> {/*•*/}   {
-                                    r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i className="fa-solid fa-house-signal" style={{color:'green'}}/></a>:<i class="fa-solid fa-house-circle-xmark"></i>
+                                    r.rqutUrla.charAt(0)==="h" ? <a href={r.rqutUrla} target="{_blank}"><i className="fa-solid fa-house-signal" style={{color:'green'}}/></a>:<i className="fa-solid fa-house-circle-xmark"></i>
                                     }</div>
                         </div>
                     </div>
                     <div>
-                    <div className='polyListmenu'><SmallMenu/> </div>
+                    <div className='polyListmenu'><SmallMenu/></div>
                     </div>
                     </div>
                             ))}

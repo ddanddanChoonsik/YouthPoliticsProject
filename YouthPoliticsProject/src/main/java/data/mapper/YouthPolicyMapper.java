@@ -18,8 +18,14 @@ public interface YouthPolicyMapper {
 	
 	//bookmark select
 	public List<PolicyBookMarkDto> getBookMarkCheck(int member_num);
+
+	//bookmark one select (추후 파라미터 login값받기)
+	public int getOneBookMarkCheck(String bizId);
+	
 	
 	//bookmark delete
 	public void deleteBookMark(String bizId);
+	
+
 	
 }

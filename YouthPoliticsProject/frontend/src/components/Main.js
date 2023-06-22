@@ -72,8 +72,8 @@ const Main = () => {
                 <div className='apiList'>
                {
                 Object.values(resultList).map((r,idx) =>(
-                    <ul>
-                        <li key={idx}>{idx+1}번 정책</li>
+                    <ul key={idx}>
+                        <li>{idx+1}번 정책</li>
                          {/* <li>{r.accrRqisCn}</li>
                          <li>{r.ageInfo}</li> */}
                          <li key={r.bizId}>정책 ID:{r.bizId}</li>
@@ -100,68 +100,68 @@ const Main = () => {
             </div>
             <div className='mainImg'>
                 {/* <img src={TestImg} alt="test용"/> */}
-                <div class="wrapper">
-                    <div class="planet">
-                        <div class="moon">
+                <div className="wrapper">
+                    <div className="planet">
+                        <div className="moon">
 
                         </div>
                     </div>
-                    <div class="moon-spinner">
-                        <div class="moon2">
+                    <div className="moon-spinner">
+                        <div className="moon2">
 
                         </div>
 
                     </div>
                     </div>
-                <div class="night" style={{top:'-379px'}}>
+                <div className="night" style={{top:'-379px'}}>
 
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
                     
                 </div>
-                <div class="night" style={{top:'-32px',right:'38px'}}>
+                <div className="night" style={{top:'-32px',right:'38px'}}>
                         
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
                 </div>
-                <div class="night" style={{top:'150px',right:'215'}}>
+                <div className="night" style={{top:'150px',right:'215'}}>
 
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
-                    <div class="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
+                    <div className="shooting_star"></div>
                     
                 </div>
             </div>

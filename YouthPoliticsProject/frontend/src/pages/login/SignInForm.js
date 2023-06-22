@@ -25,8 +25,6 @@ const SignInForm = () => {
 
      const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY_SY;
      const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-    //const REST_API_KEY = "3fca2bcf4ac249e8d3ed096d7baa09cf";
-    //const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
  
 
@@ -71,7 +69,7 @@ const SignInForm = () => {
           </div>
 
           <div className="formField">
-            <button className="formFieldButton">Sign In</button>{" "}
+            <button className="formFieldButton">Sign In</button>
             <Link to="/join" className="formFieldLink">
               Create an account
             </Link>

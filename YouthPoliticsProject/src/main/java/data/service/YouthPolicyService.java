@@ -38,6 +38,11 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 	  }
 	  
 	  @Override
+	  public int getOneBookMarkCheck(String bizId) {
+		  return youthpolicyMapper.getOneBookMarkCheck(bizId);
+	  }
+	  
+	  @Override
 	  public void deleteBookMark(String bizId) {
 		  
 		  youthpolicyMapper.deleteBookMark(bizId);

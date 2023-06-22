@@ -43,6 +43,10 @@ public class YouthPolicyController {
 		 
 		 return youthPolicyService.getBookMarkCheck(member_num);
 	 }
+	 @GetMapping("/getonebookmark")
+	 public int getOneBookMarkCheck(@RequestParam String bizId) {
+		  return youthPolicyService.getOneBookMarkCheck(bizId);
+	  }
 	 
 	 @DeleteMapping("/deletebookmark")
 	 public void deleteBookMark(@RequestParam String bizId) {
