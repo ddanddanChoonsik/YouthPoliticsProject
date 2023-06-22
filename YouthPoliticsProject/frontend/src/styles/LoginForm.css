@@ -57,10 +57,6 @@
 
 
 
-.formCenter {
-  margin-bottom: 100px;
-}
-
 .formTitle {
   color: #707c8b;
   font-weight: 300;
@@ -99,7 +95,7 @@
   width: 85%;
   background-color: transparent;
   border: none;
-  color: white;
+  color: rgb(0, 0, 0);
   outline: none;
   border-bottom: 1px solid #445366;
   font-size: 1em;

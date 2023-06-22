@@ -39,7 +39,7 @@ public class YouthPolicyController {
 //		 return youthPolicyService.getBookMark(bizId, member_num);
 //	 }
 	 @GetMapping("/getbookmark")
-	 public List<PolicyBookMarkDto> getBookMark(@RequestParam(defaultValue = "1") int member_num) {
+	 public List<PolicyBookMarkDto> getBookMark(@RequestParam(defaultValue = "7") int member_num) {
 		 
 		 return youthPolicyService.getBookMarkCheck(member_num);
 	 }

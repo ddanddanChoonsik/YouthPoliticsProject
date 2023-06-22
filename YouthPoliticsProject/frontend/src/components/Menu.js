@@ -17,8 +17,11 @@ const Menu = ({location}) => {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const [login, setLogin] =useState();
-    const [loginOk, setLoginOk] = useState(false);
+
+    const loginok = localStorage.loginok;
+    const loginid = localStorage.userid;
+
+
 
     const handleClick = (event) => {
         
@@ -31,10 +34,7 @@ const Menu = ({location}) => {
 
     const LoginClick =(e) =>{
         // console.log("event:",e.target);
-        // setLogin(Ayong);
-        // setLoginOk(true);
         navi("/login");
-        // navi("/join");
         handleClose();
     }
     const JoinClick = (e) =>{
@@ -42,11 +42,11 @@ const Menu = ({location}) => {
         handleClose();
     }
 
-
     const LogOutClick = (e)=>{
-        setLogin();
-        setLoginOk(false);
+        localStorage.clear();   //localStorage는 내가 로그아웃해야 지워짐 그전까지 계속 유지됨(cookie개념과 비슷함)
+        // window.location.reload();
         handleClose();
+        navi("/");
     }
 
     const MyPage = (e) =>{
@@ -58,6 +58,8 @@ const Menu = ({location}) => {
         navi("/policy/list/1");
         window.location.replace("/policy/list/1");
     }
+
+
     return (
         <div id="menu">
             <div className="icon">
@@ -74,6 +76,7 @@ const Menu = ({location}) => {
             </ul>
 
             <div className="login">
+           
                 <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -81,39 +84,24 @@ const Menu = ({location}) => {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
                  >
-                 <Avatar alt="ProfileIMG" src={login} />
+
+                <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+                 <Avatar alt="ProfileIMG" src={''} />
+                 <p>{loginok?loginid : ''}</p>
+                 </div>
+
              </Button>
-                {loginOk == true ?
-                            <MuiMenu
-                            id="basic-menu"
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            MenuListProps={{'aria-labelledby': 'basic-button',}}
-                            style={{height:'inherit'}}
-                        >
+             {loginok?
+             <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{'aria-labelledby': 'basic-button',}} style={{height:'inherit'}}>
                 <MenuItem onClick={LogOutClick}>LogOut</MenuItem>
                 <MenuItem onClick={MyPage}>MyPage</MenuItem>
                 </MuiMenu>
                 :
-                <MuiMenu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{'aria-labelledby': 'basic-button',}}
-                style={{height:'inherit'}}
-            >
-                {/* <MenuItem onClick={LoginClick}>Login</MenuItem> */}
+                <MuiMenu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{'aria-labelledby': 'basic-button',}} style={{height:'inherit'}}>
                 <MenuItem onClick={LoginClick}>Login</MenuItem>
                 <MenuItem onClick={JoinClick}>Join</MenuItem>
                 </MuiMenu>
                    }
-
-                {/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
-
-                {/* <button type="button" class="btn btn-primary" style={{marginRight:'10px'}}>Join</button>
-                <button type="button" class="btn btn-primary">Login</button> */}
             </div>
         </div>
     );

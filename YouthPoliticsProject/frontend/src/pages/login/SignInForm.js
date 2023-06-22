@@ -10,7 +10,8 @@ const SignInForm = () => {
   const navi = useNavigate();
   const {Kakao} = window;
   const [isKakaoLogin, setIsKakaoLogin] = useState(false);
-
+  const [id,setId]=useState('');
+  const [password,setPassword]=useState('');
   //   const initKakao = () => {
   //     if (Kakao && !Kakao.isInitialized())
   //     {
@@ -25,56 +26,71 @@ const SignInForm = () => {
 
      const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY_SY;
      const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
- 
+     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-    // const Kakaologin = ()=>{
-    // //  navi(KAKAO_AUTH_URL);
-    //   window.location.href(KAKAO_AUTH_URL);
-    // }
+
+    const defaultLoginUrl = process.env.REACT_APP_SPRING_URL+"member/login";
+    const onSubmit=(e)=>{
+      e.preventDefault();
+      axios.post(defaultLoginUrl,{id,password}).then(res=>{
+        if(res.data===0){
+          console.log(res.data);
+          alert("Id 또는 Password 일치 x");
+        }else{
+          alert("로그인이 완료되었습니다!");
+          console.log("res.data",res.data);
+          console.log("res:",res);
+          localStorage.loginok="true";
+          localStorage.userid=id;
+          navi("/");
+          // window.location.reload();
+        }
+      })
+    }
 
     return (
     <div>
         <div className="formCenter">
          {/* <form className="formFields" onSubmit={this.handleSubmit}> */}
-         <form className="formFields">
+         <form className="formFields" onSubmit={onSubmit}>
            <div className="formField">
-             <label className="formFieldLabel" htmlFor="email">
+             {/* <label className="formFieldLabel" htmlFor="email">
                E-Mail Address
-             </label>
+             </label> */}
              <input
-              type="email"
-              id="email"
+              type="text"
+              id="id"
               className="formFieldInput"
-              placeholder="Enter your email"
-              name="email"
-              // value={this.state.email}
-              // onChange={this.handleChange}
+              placeholder="Enter your id"
+              name="id"
+              required
+              onChange={(e)=>{setId(e.target.value)}}
             />
           </div>
 
           <div className="formField">
-            <label className="formFieldLabel" htmlFor="password">
+            {/* <label className="formFieldLabel" htmlFor="password">
               Password
-            </label>
+            </label> */}
             <input
               type="password"
               id="password"
               className="formFieldInput"
               placeholder="Enter your password"
               name="password"
-              // value={this.state.password}
-              // onChange={this.handleChange}
+              required
+              onChange={(e)=>{setPassword(e.target.value)}}
             />
           </div>
 
           <div className="formField">
-            <button className="formFieldButton">Sign In</button>
+            <button className="formFieldButton" type="submit">Sign In</button>
             <Link to="/join" className="formFieldLink">
               Create an account
             </Link>
           </div>
-
+          </form>
+      </div>
           <div className="socialMediaButtons">
             <div className="kakaoButton">
               {/* <FacebookLoginButton onClick={() => alert("Hello")} /> */}
@@ -85,8 +101,6 @@ const SignInForm = () => {
             {/* <KakaoLogin token={kakaoClientId} onSuccess={KakaoOnSuccess} onFail={kakaoOnFailure} /> */}
             </div>
           </div>
-        </form>
-      </div>
     </div>
   );
 };
