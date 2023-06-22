@@ -138,7 +138,7 @@ const PolicyList = () => {
                                     let deleteBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/deletebookmark?bizId="+r.bizId;
                                     let rbizId = r.bizId;
                                     let checked = e.target.checked;
-                                     console.log("checkedvalue:",checked);
+                                    //  console.log("checkedvalue:",checked);
                                     //let checkedvalue = e.target.value;
                                     //북마크 체크시 db에 값전달
                                     if(checked){

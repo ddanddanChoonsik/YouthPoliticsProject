@@ -38,6 +38,7 @@ const NoticeList = () => {
     //const pageConut = parseInt(countNotice/20 + 1) ; 
     const [pageCount,setPageCount]= useState(5);
 
+
     //pagination
     const handleChange =(e, value)=>{
         console.log("handlechange:",value);
@@ -167,7 +168,7 @@ const NoticeList = () => {
                                 </TableHead>
                                 <TableBody>
                                 {Object.values(allNotice).map((row,idx) => (
-                                    <TableRow value={row.num} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    <TableRow key={idx} value={row.num} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         onClick={(e, num) => onClick(e, row.num)}>
                                     <TableCell component="th" scope="row" value={row.num}>{row.num}</TableCell>
                                     <TableCell align="center"value={row.num}>{row.title}</TableCell>
