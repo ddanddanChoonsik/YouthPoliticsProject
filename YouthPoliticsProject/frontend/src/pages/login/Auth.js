@@ -12,10 +12,6 @@ const Auth = () => {
      const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
      const CLIENT_SECRET = process.env.REACT_APP_KAKAO_CLIENT_SECRET_KEY_SY;
 
-    //const JS_API_KEY="425ce677190e84ba1d0e11053d82041e";
-    //const REST_API_KEY = "3fca2bcf4ac249e8d3ed096d7baa09cf";
-    //const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
-    //const CLIENT_SECRET = "BJquGGQcHQSavRFdH0ipWzj6uOP13Nno";
     const navi = useNavigate();
     const [isKakaoLogin, setIsKakaoLogin] = useState(false);
     const code = new URL(window.location.href).searchParams.get("code");
