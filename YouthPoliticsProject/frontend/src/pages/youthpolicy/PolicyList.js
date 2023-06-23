@@ -166,6 +166,7 @@ const PolicyList = () => {
 
                                     }
 
+                                    //testest
                                     //return true or false
                                     //console.log("bookmark.checked:",e.target.checked);
                                     // r value ok
