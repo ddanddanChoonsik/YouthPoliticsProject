@@ -33,6 +33,8 @@ public class MemberService implements MemberServiceInter {
 		  Map<String,String> map = new HashMap<>();
 		  map.put("id", id);
 		  map.put("password", password);
+		  System.out.println();
+		  System.out.println(memberMapper.login(map));
 		  return memberMapper.login(map) == 1 ? true:false ;
 		  
 	  }
