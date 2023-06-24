@@ -3,13 +3,10 @@ package data.controller;
 import java.util.List;
 import java.util.Map;
 
+import data.service.JwtProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import data.dto.MemberDto;
 import data.service.MemberServiceInter;
@@ -18,10 +15,12 @@ import util.Util;
 @RestController
 @CrossOrigin
 @RequestMapping("/member")
+@RequiredArgsConstructor
 public class MemberController {
+
+	private final JwtProvider jwtProvider;
 	
-	@Autowired
-	private MemberServiceInter memberService;
+	private final  MemberServiceInter memberService;
 	
 	@GetMapping("/getUser")
 	public List<MemberDto> getUserDatas(){
@@ -39,7 +38,8 @@ public class MemberController {
 	  }
 	  
 	  @PostMapping("/login")
-	  public boolean login(@RequestBody MemberDto dto) {
+	  @ResponseBody
+	  public String login(@RequestBody MemberDto dto) throws Exception {
 		  
 		  String pw = dto.getPassword();
 	    //String encodepw = Util.encode(pw);
@@ -54,11 +54,11 @@ public class MemberController {
 		  System.out.println("login성공");
 //		  List<Map<String, Object>> map = memberService.getLoginInfo(dto.getId());
 //		  System.out.println(memberService.getLoginInfo(dto.getId()));
-		  return true;
+		  return jwtProvider.createToken(dto.getId());
 	  }else {
 		  System.out.println("login 실패");
 		  
-		  return false;
+		  return "로그인 실패";
 	  }
 	  
 	  }

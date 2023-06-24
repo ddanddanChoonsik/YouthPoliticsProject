@@ -24,3 +24,9 @@ mybatis:
   type-aliases-package: data.mapper,data.dto
   mapper-locations:
   - /mapper/**/*.xml
+
+jwt:
+  secretKey: dF1bgWRrerOOrIL3jQoQjY0sjqNmpMlf
+  minute: 30 # 30분
+aes:
+  key: Ew8lSGXFq90EfWVqyYCaUr0Tq58SeyYd
