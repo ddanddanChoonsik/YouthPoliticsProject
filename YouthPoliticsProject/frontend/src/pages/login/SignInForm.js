@@ -30,21 +30,29 @@ const SignInForm = () => {
 
 
     const defaultLoginUrl = process.env.REACT_APP_SPRING_URL+"member/login";
+
+   
     const onSubmit=(e)=>{
       e.preventDefault();
+     // axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwtToken')}`; 
       axios.post(defaultLoginUrl,{id,password}).then(res=>{
-        if(res.data===0){
-          console.log(res.data);
-          alert("Id 또는 Password 일치 x");
-        }else{
-          alert("로그인이 완료되었습니다!");
-          console.log("res.data",res.data);
-          console.log("res:",res);
-          localStorage.loginok="true";
-          localStorage.userid=id;
-          navi("/");
-          // window.location.reload();
-        }
+
+        // if(res.data===0){
+        //   console.log(res.data);
+        //   alert("Id 또는 Password 일치 x");
+        // }else{
+        //   alert("로그인이 완료되었습니다!");
+        //   console.log("res.data",res.data);
+        //   console.log("res:",res);
+        //   localStorage.loginok="true";
+        //   localStorage.userid=id;
+        //   navi("/");
+        //   // window.location.reload();
+        // }
+        console.log("login res.data:",res);
+      }).catch((err)=>{
+        // console.log(err);
+        // err
       })
     }
 

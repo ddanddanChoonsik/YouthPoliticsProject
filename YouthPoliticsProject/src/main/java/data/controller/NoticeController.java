@@ -26,16 +26,16 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/getAllDatas")
-	public List<NoticeDto> getAllDatas(){
+	public List<NoticeDto> getAllDatas() {
 		System.out.println("ok");
 		System.out.println(noticeService.getAllDatas());
 		return noticeService.getAllDatas();
 	}
 	
-	@GetMapping("/notice/form")
-	public String noticeForm() {
-		return "notice/NoticeForm";
-	}
+//	@GetMapping("/notice/form")
+//	public String noticeForm() {
+//		return "notice/NoticeForm";
+//	}
 	
 	/*
 	 * @GetMapping("/notice/getDetailData") public List<NoticeDto> getDetailData(int

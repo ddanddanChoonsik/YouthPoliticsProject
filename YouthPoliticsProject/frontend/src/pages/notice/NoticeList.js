@@ -83,6 +83,7 @@ const NoticeList = () => {
     }
 
     const getAllData=()=>{
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwtToken')}`; 
         axios.get(alldataUrl).then(res=>{
             console.log("공지사항 :",res.data);
             setAllNotice(res.data);

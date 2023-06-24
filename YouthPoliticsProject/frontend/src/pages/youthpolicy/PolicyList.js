@@ -39,6 +39,7 @@ const PolicyList = () => {
      const [page, setPage] = useState(1);
      const [onedata,setOneData] =useState();
 
+
      // //api 호출 (pagination 총값도 가져와야함)
      const youthPolicyApi = async () => {
                      const url ='http://localhost:3001/list';   
@@ -189,6 +190,8 @@ const PolicyList = () => {
                                 })
                              }  
 
+
+
                              //fillter toggle mui
                              const [toggle,setToggle]=useState(false);
                              const fillterHandleChange=(e)=>{
@@ -224,10 +227,14 @@ const PolicyList = () => {
     return (
         <div id='policy'>
                 <div className='policyList'>
-                    {/* <PolicyFilter /> */}
+                    <div className='policyfillter'>
+                {toggle && <PolicyFilter />}
+                </div>
+                <div className='policyList0'>
                     <Switch  checked={toggle} onChange={(e)=>fillterHandleChange(e)} inputProps={{ 'aria-label': 'controlled' }} />
                     {/* <Checkbox   sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/> */}
                     <Stack spacing={3} justifyContent="center" alignItems="center">
+                        
                  {/* test ui */}
                  <div className='policyList1'>
                 {resultList.map((r,idx) => (
@@ -269,6 +276,7 @@ const PolicyList = () => {
 
                 {/* <Typography>Page: {page}</Typography> */}
                 </Stack>
+                </div>
                 </div>
         </div>
     );

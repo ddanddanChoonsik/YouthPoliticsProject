@@ -37,8 +37,9 @@ public class MemberController {
 	  memberService.insertMember(dto); 
 	  }
 	  
-	  @PostMapping("/login")
+	  
 	  @ResponseBody
+	  @PostMapping("/login")
 	  public String login(@RequestBody MemberDto dto) throws Exception {
 		  
 		  String pw = dto.getPassword();
@@ -51,7 +52,7 @@ public class MemberController {
 		  //return memberService.login(dto.getId(), dto.getPassword());
 		  //(memberService.login(id, encodepw))== true |
 	  if(memberService.login(id, pw)) {
-		  System.out.println("login성공");
+		  System.out.println("login성공"+jwtProvider.createToken(dto.getId()));
 //		  List<Map<String, Object>> map = memberService.getLoginInfo(dto.getId());
 //		  System.out.println(memberService.getLoginInfo(dto.getId()));
 		  return jwtProvider.createToken(dto.getId());

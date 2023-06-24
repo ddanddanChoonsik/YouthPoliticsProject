@@ -14,6 +14,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -24,6 +25,7 @@ import java.io.IOException;
 import org.springframework.security.access.AccessDeniedException;
 import java.util.Arrays;
 
+@CrossOrigin
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -60,12 +62,12 @@ public class SecurityConfig {
                 // 조건별로 요청 허용/제한 설정
                 .authorizeRequests()
                 // /member 로 시작하는 요청은 전부 승인
-                .antMatchers("/member/**").permitAll()
+                .antMatchers("/**").permitAll()
                 // /policy 로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
                 .antMatchers("/policy/**").hasRole("USER")
                 // denyAll: 접근을 전부 제한
                 // permitAll: 접근을 전부 허용
-                .anyRequest().denyAll()
+                .anyRequest().permitAll()
                 .and()
                 // JWT 인증 필터 적용
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)

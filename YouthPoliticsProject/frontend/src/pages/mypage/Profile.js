@@ -11,10 +11,11 @@ const Profile = () => {
     
     const [myInfo,setMyInfo]=useState({});
 
-    const myProfile =()=>{
+    const myProfile = async()=>{
         if(loginok){
-        axios.get(myProfileUrl).then(res=>{
-            console.log("res.data",res.data);
+        await axios.get(myProfileUrl).then(res=>{
+
+            console.log("res.data",res);
             setMyInfo(res.data);
 
         }).catch(err=>{

@@ -1,17 +1,17 @@
 div.filter_container{
     border: 1px solid black;
-    width:auto;
-    height:fit-content;
+    height: -webkit-fill-available;
     background-color:#fffae8;
+    width: 100%;
 }
 
 div.filter_itme{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    
+     */
 }
 
 div.items{
-    display: flex;
+    /* display: flex; */
 
 }
