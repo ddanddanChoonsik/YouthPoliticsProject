@@ -39,7 +39,7 @@ public class MemberController {
 	  }
 	  
 	  @PostMapping("/login")
-	  public boolean login(@RequestBody MemberDto dto) {
+	  public int login(@RequestBody MemberDto dto) {
 		  
 		  String pw = dto.getPassword();
 	    //String encodepw = Util.encode(pw);
@@ -48,24 +48,25 @@ public class MemberController {
 //		  System.out.println("pw=>"+encodepw);
 //		  return memberService.login(dto.getId(), Util.encode(pw));
 		  
+		  int num = dto.getNum();
 		  //return memberService.login(dto.getId(), dto.getPassword());
 		  //(memberService.login(id, encodepw))== true |
-	  if(memberService.login(id, pw)) {
-		  System.out.println("login성공");
+//	  if(memberService.login(id, pw) == true) {
+//		  System.out.println("login성공");
 //		  List<Map<String, Object>> map = memberService.getLoginInfo(dto.getId());
-//		  System.out.println(memberService.getLoginInfo(dto.getId()));
-		  return true;
-	  }else {
-		  System.out.println("login 실패");
-		  
-		  return false;
-	  }
-	  
+////		  System.out.println(memberService.getLoginInfo(dto.getId()));
+//		  return num;
+//	  }else {
+//		  System.out.println("login 실패");
+//		  
+//		  return 0;
+//	  }
+		  	return memberService.login(id, pw);
 	  }
 	  
 	  @GetMapping("/myprofile")
-	  public MemberDto getOneUserData(String id) {
-		  return memberService.getOneUserData(id);
+	  public MemberDto getOneUserData(int num) {
+		  return memberService.getOneUserData(num);
 	  }
 	  
 	

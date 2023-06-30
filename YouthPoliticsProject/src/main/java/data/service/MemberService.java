@@ -29,14 +29,13 @@ public class MemberService implements MemberServiceInter {
 	  }
 	  
 	  @Override
-	  public boolean login(String id,String password) {
+	  public int login(String id,String password) {
 		  Map<String,String> map = new HashMap<>();
 		  map.put("id", id);
 		  map.put("password", password);
-		  System.out.println();
 		  System.out.println(memberMapper.login(map));
-		  return memberMapper.login(map) == 1 ? true:false ;
-		  
+		  //return memberMapper.login(map) == 1 ? true:false ;
+		  return memberMapper.login(map);		  
 	  }
 	  @Override
 	  public List<Map<String, Object>> getLoginInfo(String id){
@@ -45,8 +44,8 @@ public class MemberService implements MemberServiceInter {
 	  }
 	  
 	  @Override
-	  public MemberDto getOneUserData(String id){
-		  return memberMapper.getOneUserData(id);
+	  public MemberDto getOneUserData(int num){
+		  return memberMapper.getOneUserData(num);
 	  }
 	 
 

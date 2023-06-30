@@ -9,7 +9,7 @@ public interface MemberServiceInter {
 
 	public List<MemberDto> getUserDatas();
 	 public void insertMember(MemberDto dto); 
-	 public boolean login(String id,String password);
+	 public int login(String id,String password);
 	 public List<Map<String, Object>> getLoginInfo(String id);
-	 public MemberDto getOneUserData(String id);
+	 public MemberDto getOneUserData(int num);
 }

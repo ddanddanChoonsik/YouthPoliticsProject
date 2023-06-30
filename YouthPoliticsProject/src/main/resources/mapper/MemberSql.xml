@@ -10,12 +10,12 @@
 			values (#{name},#{id},#{password},#{email},#{tel},#{birthday},#{zoncode},#{address1},#{address2},now(),1)
 	</insert>
 	<select id="login" resultType="int" parameterType="Map">
-		select count(*) from member where id=#{id} and password=#{password}
+		select num from member where id=#{id} and password=#{password}
 	</select>
 	<select id="getLoginInfo" parameterType="String" resultType="Map">
 		select num, name, type from member where id=#{id}
 	</select>
 	<select id="getOneUserData" resultType="member">
-	select name,id,email,tel,birthday,zoncode,address1,address2,type,registered_at,num from member where id=#{id}
+	select name,id,email,tel,birthday,zoncode,address1,address2,type,registered_at,num from member where num=#{num}
 	</select>
 </mapper>

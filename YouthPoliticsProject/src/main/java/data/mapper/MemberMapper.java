@@ -14,6 +14,6 @@ public interface MemberMapper {
 	public void insertMember(MemberDto dto);
 	public int login(Map<String,String> map);
 	public List<Map<String, Object>> getLoginInfo(String id);
-	public MemberDto getOneUserData(String id);
+	public MemberDto getOneUserData(int num);
 
 }
