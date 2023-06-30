@@ -43,9 +43,11 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 	  }
 	  
 	  @Override
-	  public void deleteBookMark(String bizId) {
-		  
-		  youthpolicyMapper.deleteBookMark(bizId);
+	  public void deleteBookMark(String bizId,int member_num) {
+		  Map<String,String> map = new HashMap<>();
+		  map.put("bizId", bizId);
+		  map.put("member_num", Integer.toString(member_num));
+		  youthpolicyMapper.deleteBookMark(map);
 	  }; 
 
 }

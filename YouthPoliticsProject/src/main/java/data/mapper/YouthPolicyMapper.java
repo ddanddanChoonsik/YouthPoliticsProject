@@ -24,8 +24,7 @@ public interface YouthPolicyMapper {
 	
 	
 	//bookmark delete
-	public void deleteBookMark(String bizId);
-	
-
+	//public void deleteBookMark(String bizId,int member_num);
+	public void deleteBookMark(Map<String,String> map);
 	
 }

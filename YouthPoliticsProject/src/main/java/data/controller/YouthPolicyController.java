@@ -29,7 +29,7 @@ public class YouthPolicyController {
 	 @PostMapping("/bookmark")
 	 public void insertBookMark(@RequestBody PolicyBookMarkDto bdto) {
 	  youthPolicyService.insertBookMark(bdto);
-	  System.out.println(bdto);
+	  System.out.println("bdto : "+bdto);
 	  }	 
 	 
 //	 @GetMapping("/getbookmark")
@@ -39,19 +39,21 @@ public class YouthPolicyController {
 //		 return youthPolicyService.getBookMark(bizId, member_num);
 //	 }
 	 @GetMapping("/getbookmark")
-	 public List<PolicyBookMarkDto> getBookMark(@RequestParam(defaultValue = "7") int member_num) {
+	 public List<PolicyBookMarkDto> getBookMark(@RequestParam int member_num) {
 		 
+		 System.out.println("membernum:"+member_num+"/"+(youthPolicyService.getBookMarkCheck(member_num)).size()+"개");
 		 return youthPolicyService.getBookMarkCheck(member_num);
+	 
 	 }
+	 
 	 @GetMapping("/getonebookmark")
 	 public int getOneBookMarkCheck(@RequestParam String bizId) {
 		  return youthPolicyService.getOneBookMarkCheck(bizId);
 	  }
 	 
 	 @DeleteMapping("/deletebookmark")
-	 public void deleteBookMark(@RequestParam String bizId) {
-		 youthPolicyService.deleteBookMark(bizId);
-		 System.out.println("delete성공:"+bizId);
-		 //추후 loginnum도 params로 넣어주기
+	 public void deleteBookMark(@RequestParam String bizId,@RequestParam int member_num) {
+		 youthPolicyService.deleteBookMark(bizId,member_num);
+		 System.out.println("delete성공:"+bizId+member_num);
 	 }
 }
