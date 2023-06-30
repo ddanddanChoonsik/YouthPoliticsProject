@@ -15,7 +15,7 @@ const Profile = () => {
     const myProfile =()=>{
         if(loginok){
         axios.get(myProfileUrl).then(res=>{
-            console.log("res.data",res.data);
+            //console.log("res.data",res.data);
             setMyInfo(res.data);
 
         }).catch(err=>{
@@ -27,6 +27,12 @@ const Profile = () => {
     }
     }
 
+    const [myImg,setMyImg]=useState('');
+    const uploadProfileImg=(e)=>{
+        // const uploadImg = (e.target.files)[0].name;
+        setMyImg(URL.createObjectURL(e.target.files[0])); 
+    }
+
     useEffect(()=>{
         myProfile();
     },[])
@@ -34,6 +40,15 @@ const Profile = () => {
     return (
         <div>
             <p>{myInfo.name} 마이페이지</p>
+            <br/>
+            <div>
+                <input type="file"  id="profileImg" name="profileImg" accept="image/*" onChange={(e)=>uploadProfileImg(e)} /><br/>
+                {myImg&&
+                <div>
+                    <img src={myImg} alt="안나옴" style={{width:'300px',height:'300px'}}/>
+                <p>{myImg}</p>
+                </div>}
+            </div>
             <br/>
             {myInfo&&
             <div>
