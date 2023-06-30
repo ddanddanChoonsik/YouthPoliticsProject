@@ -20,6 +20,9 @@ const PolicyDetail = () => {
    const [parCurr,setParCurr]=useState();
     const [parow,setParRow]=useState();
 
+    const loginnum = localStorage.usernum; //typeof string
+    const member_num = parseInt(loginnum);
+
 //    const [anchorEl, setAnchorEl] = React.useState(null); //배열...
 //    const editopen = Boolean(anchorEl); //배열
 //    const handleClick = (event) => {
@@ -55,8 +58,8 @@ const PolicyDetail = () => {
 
         //bookmark
             let bookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/bookmark";
-            let deleteBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/deletebookmark?bizId="+params.bizId;
-            let selectOneBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/getonebookmark?bizId="+params.bizId;
+            let deleteBookMarkUrl = process.env.REACT_APP_SPRING_URL+`policy/deletebookmark?bizId=${params.bizId}&member_num=${loginnum}`;
+            let selectOneBookMarkUrl = process.env.REACT_APP_SPRING_URL+`policy/getonebookmark?bizId=${params.bizId}&member_num=${loginnum}`;
             
                                 const [bookArr,setBookArr]=useState([]);
 
@@ -81,7 +84,8 @@ const PolicyDetail = () => {
                                     if(checked){
                                         axios.post(bookMarkUrl,{
                                             bookmark: checked,
-                                            bizId:rbizId
+                                            bizId:rbizId,
+                                            member_num:member_num
                                         }).then(res=>{
                                             alert("즐겨찾기 추가 성공");
                                             bookMark();
@@ -99,19 +103,16 @@ const PolicyDetail = () => {
                                     
 
                                     }
-
-                                
-                                
-                                
                                 
                                 }
 
-              const [checkit,setCheckIt] = useState(0);
+              const [checkit,setCheckIt] = useState(false);
                const bookMark =()=>{     
                                 axios.get(selectOneBookMarkUrl).then(res=>{
                                     //console.log("북마크값 가져오기:",res.data);
                                   console.log("bookmark.res.data:",res.data);
-                                  setCheckIt(res.data);
+                                let chk = res.data===0?false:true;
+                                  setCheckIt(chk);
                                 })
                             }  
 

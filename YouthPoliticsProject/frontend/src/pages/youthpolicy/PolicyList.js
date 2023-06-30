@@ -228,7 +228,7 @@ const PolicyList = () => {
     return (
         <div id='policy'>
                 <div className='policyList'>
-                    {/* <PolicyFilter /> */}
+                    {toggle===true?<PolicyFilter />:""}
                     <Switch  checked={toggle} onChange={(e)=>fillterHandleChange(e)} inputProps={{ 'aria-label': 'controlled' }} />
                     {/* <Checkbox   sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/> */}
                     <Stack spacing={3} justifyContent="center" alignItems="center">
