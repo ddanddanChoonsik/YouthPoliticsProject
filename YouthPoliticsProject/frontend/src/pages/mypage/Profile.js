@@ -6,8 +6,9 @@ const Profile = () => {
 
     const navi = useNavigate();
     const loginid = localStorage.userid;
+    const loginnum = localStorage.usernum;
     const loginok = localStorage.loginok;
-    const myProfileUrl = process.env.REACT_APP_SPRING_URL+"member/myprofile?id="+loginid;
+    const myProfileUrl = process.env.REACT_APP_SPRING_URL+"member/myprofile?num="+loginnum;
     
     const [myInfo,setMyInfo]=useState({});
 
@@ -43,7 +44,7 @@ const Profile = () => {
                 주소: ({myInfo.zoncode}) {myInfo.address1} {myInfo.address2} <br/>
                 생일: {myInfo.birthday} <br/>
                 가입일: {myInfo.registered_at} <br/>
-                회원등급 :{myInfo.type===1?'일반회원':'소셜로그인'}
+                회원등급 :{myInfo.type===1?'일반회원':myInfo.type===0?'관리자':'카카오로그인'}
             </div>
         }
         </div>

@@ -33,17 +33,17 @@ const SignInForm = () => {
     const onSubmit=(e)=>{
       e.preventDefault();
       axios.post(defaultLoginUrl,{id,password}).then(res=>{
-        if(res.data===0){
-          console.log(res.data);
+        if(res.data===0||undefined){
+          console.log("res.data.undefiend:",res.data);
           alert("Id 또는 Password 일치 x");
         }else{
+          
           alert("로그인이 완료되었습니다!");
-          console.log("res.data",res.data);
-          console.log("res:",res);
           localStorage.loginok="true";
+          localStorage.usernum=res.data;
           localStorage.userid=id;
           navi("/");
-          // window.location.reload();
+          console.log("res.data",res.data);
         }
       })
     }
