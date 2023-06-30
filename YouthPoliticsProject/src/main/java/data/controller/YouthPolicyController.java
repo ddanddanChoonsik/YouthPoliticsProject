@@ -47,8 +47,8 @@ public class YouthPolicyController {
 	 }
 	 
 	 @GetMapping("/getonebookmark")
-	 public int getOneBookMarkCheck(@RequestParam String bizId) {
-		  return youthPolicyService.getOneBookMarkCheck(bizId);
+	 public int getOneBookMarkCheck(@RequestParam String bizId,@RequestParam int member_num) {
+		  return youthPolicyService.getOneBookMarkCheck(bizId,member_num);
 	  }
 	 
 	 @DeleteMapping("/deletebookmark")

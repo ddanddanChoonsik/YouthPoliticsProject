@@ -38,8 +38,11 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 	  }
 	  
 	  @Override
-	  public int getOneBookMarkCheck(String bizId) {
-		  return youthpolicyMapper.getOneBookMarkCheck(bizId);
+	  public int getOneBookMarkCheck(String bizId,int member_num) {
+		  Map<String,String> map = new HashMap<>();
+		  map.put("bizId", bizId);
+		  map.put("member_num", Integer.toString(member_num));
+		  return youthpolicyMapper.getOneBookMarkCheck(map);
 	  }
 	  
 	  @Override

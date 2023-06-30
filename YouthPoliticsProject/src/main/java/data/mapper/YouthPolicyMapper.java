@@ -20,11 +20,10 @@ public interface YouthPolicyMapper {
 	public List<PolicyBookMarkDto> getBookMarkCheck(int member_num);
 
 	//bookmark one select (추후 파라미터 login값받기)
-	public int getOneBookMarkCheck(String bizId);
-	
+	//public int getOneBookMarkCheck(String bizId);
+	public int getOneBookMarkCheck(Map<String,String> map);
 	
 	//bookmark delete
-	//public void deleteBookMark(String bizId,int member_num);
 	public void deleteBookMark(Map<String,String> map);
 	
 }

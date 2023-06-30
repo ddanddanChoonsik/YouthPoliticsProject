@@ -9,8 +9,8 @@
 	<select id="getBookMarkCheck" parameterType="int" resultType="bookmark">
 		select bookmark,bizId from policy_member where member_num=#{member_num}
 	</select>
-	<select id="getOneBookMarkCheck" parameterType="String" resultType="int">
-		select count(bizId) from policy_member where member_num=7 and bizId =#{bizId}
+	<select id="getOneBookMarkCheck" parameterType="Map" resultType="int">
+		select count(bizId) from policy_member where member_num=#{member_num} and bizId =#{bizId}
 	</select>
 	<update id="deleteBookMark" parameterType="Map">
 	delete from policy_member where bizId = #{bizId} and member_num =#{member_num}
