@@ -17,13 +17,13 @@ const Profile = () => {
 
     const [myInfo,setMyInfo]=useState({});
     const [photo,setPhoto] =useState('');
-    const [myImg,setMyImg]=useState('');    //upload시 프사 바뀌는거
+    const [img,setImg]=useState('');
 
 
     const myProfile =()=>{
         if(loginok){
         axios.get(myProfileUrl).then(res=>{
-            setPhoto(res.data.photo);
+            setImg(photoUrl+res.data.photo);
             console.log("profile",res.data);
             setMyInfo(res.data.member);
 
@@ -38,15 +38,11 @@ const Profile = () => {
 
   
     const uploadProfileImg=(e)=>{
-        // const uploadImg = (e.target.files)[0].name;
-        //setMyImg(URL.createObjectURL(e.target.files[0])); 
         //const imageFile = URL.createObjectURL(e.target.files[0]);
-        
         const uploadFile=e.target.files[0];
          const imageFile=new FormData();
             //spring 에서 multipartfile로 받는 이름 
          imageFile.append("uploadFile",uploadFile);
-
         axios({
             method:'post',
             url:uploadUrl, //백앤드 url
@@ -54,29 +50,24 @@ const Profile = () => {
              headers:{'Content-Type':'multipart/form-data'}
         }).then(res=>{
             console.log("uploadprofile:",res.data);
-            setMyImg(URL.createObjectURL(e.target.files[0])); //백엔드에서 보내는 변경된 이미지명을 photo변수에 넣는다
-            // console.log()
+            setPhoto(photoUrl+res.data);
         }).catch(err=>{
             alert(err);
         })
     }
 
     const save=()=>{
-        //console.log(myImg);
-        // setDto({
-        //     ...dto,
-        //     file_name: photo
-        // });
-        axios.post(updateUrl,{myImg}).then(res=>{
+        console.log(photo);
+        axios.post(updateUrl,{photo}).then(res=>{
             alert("프로필변경 및 전송완료");
-            console.log("save:",res);
-
+            console.log("save:",res.data);
+            localStorage.photo=photoUrl+photo;
+            myProfile();
         })
         .catch(err => console.log(err));
     }
 
     useEffect(()=>{
-        console.log("photo:",photo);
         myProfile();
     },[])
 
@@ -86,19 +77,22 @@ const Profile = () => {
             <br/>
             <div>
             {/* {photo&& */}
-                <div style={{textAlign:'center'}}>
-                    {myImg===null?"": <img src={photo} alt="안나옴" style={{width:'300px',height:'300px'}}/>} 
+                <div style={{display:'flex',textAlign:'center',flexDirection:'column',alignItems:'center'}}>
+                    {/* {photo===null||undefined|''?"":<img src={photo} alt="안나옴" style={{width:'300px',height:'300px'}}/> }     <br/> */}
                     <Avatar 
-                        src={photoUrl+photo} 
-                        // style={{marginTop:'150px',borderRadius:'10px'}} 
+                        src={img} 
+                        // style={{textAlign:'center'}} 
                         // size={200} 
-                        sx={{ width: 56, height: 56 }}
+                        sx={{ width: 150, height: 150 }}
                         //onClick={()=>{fileInput.current.click()}}
                         >
-                    </Avatar>
-                <input type="file"  id="profileImg" name="profileImg" accept="image/*" onChange={uploadProfileImg} /><br/>
-                <p>{photo}</p>
-            
+                    </Avatar> 
+                    <br/>
+                    <lable style={{border:'1px solid #333',borderRadius:'5px',padding:'3px',backgroundColor:'#F0F0F0'}}>파일업로드
+                    <input type="file"  id="profileImg" name="profileImg" accept="image/*" onChange={uploadProfileImg} style={{display:'none'}}/>
+                    </lable>
+                    <br/>
+                    <button className="btn-normal" id="saveUserInfo" onClick={save}>저장하기</button>
                 </div>
             {/* } */}
             </div>
@@ -113,8 +107,6 @@ const Profile = () => {
                 생일: {myInfo.birthday} <br/>
                 가입일: {myInfo.registered_at} <br/>
                 회원등급 :{myInfo.type===1?'일반회원':myInfo.type===0?'관리자':'카카오로그인'}
-           
-                <button className="btn-normal" id="saveUserInfo" onClick={save}>저장하기</button>
             </div>
         }
         </div>

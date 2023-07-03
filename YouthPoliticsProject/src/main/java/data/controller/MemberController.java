@@ -102,6 +102,7 @@ public class MemberController {
 					HttpServletRequest request, 
 					@RequestParam int loginNum) //requestparam이란 프론트에 정보를 spring으로 받아올땨 팔요하다.
 			{
+				
 				//파일명
 				String fileName=uploadFile.getOriginalFilename();
 				
@@ -118,6 +119,7 @@ public class MemberController {
 				FileUtil fileUtil=new FileUtil();
 				photoName=fileUtil.changeFileName(fileName);
 				System.out.println("fileName="+fileName+"=>"+photoName);
+				//여기까진 ok
 				
 				//save폴더에 업로드
 				
@@ -127,28 +129,33 @@ public class MemberController {
 					e.printStackTrace();
 				}
 				return photoName;
+				
+				
 			}	
 
+			
+			
+			
 			@PostMapping("/update")
-			public void updateProfile(@RequestBody ProfileDto dto, @RequestParam int loginNum) 
+			public void updateProfile(@RequestBody ProfileDto pdto, @RequestParam int loginNum) 
 			{
 				if(photoName != null) {
 					if(memberService.findPhoto(loginNum) == null) {
 						
-						dto.setFile_name(photoName);
+						pdto.setFile_name(photoName);
 						
-						dto.setMember_num(loginNum);
+						pdto.setMember_num(loginNum);
 						
-						memberService.profilePhotoInsert(dto);
+						memberService.profilePhotoInsert(pdto);
 						
 						photoName=null;
 					}else {
 						//업로드한 사진명
-						dto.setFile_name(photoName);
+						pdto.setFile_name(photoName);
 						
-						dto.setMember_num(loginNum);
+						pdto.setMember_num(loginNum);
 						
-						memberService.updateProfile(dto);
+						memberService.updateProfile(pdto);
 						
 						photoName=null;
 					}
