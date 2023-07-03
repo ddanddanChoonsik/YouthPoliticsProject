@@ -89,7 +89,7 @@ const Profile = () => {
                 <div style={{textAlign:'center'}}>
                     {myImg===null?"": <img src={photo} alt="안나옴" style={{width:'300px',height:'300px'}}/>} 
                     <Avatar 
-                        src={photo} 
+                        src={photoUrl+photo} 
                         // style={{marginTop:'150px',borderRadius:'10px'}} 
                         // size={200} 
                         sx={{ width: 56, height: 56 }}
