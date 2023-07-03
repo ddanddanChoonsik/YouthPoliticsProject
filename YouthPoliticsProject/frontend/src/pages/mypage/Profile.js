@@ -76,6 +76,7 @@ const Profile = () => {
     }
 
     useEffect(()=>{
+        console.log("photo:",photo);
         myProfile();
     },[])
 
@@ -86,7 +87,7 @@ const Profile = () => {
             <div>
             {/* {photo&& */}
                 <div style={{textAlign:'center'}}>
-                    {myImg===null?"": <img src={myImg} alt="안나옴" style={{width:'300px',height:'300px'}}/>} 
+                    {myImg===null?"": <img src={photoUrl+photo} alt="안나옴" style={{width:'300px',height:'300px'}}/>} 
                     <Avatar 
                         src={photoUrl+photo} 
                         // style={{marginTop:'150px',borderRadius:'10px'}} 
