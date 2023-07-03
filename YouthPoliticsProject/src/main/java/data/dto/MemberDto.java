@@ -22,5 +22,5 @@ public class MemberDto {
 	private String address2;
 	@JsonFormat(pattern= "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Timestamp registered_at;
-	private String profile;
+	//private String profile;
 }

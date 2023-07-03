@@ -24,7 +24,7 @@ const Profile = () => {
         if(loginok){
         axios.get(myProfileUrl).then(res=>{
             setPhoto(res.data.photo);
-            console.log("myprofile",res.data.photo);
+            console.log("profile",res.data);
             setMyInfo(res.data.member);
 
         }).catch(err=>{
@@ -87,9 +87,9 @@ const Profile = () => {
             <div>
             {/* {photo&& */}
                 <div style={{textAlign:'center'}}>
-                    {myImg===null?"": <img src={photoUrl+photo} alt="안나옴" style={{width:'300px',height:'300px'}}/>} 
+                    {myImg===null?"": <img src={photo} alt="안나옴" style={{width:'300px',height:'300px'}}/>} 
                     <Avatar 
-                        src={photoUrl+photo} 
+                        src={photo} 
                         // style={{marginTop:'150px',borderRadius:'10px'}} 
                         // size={200} 
                         sx={{ width: 56, height: 56 }}
