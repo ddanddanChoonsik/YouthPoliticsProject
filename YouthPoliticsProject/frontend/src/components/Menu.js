@@ -20,6 +20,7 @@ const Menu = ({location}) => {
 
     const loginok = localStorage.loginok;
     const loginid = localStorage.userid;
+    const profileImg = localStorage.photo;
 
 
 
@@ -86,8 +87,8 @@ const Menu = ({location}) => {
                  >
 
                 <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-                 <Avatar alt="ProfileIMG" src={''} />
-                 <p>{loginok?loginid : ''}</p>
+                 <Avatar alt="ProfileIMG" src={profileImg===null?'':profileImg} />
+                 <p style={{fontSize:'10px'}}>{loginok?loginid : ''}</p>
                  </div>
 
              </Button>
