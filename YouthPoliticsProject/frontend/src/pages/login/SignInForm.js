@@ -27,7 +27,7 @@ const SignInForm = () => {
      const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY_SY;
      const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
      const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
+    
 
     const defaultLoginUrl = process.env.REACT_APP_SPRING_URL+"member/login";
     const onSubmit=(e)=>{
@@ -37,13 +37,18 @@ const SignInForm = () => {
           console.log("res.data.undefiend:",res.data);
           alert("Id 또는 Password 일치 x");
         }else{
-          
           alert("로그인이 완료되었습니다!");
           localStorage.loginok="true";
           localStorage.usernum=res.data;
           localStorage.userid=id;
+          
+         const myProfileUrl = process.env.REACT_APP_SPRING_URL+"member/myprofile?num="+res.data;
+         axios.get(myProfileUrl).then(res=>{
+          localStorage.profileImg=process.env.REACT_APP_SPRING_URL +"save/"+res.data.photo;
+         })
+          // console.log("res.data.login",res);
           navi("/");
-          console.log("res.data",res.data);
+         
         }
       })
     }

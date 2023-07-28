@@ -2,6 +2,11 @@ import React, { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+// import Tab from '@mui/material/Tab';
+// import TabContext from '@mui/lab/TabContext';
+// import TabList from '@mui/lab/TabList';
+// import TabPanel from '@mui/lab/TabPanel';
 
 const Profile = () => {
 
@@ -10,7 +15,7 @@ const Profile = () => {
     const loginnum = localStorage.usernum;
     const loginok = localStorage.loginok;
     
-    const myProfileUrl = process.env.REACT_APP_SPRING_URL+"member/myprofile?num="+loginnum;
+    let myProfileUrl = process.env.REACT_APP_SPRING_URL+"member/myprofile?num="+loginnum;
     let uploadUrl=process.env.REACT_APP_SPRING_URL+"member/upload?loginNum="+loginnum;
     let photoUrl = process.env.REACT_APP_SPRING_URL + "save/";
     let updateUrl = process.env.REACT_APP_SPRING_URL + "member/update?loginNum="+loginnum + "&id=" + loginid;
@@ -88,9 +93,9 @@ const Profile = () => {
                         >
                     </Avatar> 
                     <br/>
-                    <lable style={{border:'1px solid #333',borderRadius:'5px',padding:'3px',backgroundColor:'#F0F0F0'}}>파일업로드
+                    <label style={{border:'1px solid #333',borderRadius:'5px',padding:'3px',backgroundColor:'#F0F0F0'}}>파일업로드
                     <input type="file"  id="profileImg" name="profileImg" accept="image/*" onChange={uploadProfileImg} style={{display:'none'}}/>
-                    </lable>
+                    </label>
                     <br/>
                     <button className="btn-normal" id="saveUserInfo" onClick={save}>저장하기</button>
                 </div>
@@ -109,6 +114,27 @@ const Profile = () => {
                 회원등급 :{myInfo.type===1?'일반회원':myInfo.type===0?'관리자':'카카오로그인'}
             </div>
         }
+
+        {/* 정책tab */}
+                      {/* <Box sx={{ width: 'inherit', typography: 'body1' }}>
+            <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <Tab label="Map" value="1" />
+            <Tab label="Review" value="2" />
+            {/* <Tab label="Item Three" value="3" /> */}
+
+           {/*</TabList>
+            </Box>
+        
+            <TabPanel value="1">
+               
+            </TabPanel> */}
+            {/* <TabPanel value="2" sx={{overflow:'scroll',overflowX:'hidden',padding:'0'}}> */}
+            {/* </TabPanel>
+            </TabContext>
+            </Box> */}
         </div>
     );
 };
