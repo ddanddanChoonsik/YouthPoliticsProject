@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import data.dto.MyPolicyFilterDto;
 import data.dto.PolicyBookMarkDto;
 import data.service.YouthPolicyServiceInter;
 
@@ -55,5 +56,11 @@ public class YouthPolicyController {
 	 public void deleteBookMark(@RequestParam String bizId,@RequestParam int member_num) {
 		 youthPolicyService.deleteBookMark(bizId,member_num);
 		 System.out.println("delete성공:"+bizId+member_num);
+	 }
+	 
+	 @GetMapping("/mypolicyfilter")
+	 public List<MyPolicyFilterDto> getMyPolicyFilter(@RequestParam int member_num){
+//		 System.out.println("mypolicyfilter:"+youthPolicyService.getMyPolicyFilter(member_num));
+		 return youthPolicyService.getMyPolicyFilter(member_num);
 	 }
 }

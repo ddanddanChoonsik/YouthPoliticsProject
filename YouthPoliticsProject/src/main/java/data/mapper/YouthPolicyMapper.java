@@ -7,12 +7,14 @@ import org.apache.ibatis.annotations.Mapper;
 
 import data.dto.PolicyBookMarkDto;
 import data.dto.YouthPolicyDto;
+import data.dto.MyPolicyFilterDto;
 
 @Mapper
 public interface YouthPolicyMapper {
 	
-	//공공기관 입장에서 정책을 홈페이지에서 만들시insertYouthPolicy 만들기
+	//정책관련 mapper
 	
+	// 정책 즐겨찾기
 	//bookmark insert
 	public void insertBookMark(PolicyBookMarkDto bdto);
 	
@@ -26,4 +28,7 @@ public interface YouthPolicyMapper {
 	//bookmark delete
 	public void deleteBookMark(Map<String,String> map);
 	
+	
+	//내 정책 필터
+	public List<MyPolicyFilterDto> getMyPolicyFilter(int member_num);
 }

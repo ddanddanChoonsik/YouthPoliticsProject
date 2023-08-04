@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import data.dto.MyPolicyFilterDto;
 import data.dto.PolicyBookMarkDto;
 import data.mapper.YouthPolicyMapper;
 
@@ -51,6 +52,11 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 		  map.put("bizId", bizId);
 		  map.put("member_num", Integer.toString(member_num));
 		  youthpolicyMapper.deleteBookMark(map);
-	  }; 
-
+	  }
+	  
+	  @Override
+		public List<MyPolicyFilterDto> getMyPolicyFilter(int member_num){
+		  
+		  return youthpolicyMapper.getMyPolicyFilter(member_num);
+	  }
 }

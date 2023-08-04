@@ -15,4 +15,9 @@
 	<update id="deleteBookMark" parameterType="Map">
 	delete from policy_member where bizId = #{bizId} and member_num =#{member_num}
 	</update>
+	
+	<select id="getMyPolicyFilter" parameterType="int" resultType="mypolyfilter">
+ 		      select policy_filter.bizTycdSel_name,policy_filter.bizTycData_name,area.city_name,area.state_name from mypolicy_filter JOIN area ON area_num=area.num JOIN policy_filter ON policyfilter_num=policy_filter.num  
+       where member_num=#{member_num}
+	</select>
 </mapper>

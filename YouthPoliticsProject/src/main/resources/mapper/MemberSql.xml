@@ -16,7 +16,6 @@
 		select num, name, type from member where id=#{id}
 	</select>
 	
-	
 	<select id="getOneUserData" resultType="member">
 	select * from member where num=#{num}
 	</select>
@@ -30,4 +29,6 @@
 		update profile_photo set file_name=#{file_name}
 		where member_num=#{member_num}
 	</update>
+	
+	
 </mapper>

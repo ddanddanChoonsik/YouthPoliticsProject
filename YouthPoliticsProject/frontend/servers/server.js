@@ -11,13 +11,19 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const url = process.env.REACT_APP_YOUTH_POLITICS_API_URL;
+const newYouthUrl = process.env.REACT_APP_NEW_YOUTH_POLITICS_API_URL;
 const youthspaceUrl= process.env.REACT_APP_YOUTH_POLITICS_SPACE_URL;
 const key =process.env.REACT_APP_YOUTH_POLITICS_API_KEY;
 
+
 //mainpage api url
 const requestUrl = `${url}?pageIndex=1&display=5&openApiVlak=${key}`; 
+
 //청년공간 api url
 const spaceUrl = `${youthspaceUrl}?pageIndex=1&display=15&pageType=1&openApiVlak=${key}`;
+
+//청년정책(신)api url
+const newRequestUrl = `${newYouthUrl}?pageIndex=1&display=10&openApiVlak=${key}`;
 
 //practice api (테스트용)
 //app.use('/api1', (req, res)=> res.json({username:'bryan'}));
@@ -117,7 +123,20 @@ app.use('/api',(req,res)=>{
             })
         });
 
+//청년정책(신)
+app.use('/newapi',(req,res)=>{
+      request(newRequestUrl, (err,response,body)=>{
+            //잘나옴!
+            var result = body   
+            var xmlToJson = convert.xml2json(result, {compact: true, spaces: 4});
+           // console.log(`xml to json => ${xmlToJson}`)
+            //json 형태 출력
+            res.send(xmlToJson);
+            })
+        });
 
+
+//청년공간api
 app.use('/space',(req,res)=>{
     request(spaceUrl, (err,response,body)=>{
       var spaceresult = body;
