@@ -42,7 +42,7 @@ public class MemberController {
 	}
 	
 	  @PostMapping("/insert")
-	  public void insert(@RequestBody MemberDto dto) { 
+	  public void insert(@RequestParam MemberDto dto) { 
 	  //비밀번호 암호화 
 	  //dto.setPassword(Util.encode(dto.getPassword()));
       dto.setPassword(dto.getPassword());

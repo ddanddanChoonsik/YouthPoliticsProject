@@ -44,6 +44,15 @@ const NoticeList = () => {
         console.log("handlechange:",value);
         setPage(value);
     }
+
+    /** 관리자 등급 확인 후 버튼 출력
+     * 현재 member num = 3 일 때 isAdmin = true >> 추후 등급 0인 경우 출력
+     * session에서 member_num 가져오는 함수 필요
+    */
+    const [isAdmin, setIsAdmin] = useState(false)
+
+
+
     // const handleChange = (event, value) => {
     //     if(value===undefined){
     //         return value=1;
@@ -188,9 +197,14 @@ const NoticeList = () => {
                     
                 <SearchBar /> 
                 </Stack>
+
+                {/**관리자 등급일 경우에만 버튼 출력
+                 * 현재는 member num = 3 (임시 관리자계정) 일 때만 출력되도록 함 (미구현)
+                 */}
+                 { isAdmin && 
                 <div className='newNotice'>
                         <button type='button' onClick={noticeForm}>공지사항 작성</button>
-                    </div> 
+                    </div> }
 
             {/* ! */}
               {/* 

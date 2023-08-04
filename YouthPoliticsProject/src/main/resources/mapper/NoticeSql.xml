@@ -16,5 +16,10 @@
 	<select id="getDetailData" parameterType="int" resultType="notice">
 		select * from notice where num = #{num}
 	</select>
+	
+	<!--  공지사항 등록 // 현재는 3번 회원이 관리자 >> 추후 session 이용하여 값 가져오기 -->
+	<insert id="insertNotice" parameterType="notice">
+		insert into notice(member_num,name,title, content, created_at) values (3,#{name},#{title},#{content}, GETDATE());
+	</insert> 
 
 </mapper>

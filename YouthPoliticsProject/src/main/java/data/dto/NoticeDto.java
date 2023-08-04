@@ -18,7 +18,7 @@ public class NoticeDto {
 	private String content;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Timestamp created_at;
-	private int notice_num;
+	//private int notice_num;
 //	private String file_name;
 	
 }
