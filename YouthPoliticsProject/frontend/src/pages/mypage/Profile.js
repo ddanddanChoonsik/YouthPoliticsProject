@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import MyPolicy from './MyPolicy';
 // import Tab from '@mui/material/Tab';
 // import TabContext from '@mui/lab/TabContext';
 // import TabList from '@mui/lab/TabList';
@@ -115,6 +116,10 @@ const Profile = () => {
             </div>
         }
 
+        <br/>
+        <div>
+            <MyPolicy/>
+        </div>
         {/* 정책tab */}
                       {/* <Box sx={{ width: 'inherit', typography: 'body1' }}>
             <TabContext value={value}>
