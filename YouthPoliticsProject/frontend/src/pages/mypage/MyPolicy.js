@@ -71,11 +71,11 @@ const MyPolicy = () => {
                        
             <div style={{border:'1px solid #000',width:'100%',display:'flex',flexDirection:'column'}}>   
             <p>내 정책필터</p>        
-                {myPolicyFilter.map((row,idx)=>(
+                {/* {myPolicyFilter.map((row,idx)=>(
                     <div key={idx}>
                     <p>관심 정책분야 : {row.bizTycdSel_name} &gt; {row.bizTycData_name} || 선택 지역 : {row.state_name}도 {row.city_name}</p>
                     </div>
-                ))}
+                ))} */}
             </div>
         </div>
     );

@@ -48,7 +48,7 @@ const NoticeDetail = () => {
                     </div>
                 </div>
                 <div className='noticeContent'>
-                    {detailNotice.content}
+                    <pre>{detailNotice.content}</pre>
                 </div>
                 <div className='return'>
                     <button onClick={() => navi(`/notice/list`)}>

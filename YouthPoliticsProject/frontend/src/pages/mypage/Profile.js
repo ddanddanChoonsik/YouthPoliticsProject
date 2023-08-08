@@ -71,7 +71,8 @@ const Profile = () => {
             myProfile();
         })
         .catch(err => console.log(err));
-    }
+
+}
 
     useEffect(()=>{
         myProfile();
@@ -86,7 +87,7 @@ const Profile = () => {
                 <div style={{display:'flex',textAlign:'center',flexDirection:'column',alignItems:'center'}}>
                     {/* {photo===null||undefined|''?"":<img src={photo} alt="안나옴" style={{width:'300px',height:'300px'}}/> }     <br/> */}
                     <Avatar 
-                        src={img} 
+                        src={img==null?'':img} 
                         // style={{textAlign:'center'}} 
                         // size={200} 
                         sx={{ width: 150, height: 150 }}
