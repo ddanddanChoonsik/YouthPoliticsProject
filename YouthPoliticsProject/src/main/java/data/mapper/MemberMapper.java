@@ -16,6 +16,9 @@ public interface MemberMapper {
 	public int login(Map<String,String> map);
 	public List<Map<String, Object>> getLoginInfo(String id);
 	
+	//공지사항 글작성할때 관리자번호 확인하기
+	public int chkAdmin(int num);
+	
 	//마이페이지
 	public MemberDto getOneUserData(int num);
 	//프로필사진 등록(초기사진등록)

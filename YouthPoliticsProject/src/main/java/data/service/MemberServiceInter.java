@@ -13,6 +13,10 @@ public interface MemberServiceInter {
 	 public int login(String id,String password);
 	 public List<Map<String, Object>> getLoginInfo(String id);
 	 public MemberDto getOneUserData(int num);
+	 
+	//공지사항 글작성할때 관리자번호 확인하기
+		public int chkAdmin(int num);
+		
 	 //프로필사진등록(초기)
 	 public void profilePhotoInsert(ProfileDto pdto);
 	//마이페이지  사진 업데이트

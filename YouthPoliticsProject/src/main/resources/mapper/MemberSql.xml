@@ -22,13 +22,19 @@
 	<insert id="profilePhotoInsert" parameterType="profile">
 			insert into profile_photo (member_num, file_name) values (#{member_num}, #{file_name})
 	</insert>
+	
 	   	<select id="findPhoto" parameterType="int" resultType="String">
 		select file_name from profile_photo where member_num=#{member_num}
 	</select>
+	
 	<update id="updateProfile" parameterType="profile">
 		update profile_photo set file_name=#{file_name}
 		where member_num=#{member_num}
 	</update>
+	
+	<select id="chkAdmin" resultType="int">
+		select `type` from member where num=#{num}
+	</select>
 	
 	
 </mapper>
