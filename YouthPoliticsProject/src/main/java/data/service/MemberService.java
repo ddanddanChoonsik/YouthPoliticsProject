@@ -75,6 +75,12 @@ public class MemberService implements MemberServiceInter {
 			return memberMapper.findPhoto(member_num);
 		}
 	  
+	  @Override
+	//공지사항 글작성할때 관리자번호 확인하기
+		public int chkAdmin(int num) {
+		  return memberMapper.chkAdmin(num);
+	  }
+	  
 	 
 
 }

@@ -13,7 +13,7 @@ import lombok.Data;
 public class NoticeDto {
 	private int num;
 	private int member_num;
-	private String name;
+//	private String name;
 	private String title;
 	private String content;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")

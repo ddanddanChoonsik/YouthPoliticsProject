@@ -23,11 +23,13 @@ const NoticeList = () => {
     let countListUrl = process.env.REACT_APP_SPRING_URL+"notice/totalCount";
     let alldataUrl = process.env.REACT_APP_SPRING_URL+"notice/getAllDatas";
     let getAllUserUrl = process.env.REACT_APP_SPRING_URL+"member/getUser";
+    
+   
 
     const [allUser,setAllUser] =useState();
     const [countNotice,setCountNotice] = useState();
     const [allNotice,setAllNotice] = useState([]);
-    const [user,setUser]=useState([]);
+    // const [user,setUser]=useState([]);
     const [apiarr,setApiArr] = useState([]);
     const navi = useNavigate();  
     const params = useParams();
@@ -48,9 +50,29 @@ const NoticeList = () => {
     /** 관리자 등급 확인 후 버튼 출력
      * 현재 member num = 3 일 때 isAdmin = true >> 추후 등급 0인 경우 출력
      * session에서 member_num 가져오는 함수 필요
+     * 
     */
+    //로그인시 관리자인지 확인하기
+    const loginnum = localStorage.usernum;
+    let adminChkUrl = process.env.REACT_APP_SPRING_URL+"member/chkAdmin?num="+loginnum;
     const [isAdmin, setIsAdmin] = useState(false)
 
+    //관리자등급확인후 버튼출력 추가 =>딴딴230808
+    const checkedAdmin = ()=>{
+        
+        axios.get(adminChkUrl).then(res=>{
+
+            console.log("type번호 확인하기:",res.data);
+            if(res.data===0){
+                setIsAdmin(true);
+            }else{
+                setIsAdmin(false);
+            }
+        }).catch(err=>{
+
+            console.log("type번호 err:",err);
+        })
+    }
 
 
     // const handleChange = (event, value) => {
@@ -100,14 +122,14 @@ const NoticeList = () => {
         })
     }
 
-    const getUsers=()=>{
-        axios.get(getAllUserUrl).then(res=>{
-            console.log(res.data);
-            setUser(res.data);
-        }).catch(err=>{
-            console.log("err:",err);
-        })
-    }
+    // const getUsers=()=>{
+    //     axios.get(getAllUserUrl).then(res=>{
+    //         console.log(res.data);
+    //         setUser(res.data);
+    //     }).catch(err=>{
+    //         console.log("err:",err);
+    //     })
+    // }
 
     //detail 페이지 전환
     const onClick = (e, num) => {
@@ -129,7 +151,8 @@ const NoticeList = () => {
         AllUserCount();
         CountList();
         getAllData();
-        getUsers();
+        checkedAdmin();
+        //getUsers();
     },[])
 
 
@@ -204,7 +227,8 @@ const NoticeList = () => {
                  { isAdmin && 
                 <div className='newNotice'>
                         <button type='button' onClick={noticeForm}>공지사항 작성</button>
-                    </div> }
+                    </div> 
+                    }
 
             {/* ! */}
               {/* 

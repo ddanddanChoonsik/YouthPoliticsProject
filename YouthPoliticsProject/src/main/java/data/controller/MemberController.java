@@ -41,6 +41,14 @@ public class MemberController {
 		
 	}
 	
+	//공지사항 글작성할때 관리자번호 확인하기
+	@GetMapping("/chkAdmin")
+	public int chkAdmin(@RequestParam int num) {
+	
+		return memberService.chkAdmin(num);
+	}
+	
+	
 	  @PostMapping("/insert")
 	  public void insert(@RequestParam MemberDto dto) { 
 	  //비밀번호 암호화 

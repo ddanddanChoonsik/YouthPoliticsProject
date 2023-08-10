@@ -1,6 +1,7 @@
 import { display, flexbox } from '@mui/system';
 import React, { Component } from 'react';
-import ReactQuill, {Quill} from 'react-quill';
+//import ReactQuill, {Quill} from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 /////////////Toolbar 출력 이슈로 사용 X ==> mui-draft-wysiwyg 사용 ////////////////
