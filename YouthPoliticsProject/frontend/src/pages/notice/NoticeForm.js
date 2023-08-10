@@ -22,7 +22,7 @@ const NoticeForm = () => {
     const [content, setContent] = useState('');
     const [type, setType] = useState('공지사항');
     const navi = useNavigate();
-    const insertUrl = "http://localhost:3000/notice/form";
+    //const insertUrl = "http://localhost:3000/notice/form";
     //const uploadReference = React.createRef();
     let inputText = useState('');
     const params = useParams();
@@ -49,18 +49,18 @@ const NoticeForm = () => {
     //데이터 삽입 동작
     const insertData = (e) => {
         e.preventDefault();
-        const noticeData = {num:'',member_num:'',name:'관리자', title:title, content: content,created_at:''};
+        const noticeData = {title:title, content: content};
 
-        //inputText = document.getElementsByTagName("span")[80].innerText;
-        //setContent(inputText);
+        inputText = document.getElementsByTagName("span")[80].innerText;
+        setContent(inputText);
 
-        // if (noticeData.title.trim() == '') {
-        //     alert('제목을 입력해주세요');
-        // }
+        if (noticeData.title.trim() == '') {
+            alert('제목을 입력해주세요');
+        }
        
-        // if (noticeData.content == '\n' || noticeData.content == '') {
-        //     alert('내용을 입력해주세요');
-        // }
+        if (noticeData.content == '\n' || noticeData.content == '') {
+            alert('내용을 입력해주세요');
+        }
 
         //console.log("title: ", noticeData.title, ", content: ", noticeData.content);
         console.log(noticeData);
@@ -75,9 +75,9 @@ const NoticeForm = () => {
         //     console.log("err:", err);
         // })
         const insertNoticeUrl = process.env.REACT_APP_SPRING_URL+"notice/insertData";
-
-
-        axios.post(insertNoticeUrl, {noticeData})
+        
+        //{noticeData} ==> title
+        axios.post(insertNoticeUrl, {title:noticeData.title, content:noticeData.content})
             .then(res => {
                 console.log(noticeData);
                 alert("공지사항이 등록되었습니다.");
@@ -92,9 +92,7 @@ const NoticeForm = () => {
 
     const titleChange=(e)=>{
         setTitle(e.target.value)
-        console.log(title);
     }
-
     
     return (
         <div id='form'>

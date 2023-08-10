@@ -58,12 +58,13 @@ public class NoticeController {
 	 //공지사항 등록 + 작성자 데이터 추가 예정
 	 @PostMapping("/insertData")
 	 //public void noticeInsert(@RequestParam("title") String title, @RequestParam("content") String content)
-	 public void noticeInsert(@RequestParam NoticeDto dto)
+	 //public void noticeInsert(@RequestParam NoticeDto dto)
+	 public void noticeInsert(@RequestParam(value="title", required=false) String title)
 	 {
-//		 dto.setTitle(title);
-//		 dto.setContent(content);
+		 
 		 System.out.println("공지사항 입력");
-		 noticeService.insertNotice(dto);
+		 //noticeService.insertNotice(dto);
+		 noticeService.insertNotice(title);
 	 }
 	
 	
