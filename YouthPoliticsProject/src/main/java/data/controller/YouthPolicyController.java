@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import data.dto.MyAreaFilterDto;
 import data.dto.MyPolicyFilterDto;
 import data.dto.PolicyBookMarkDto;
 import data.service.YouthPolicyServiceInter;
@@ -59,8 +60,16 @@ public class YouthPolicyController {
 	 }
 	 
 	 @GetMapping("/mypolicyfilter")
-	 public List<MyPolicyFilterDto> getMyPolicyFilter(@RequestParam int member_num){
+	 public Map<String,Object> getMyPolicyFilter(@RequestParam int member_num){
+		 //review controller detail처럼 map으로 묶고 하나씩 호출하기
 //		 System.out.println("mypolicyfilter:"+youthPolicyService.getMyPolicyFilter(member_num));
-		 return youthPolicyService.getMyPolicyFilter(member_num);
+		 
+		 List<MyPolicyFilterDto> mypolydto = youthPolicyService.getMyPolicyData(member_num);
+		 List<MyAreaFilterDto> myarea = youthPolicyService.getMyPolicyArea(member_num);
+		 
+		 Map<String,Object> mfilter = new HashMap<>();
+		 mfilter.put("mypoly", mypolydto);
+		 mfilter.put("myarea", myarea);
+		 return mfilter;
 	 }
 }

@@ -16,8 +16,11 @@
 	delete from policy_member where bizId = #{bizId} and member_num =#{member_num}
 	</update>
 	
-	<select id="getMyPolicyFilter" parameterType="int" resultType="mypolyfilter">
- 		      select policy_filter.bizTycdSel_name,policy_filter.bizTycData_name,area.city_name,area.state_name from mypolicy_filter JOIN area ON area_num=area.num JOIN policy_filter ON policyfilter_num=policy_filter.num  
-       where member_num=#{member_num}
+	<select id="getMyPolicyData" parameterType="int" resultType="mypolyfilter">      
+      <!-- select policy_filter.bizTycdSel_name,group_concat(policy_filter.bizTycData_name) as bizTycData_name, (select group_concat(distinct(state.state_name)) from mypolicy_filter JOIN state on state_num=state.num where member_num =#{member_num} ) as state_name, (select group_concat(distinct(city.city_name)) from mypolicy_filter JOIN city on city_num=city.num where member_num =#{member_num} ) as city_name from mypolicy_filter JOIN policy_filter ON policyfilter_num=policy_filter.num where member_num =#{member_num} group by policy_filter.bizTycdSel_name -->
+      select policy_filter.bizTycdSel_name as bizTycdSel_name,group_concat(policy_filter.bizTycData_name) as bizTycData_name from mypolicy_filter JOIN policy_filter ON policyfilter_num=policy_filter.num where member_num =#{member_num} group by policy_filter.bizTycdSel_name
+	</select>
+	<select id="getMyPolicyArea" parameterType="int" resultType="myareafilter">      
+	select group_concat(distinct(state.state_name)) AS state_name,group_concat(distinct(city.city_name)) as city_name from mypolicy_filter JOIN state on state_num=state.num JOIN city on city_num=city.num where member_num =#{member_num} group by state.state_name
 	</select>
 </mapper>
