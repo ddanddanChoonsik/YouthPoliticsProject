@@ -64,14 +64,31 @@ const MyPolicy = () => {
             }
     }
 
+    let getAllPolicyDataUrl = process.env.REACT_APP_SPRING_URL+"policy/getallpolicydata";
+
+    const getAllPolicyData=()=>{
+        axios.get(getAllPolicyDataUrl).then(res=>{
+            console.log("res.data:",res.data);
+            //잘나옴!!
+        }).catch(err=>{
+            console.log("err:",err);
+        })
+    }
+
 
     useEffect(()=>{
         // newApi();
         myPolyFilter();
+        getAllPolicyData();
     },[])
     return (
-        <div style={{height:'fitContent',display:'flex',flexDirection:'column',border:'0.5px solid #000'}}>
-                       
+        <div>
+
+
+
+
+
+            <div style={{height:'fitContent',display:'flex',flexDirection:'row',border:'0.5px solid #000'}}>
             <div style={{width:'50%',display:'flex',flexDirection:'column',borderRight:'0.5px solid #000'}}>   
             <p>내 정책필터</p>
             <div style={{display:'flex',flexDirection:'row'}}>
@@ -83,9 +100,9 @@ const MyPolicy = () => {
                     </div>
                 ))}
                 </div>
-                <div>
+                <div >
                     {myAreaFilter.map((row,idx)=>(
-                        <div key={idx} style={{height:'fitContent',borderTop:'0.5px solid #000',display:'flex',flexDirection:'column',justifyContent:'center'}} >
+                        <div key={idx} style={{height:'50%',borderTop:'0.5px solid #000',display:'flex',flexDirection:'column',justifyContent:'center'}} >
                              <p>도·시 =  &gt; {row.state_name}</p>   
                                 <p>시·군·읍 =  &gt;{row.city_name}</p>
                         </div>
@@ -96,6 +113,7 @@ const MyPolicy = () => {
             <div style={{width:'50%'}}>
                 <p>추천정책</p>
             </div>
+        </div>
         </div>
     );
 };
