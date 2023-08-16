@@ -72,4 +72,10 @@ public class YouthPolicyController {
 		 mfilter.put("myarea", myarea);
 		 return mfilter;
 	 }
+	 
+	 @GetMapping("/getallpolicydata")
+	//관심정책선택 db데이터 불러오기 ..
+		public List<MyPolicyFilterDto> getAllPolicyData(){
+		 return youthPolicyService.getAllPolicyData();
+	 }
 }

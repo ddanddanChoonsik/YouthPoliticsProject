@@ -23,4 +23,8 @@
 	<select id="getMyPolicyArea" parameterType="int" resultType="myareafilter">      
 	select group_concat(distinct(state.state_name)) AS state_name,group_concat(distinct(city.city_name)) as city_name from mypolicy_filter JOIN state on state_num=state.num JOIN city on city_num=city.num where member_num =#{member_num} group by state.state_name
 	</select>
+	
+	<select id="getAllPolicyData" resultType="mypolyfilter">
+		select * from youthpolicy.policy_filter
+	</select>
 </mapper>

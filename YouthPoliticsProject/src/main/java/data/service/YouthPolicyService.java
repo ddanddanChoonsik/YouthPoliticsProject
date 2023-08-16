@@ -66,4 +66,10 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 		  
 		  return youthpolicyMapper.getMyPolicyArea(member_num);
 	  }
+	  
+	  @Override
+	//관심정책선택 db데이터 불러오기 ..
+		public List<MyPolicyFilterDto> getAllPolicyData(){
+		  return youthpolicyMapper.getAllPolicyData();
+	  }
 }

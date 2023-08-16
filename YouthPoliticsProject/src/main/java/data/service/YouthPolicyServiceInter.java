@@ -18,4 +18,7 @@ public interface YouthPolicyServiceInter {
 	
 	public List<MyPolicyFilterDto> getMyPolicyData(int member_num);
 	public List<MyAreaFilterDto> getMyPolicyArea(int member_num);
+
+	//관심정책선택 db데이터 불러오기 ..
+	public List<MyPolicyFilterDto> getAllPolicyData();
 }
