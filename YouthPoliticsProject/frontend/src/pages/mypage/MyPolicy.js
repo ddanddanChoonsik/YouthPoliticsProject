@@ -79,7 +79,7 @@ const MyPolicy = () => {
     useEffect(()=>{
         // newApi();
         myPolyFilter();
-        getAllPolicyData();
+        // getAllPolicyData();
     },[])
     return (
         <div>
@@ -92,7 +92,7 @@ const MyPolicy = () => {
             <div style={{width:'50%',display:'flex',flexDirection:'column',borderRight:'0.5px solid #000'}}>   
             <p>내 정책필터</p>
             <div style={{display:'flex',flexDirection:'row'}}>
-                <div>
+                <div style={{width:'50%'}}>
                 {myPolicyFilter.map((row,idx)=>(
                     <div key={idx} style={{borderTop:'0.5px solid #000',borderRight:'0.5px solid #000'}}>
                       <p>관심정책분야(대) = &gt; {row.bizTycdSel_name}</p>  
@@ -100,7 +100,7 @@ const MyPolicy = () => {
                     </div>
                 ))}
                 </div>
-                <div >
+                <div style={{width:'50%'}}>
                     {myAreaFilter.map((row,idx)=>(
                         <div key={idx} style={{height:'50%',borderTop:'0.5px solid #000',display:'flex',flexDirection:'column',justifyContent:'center'}} >
                              <p>도·시 =  &gt; {row.state_name}</p>   
