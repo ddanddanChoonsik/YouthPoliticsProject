@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import data.dto.MyAreaFilterDto;
 import data.dto.MyPolicyFilterDto;
 import data.dto.PolicyBookMarkDto;
 import data.mapper.YouthPolicyMapper;
@@ -16,7 +17,6 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 
 	@Autowired
 	private YouthPolicyMapper youthpolicyMapper;
-	
 	
 	  @Override
 	  public void insertBookMark(PolicyBookMarkDto bdto) {
@@ -55,8 +55,21 @@ public class YouthPolicyService implements YouthPolicyServiceInter{
 	  }
 	  
 	  @Override
-		public List<MyPolicyFilterDto> getMyPolicyFilter(int member_num){
+	  public List<MyPolicyFilterDto> getMyPolicyData(int member_num){
 		  
-		  return youthpolicyMapper.getMyPolicyFilter(member_num);
+		  return youthpolicyMapper.getMyPolicyData(member_num);
+		 
+	  }
+	  
+	  @Override
+	  public List<MyAreaFilterDto> getMyPolicyArea(int member_num){
+		  
+		  return youthpolicyMapper.getMyPolicyArea(member_num);
+	  }
+	  
+	  @Override
+	//관심정책선택 db데이터 불러오기 ..
+		public List<MyPolicyFilterDto> getAllPolicyData(){
+		  return youthpolicyMapper.getAllPolicyData();
 	  }
 }

@@ -14,6 +14,4 @@ public class MyPolicyFilterDto {
 //	private int policy_num;
 	private String bizTycdSel_name;
 	private String bizTycData_name;
-	private String city_name;
-	private String state_name;
 }

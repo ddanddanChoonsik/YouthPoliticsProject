@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import data.dto.PolicyBookMarkDto;
 import data.dto.YouthPolicyDto;
+import data.dto.MyAreaFilterDto;
 import data.dto.MyPolicyFilterDto;
 
 @Mapper
@@ -30,5 +31,9 @@ public interface YouthPolicyMapper {
 	
 	
 	//내 정책 필터
-	public List<MyPolicyFilterDto> getMyPolicyFilter(int member_num);
+	public List<MyPolicyFilterDto> getMyPolicyData(int member_num);
+	public List<MyAreaFilterDto> getMyPolicyArea(int member_num);
+	
+	//관심정책선택 db데이터 불러오기 ..
+	public List<MyPolicyFilterDto> getAllPolicyData();
 }
