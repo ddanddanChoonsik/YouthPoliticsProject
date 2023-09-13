@@ -60,15 +60,8 @@ public class NoticeService implements NoticeServiceInter{
 //	}
 
 	@Override
-<<<<<<< HEAD
-	public void insertNotice(String title) {
-		System.out.println(title);
-		noticeMapper.insertNotice(title);
-=======
 	public void insertNotice(NoticeDto dto) {
 		noticeMapper.insertNotice(dto);
->>>>>>> branch 'master' of https://github.com/ddanddanChoonsik/YouthPoliticsProject.git
-
 		//현재는 list 페이지로 이동 >> 추후 작성한 공지사항 detail 페이지로 이동
 		//return dto.getNum(); 
 	}

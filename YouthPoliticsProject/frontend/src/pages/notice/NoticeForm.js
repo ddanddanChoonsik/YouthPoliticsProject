@@ -1,12 +1,18 @@
-import React, {useEffect,useState} from 'react';
+import React, {useEffect,useState, Component} from 'react';
 //import '../../styles/notice.css';
-import Editor from './EditorComponent';
-import {Select, MenuItem} from "@mui/material";
+//import {Select, MenuItem} from "@mui/material";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/notice.css';
 import MUIEditor, { MUIEditorState } from "react-mui-draft-wysiwyg";
 import {useForm} from 'react-hook-form';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//react는 plugin 사용 시 충돌 가능
+// import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
+// import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
+// import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+
 
 /*현재 파일 업로드 기능 없음*/
 //session 로그인 정보 없을 경우 alert 경고 후 list로 navigation 필요
@@ -38,8 +44,8 @@ const NoticeForm = () => {
     setEditorState(newState);
 
     //html 수정 시 span index 변경해야함
-    inputText = document.getElementsByTagName("span")[80].innerText;
-    setContent(inputText);
+    // inputText = document.getElementsByTagName("span")[80].innerText;
+    // setContent(inputText);
     }
 
     //const noticeData = { title:title, content: content};
@@ -52,21 +58,16 @@ const NoticeForm = () => {
     //데이터 삽입 동작
     const insertData = (e) => {
         e.preventDefault();
-<<<<<<< HEAD
-        const noticeData = {title:title, content: content};
-
-        inputText = document.getElementsByTagName("span")[80].innerText;
-        setContent(inputText);
-=======
         //inputText = document.getElementsByTagName("span")[80].innerText;
         //setContent(inputText);
->>>>>>> branch 'master' of https://github.com/ddanddanChoonsik/YouthPoliticsProject.git
 
-        if (noticeData.title.trim() == '') {
+        //if (noticeData.title.trim() == '') {
+        if (title.trim() == '') {
             alert('제목을 입력해주세요');
         }
        
-        if (noticeData.content == '\n' || noticeData.content == '') {
+        //if (noticeData.content == '\n' || noticeData.content == '') {
+        if (content == '\n' || content == '') {
             alert('내용을 입력해주세요');
         }
 
@@ -81,15 +82,8 @@ const NoticeForm = () => {
         // }).catch(err => {
         //     console.log("err:", err);
         // })
-<<<<<<< HEAD
-        const insertNoticeUrl = process.env.REACT_APP_SPRING_URL+"notice/insertData";
-        
-        //{noticeData} ==> title
-        axios.post(insertNoticeUrl, {title:noticeData.title, content:noticeData.content})
-=======
         
         axios.post(insertNoticeUrl, {member_num,title,content})
->>>>>>> branch 'master' of https://github.com/ddanddanChoonsik/YouthPoliticsProject.git
             .then(res => {
                 console.log("등록한제목"+title+"등록한내용:"+content);
                 alert("공지사항이 등록되었습니다.");
@@ -101,13 +95,6 @@ const NoticeForm = () => {
             })
         
     }
-<<<<<<< HEAD
-
-    const titleChange=(e)=>{
-        setTitle(e.target.value)
-    }
-=======
->>>>>>> branch 'master' of https://github.com/ddanddanChoonsik/YouthPoliticsProject.git
     
     return (
         <div id='form'>
@@ -128,10 +115,51 @@ const NoticeForm = () => {
                     <div className='title' style={{padding: "12px", paddingRight:"25px"}}>
                         <input name="title" type="text" placeholder='제목' onChange={(e)=>{setTitle(e.target.value)}}/>
                     </div>
+                    {/* 
                     <div style={{padding:"12px", height:"650px"}}>
-                        {/*EditorComponents Test
-                        <Editor value={content} onChange={onEditorChange} />*/ }
+                        
                         <MUIEditor editorState={editorState} onChange={onContentChange} />
+                    </div>*/}
+                    <div className='document-editor'>
+                        <CKEditor
+                            editor={ClassicEditor}
+                                config={{placeholder:"내용을 입력하세요",
+                                        language:"ko",
+                                        toolbar: ["heading","fontSize",
+                                        "|",
+                                        "bold",
+                                        "italic",
+                                        //"fontColor", "fontSize" 적용 안됨
+                                        "link",
+                                        "bulletedList",
+                                        "|",
+                                        "indent",
+                                        "outdent",
+                                        "|",
+                                        "codeBlock",
+                                        "blockQuote",
+                                        "insertTable",
+                                        "undo",
+                                        "redo",
+                                        "|",
+                                        "uploadImage",],
+                                        fontSize: {options:[9, 11, 13, 'default', 17, 19, 21],},
+                                }}
+                            onReady={editor => {
+                                console.log( 'Editor is ready to use!', editor );
+                            } }
+                            onChange={ ( event, editor ) => {
+                                const data = editor.getData();
+                                setContent(data);
+                                console.log( { event, editor, content } );
+                            } }
+                            onBlur={ ( event, editor ) => {
+                                console.log( 'Blur.', editor );
+                            } }
+                            onFocus={ ( event, editor ) => {
+                                console.log( 'Focus.', editor );
+                            }}
+                        />
                     </div>
                 </div>
             </div>

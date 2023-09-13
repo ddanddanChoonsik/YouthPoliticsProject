@@ -46,7 +46,7 @@ public class NoticeController {
 	 * num) { System.out.println("공지사항 상세보기:" + noticeService.getDetailData(num));
 	 * return noticeService.getDetailData(num); }
 	 */
-	 @GetMapping("/getDetailData") 
+	@GetMapping("/getDetailData") 
 	 public NoticeDto getDetailData(@RequestParam int num)
 	 {		
 //		System.out.println("디텔");
@@ -54,23 +54,12 @@ public class NoticeController {
 		 return noticeService.getDetailData(num);
 	 }
 	 
-	 
 	 //공지사항 등록 + 작성자 데이터 추가 예정
 	 @PostMapping("/insertData")
-	 //public void noticeInsert(@RequestParam("title") String title, @RequestParam("content") String content)
-<<<<<<< HEAD
-	 //public void noticeInsert(@RequestParam NoticeDto dto)
-	 public void noticeInsert(@RequestParam(value="title", required=false) String title)
-=======
 	 public void insertNotice(@RequestBody NoticeDto dto)
->>>>>>> branch 'master' of https://github.com/ddanddanChoonsik/YouthPoliticsProject.git
 	 {
-		 
 		 System.out.println("공지사항 입력");
 		 //noticeService.insertNotice(dto);
-		 noticeService.insertNotice(title);
+		 noticeService.insertNotice(dto);
 	 }
-	
-	
-	
 }
