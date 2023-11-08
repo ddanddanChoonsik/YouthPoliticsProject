@@ -241,7 +241,7 @@ const PolicyList = () => {
 
                     {/* <Switch  checked={toggle} onChange={(e)=>fillterHandleChange(e)} inputProps={{ 'aria-label': 'controlled' }} />*/}
                     {/* <Checkbox   sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/> */}
-                    {/*<Stack spacing={3} justifyContent="center" alignItems="center">*/}
+                    <Stack spacing={3} justifyContent="center" alignItems="center">
                         
                  {/* test ui */}
                  <div className='policyList1'>
