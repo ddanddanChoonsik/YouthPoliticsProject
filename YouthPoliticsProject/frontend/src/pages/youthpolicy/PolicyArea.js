@@ -4,12 +4,13 @@ import '../../styles/policyarea.css';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-// import ListSubheader from '@mui/material/ListSubheader';
+// import ListSubheader from '@mui/material/ListSubheader';-
 import Button from '@mui/material/Button';
 import ListItemButton from '@mui/material/ListItemButton';
 const PolicyArea = () => {
 
     const url='http://localhost:3001/space';
+    const myLocPolyCenterUrl='http://localhost:3001/myLocPolyCenter';
     const[allSpace,setAllSpace]=useState([]);
     const { kakao } = window;
     //test data
@@ -21,7 +22,6 @@ const PolicyArea = () => {
 
     const youthAreaApi= async()=>{
         axios.get(url).then(res=>{
-            // console.log("청년공간:",res.data.spacesInfo.space);
             setAllSpace(res.data.spacesInfo.space);
         }).catch(err=>{
             console.log("err:",err);
@@ -39,33 +39,28 @@ const PolicyArea = () => {
         resultList.push(result);
     }
      
-    //mui list
      const [selectedIndex, setSelectedIndex] = React.useState();
      const handleListItemClick = (event, index,addr,spcName) => {
        setSelectedIndex(index);
         setSelectAddr(addr);
        setSelectSpcName(spcName);
        //console.log("index:",index);
-       //console.log("mui list"); //2
        kakaomap();
      };
 
      const handleMap = (addr,spcName) =>{
              setSelectAddr(addr);
             setSelectSpcName(spcName);
-            //kakaomapscript();
      }
 
      const [myloc,setMyLoc]=useState('');
-     //내위치 찾기(위도,경도)->내위치 주소로 가져오기
+     //내위치 찾기(위도,경도) -> 내위치 주소로 가져오기!
      const currentLocation = (position) =>{
         navigator.geolocation.getCurrentPosition(function(position) {
-
 			let lat = position.coords.latitude; // 위도
 			let lng = position.coords.longitude; // 경도
-            const locPosition = new kakao.maps.LatLng(lat, lng);
-            //console.log("locPosition:",locPosition); // 결과 잘나옴 위도 경도
-
+            const locPosition = new kakao.maps.LatLng(lat, lng); 
+   
             function getAddr(lat,lng){
                 let geocoder = new kakao.maps.services.Geocoder();
                 let coord = new kakao.maps.LatLng(lat, lng);
@@ -73,10 +68,19 @@ const PolicyArea = () => {
                     if (status === kakao.maps.services.Status.OK) {
                         //console.log("좌표로 내위치 주소찾기:",result[0].address.address_name);
                         const myaddr=result[0].address.address_name;
+                        const myState=myaddr.split(' ')[0];
+                        const myCity=myaddr.split(' ')[1];
                         setMyLoc(myaddr);
                         console.log("좌표로 내위치 주소찾기:",myaddr);
-                        
-                        //지역코드 넘겨서 같은 시군구에 있는 청년공간 가져오기.
+                        ///지역코드 넘겨서 같은 시군구에 있는 청년공간 가져오기.
+                        axios.post(myLocPolyCenterUrl,{
+                            state:myState,    //myState
+                            city:myCity   //myCity
+                        }).then(res=>{
+                            console.log("response:",res.data);
+                        }).catch(err=>{
+                            console.log("err:",err);
+                        })
 
                     }
                 }
