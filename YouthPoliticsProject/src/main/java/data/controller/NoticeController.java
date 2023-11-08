@@ -1,10 +1,14 @@
 package data.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,14 +46,20 @@ public class NoticeController {
 	 * num) { System.out.println("공지사항 상세보기:" + noticeService.getDetailData(num));
 	 * return noticeService.getDetailData(num); }
 	 */
-	 @GetMapping("/getDetailData") 
+	@GetMapping("/getDetailData") 
 	 public NoticeDto getDetailData(@RequestParam int num)
 	 {		
 //		System.out.println("디텔");
 		 //System.out.println("공지사항 상세보기 : ", noticeService.getDetailData(num));
 		 return noticeService.getDetailData(num);
 	 }
-	
-	
-	
+	 
+	 //공지사항 등록 + 작성자 데이터 추가 예정
+	 @PostMapping("/insertData")
+	 public void insertNotice(@RequestBody NoticeDto dto)
+	 {
+		 System.out.println("공지사항 입력");
+		 //noticeService.insertNotice(dto);
+		 noticeService.insertNotice(dto);
+	 }
 }

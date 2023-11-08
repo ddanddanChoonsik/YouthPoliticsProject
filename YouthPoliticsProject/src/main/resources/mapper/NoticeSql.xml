@@ -6,7 +6,7 @@
 		 <!-- select notice.num,`member`.`name`,notice.title,notice.content,notice.created_at
 		  from notice join `member` on notice.member_num = `member`.num -->
 		  <!--  select n.num,`member`.name,n.title,n.content,n.created_at from notice as n left outer join `member` on n.member_num = `member`.num-->
-		  select * from notice
+		  select * from notice order by num desc;
 	</select>
 
 	<select id="getTotalCount" resultType="int">
@@ -15,6 +15,16 @@
 	
 	<select id="getDetailData" parameterType="int" resultType="notice">
 		select * from notice where num = #{num}
+	</select>
+	
+	<!-- 공지사항 등록 // 현재는 3번 회원이 관리자 >> 추후 session 이용하여 값 가져오기 -->
+	<insert id="insertNotice" parameterType="notice">
+		insert into notice (member_num,title, content, created_at) values (#{member_num},#{title},#{content}, now());
+	</insert> 
+	
+	<!-- Notice List 검색 기능 -->
+	<select id="searchNotice" parameterType="String" resultType="notice">
+		select * from notice where title like '%#{keyword}%' or content like '%#{keyword}%' order by num desc;
 	</select>
 
 </mapper>

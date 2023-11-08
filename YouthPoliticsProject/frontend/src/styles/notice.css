@@ -13,7 +13,7 @@ div#notice div.noticeList{
     flex-direction: column;
     align-items: center;
     align-content: center;
-    justify-content: center;
+    /*justify-content: center;*/
 }
 
 div#notice span.crimson-text{
@@ -34,6 +34,68 @@ div#notice div.newNotice{
     padding-bottom: 10px;
 }
 
+/*form*/
+div#form{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    height: 100%;
+    background-color: rgb(211, 227, 255);
+    background-size: cover;
+    align-items: center;
+    align-content: center;
+}
+
+div#form div.insert button{
+    width: 100px;
+    height:35px;
+    margin:0;
+    font-size:15px;
+    border-radius:10px;
+    background-color: lightskyblue;
+    border-color: ghostwhite;
+    color: whitesmoke;
+}
+
+div#form div.title input{
+    font-size:16px;
+    border-radius:2px;
+    padding:5px;
+    max-width: 1180px;
+    width: 100%;
+    outline: none;
+    border-style: solid;
+    
+}
+
+.ck.ck-editor__editable:not(.ck-editor__editable) {
+    min-height: 400px;
+    margin-bottom:20px;
+}
+
+.document-editor {
+    max-width: 1200px;
+    min-height: 500px;
+    margin-bottom: 20px;
+}
+
+.document-editor__editable-container {
+    /*overflow-y: scroll;*/
+}
+
+.ck-editor__editable {
+    min-width: 800px;
+    max-width: 800px;
+    min-height: 450px;
+    max-height: 450px;
+    font-size: 15px;
+}
+
+/* #root {
+    margin: 1rem 4rem;
+  } */
+
+
 
 /*detail*/
 div#detail {
@@ -45,7 +107,6 @@ div#detail {
     background-size: cover;
     align-items: center;
     align-content: center;
-    justify-content: center;
 }
 
 div#detail div.noticeDetail{
@@ -69,11 +130,17 @@ div#detail div.noticeTitle{
 .title{
     text-align: left;
     font-size: large;
+    max-width: 780px;
 }
 
 .created_at{
     text-align: center; 
     width: 100px;
+}
+
+.content {
+    max-width: 860px;
+    font-size: 14px;
 }
 
 div#detail div.noticeContent{
@@ -84,6 +151,8 @@ div#detail div.noticeContent{
     text-align: left;
     border-radius: 13px;
 }
+
+
 
 
 div#detail div.return button{

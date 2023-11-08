@@ -6,7 +6,7 @@ import {LoginForm, JoinForm,Auth,AuthProfile} from "./pages/login";
 import {PolicyList,PolicyDetail,PolicyArea} from './pages/youthpolicy';
 import {NoticeList,NoticeForm,NoticeDetail} from './pages/notice';
 import {GroupList} from './pages/group';
-import {Profile} from './pages/mypage';
+import {Profile,MyPolicy} from './pages/mypage';
 
 const RouteMain = () => {
     return (
@@ -26,11 +26,13 @@ const RouteMain = () => {
                 <Route path="/join" element={<JoinForm/>}/>
                 {/* <Route path="/kakao-join" elemet={<KakaoLogin/>}/> */}
                 {/* <Route path="/oauth/kakao/callback"  element={<Auth/>} /> */}
+
                 {/* Mypage */}
                 <Route path="/mypage/profile"  element={<Profile/>}/>
                 <Route path="/oauth/kakao/callback" element={<Auth />} />
                 <Route path="/authprofile" element={<AuthProfile />} />
-          
+                <Route path="/mypage/mypolicy" element={<MyPolicy/>}/>
+
                 {/* Notice */}
                 <Route path="/notice/list"  element={<NoticeList/>}/>
                 <Route path="/notice/form"  element={<NoticeForm/>}/>

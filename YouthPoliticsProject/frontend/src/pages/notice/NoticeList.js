@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/notice.css';
 
 import Pagination from '@mui/material/Pagination';
-import { Link, useNavigate,useLocation,useParams } from 'react-router-dom';
+import { Link, useNavigate,useLocation,useParams, useSearchParams } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 
 //table mui
@@ -15,6 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 
 const NoticeList = () => {
@@ -22,16 +23,22 @@ const NoticeList = () => {
     let allUserUrl = process.env.REACT_APP_SPRING_URL+"allUser";
     let countListUrl = process.env.REACT_APP_SPRING_URL+"notice/totalCount";
     let alldataUrl = process.env.REACT_APP_SPRING_URL+"notice/getAllDatas";
+    let filterdataUrl = process.env.REACT_APP_SPRING_URL+"notice/getFilterDatas";
     let getAllUserUrl = process.env.REACT_APP_SPRING_URL+"member/getUser";
+    
 
     const [allUser,setAllUser] =useState();
     const [countNotice,setCountNotice] = useState();
     const [allNotice,setAllNotice] = useState([]);
-    const [user,setUser]=useState([]);
+    const [filterNotice, setFilterNotice] = useState([]);
+    // const [user,setUser]=useState([]);
     const [apiarr,setApiArr] = useState([]);
     const navi = useNavigate();  
     const params = useParams();
     const location = useLocation();
+    //const [searchParmas, setSearchParams] = useParams();
+    const searchKeyword = useState();
+    const [noticeState, setNoticeState] = useState();
 
     //페이지네이션 페이지 갯수
     const [page, setPage] = useState(1);
@@ -44,6 +51,35 @@ const NoticeList = () => {
         console.log("handlechange:",value);
         setPage(value);
     }
+
+    /** 관리자 등급 확인 후 버튼 출력
+     * 현재 member num = 3 일 때 isAdmin = true >> 추후 등급 0인 경우 출력
+     * session에서 member_num 가져오는 함수 필요
+     * 
+    */
+    //로그인시 관리자인지 확인하기
+    const loginnum = localStorage.usernum;
+    let adminChkUrl = process.env.REACT_APP_SPRING_URL+"member/chkAdmin?num="+loginnum;
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    //관리자등급확인후 버튼출력 추가 =>딴딴230808
+    const checkedAdmin = ()=>{
+        
+        axios.get(adminChkUrl).then(res=>{
+
+            console.log("type번호 확인하기:",res.data);
+            if(res.data===0){
+                setIsAdmin(true);
+            }else{
+                setIsAdmin(false);
+            }
+        }).catch(err=>{
+
+            console.log("type번호 err:",err);
+        })
+    }
+
+
     // const handleChange = (event, value) => {
     //     if(value===undefined){
     //         return value=1;
@@ -92,14 +128,23 @@ const NoticeList = () => {
         })
     }
 
-    const getUsers=()=>{
-        axios.get(getAllUserUrl).then(res=>{
-            console.log(res.data);
-            setUser(res.data);
+    const getFilterData=()=>{
+        axios.get(filterdataUrl).then(res=>{
+            console.log("공지 검색:", res.data)
+            setFilterNotice(res.data);
         }).catch(err=>{
             console.log("err:",err);
         })
     }
+
+    // const getUsers=()=>{
+    //     axios.get(getAllUserUrl).then(res=>{
+    //         console.log(res.data);
+    //         setUser(res.data);
+    //     }).catch(err=>{
+    //         console.log("err:",err);
+    //     })
+    // }
 
     //detail 페이지 전환
     const onClick = (e, num) => {
@@ -121,27 +166,66 @@ const NoticeList = () => {
         AllUserCount();
         CountList();
         getAllData();
-        getUsers();
+        checkedAdmin();
+        //getUsers();
     },[])
 
 
 
     //!
 
+    
+
     const SearchBar = () => {
         return (
+            <form onSubmit={searchClick}>
             <div className='searchbar'>
-                <input type="text" className='searchInput' placeholder='검색어를 입력하세요' /*</div>onChange={searchHandler} value={searchInput}*/>
-                </input>
-                <button type='button'>
+                <input type="text" className='searchInput' placeholder='검색어를 입력하세요' 
+                    name='search' onChange={onChangeHandler}/>
+                <input type="submit" value='검색'/>
+                {/*<button type='submit'>
                     <span>검색</span>
-                </button>
+                </button>*/}
             </div>
+            </form>
         )
     };
 
+    //검색 텍스트 입력 테스트
+    const onChangeHandler = () => {
+        
+    }
+
     const noticeForm =(e)=>{
         navi("/notice/form");
+    }
+
+    //검색 기능 수행
+    const searchClick = (location) => {
+
+        console.log("location : ", location);
+        console.log("search : ", location.search);
+
+        const params = new URLSearchParams(location.search);
+
+        let search = params.get("search");
+
+        console.log("params.get('search') : ", search);
+
+        searchNoticeHandler(search)
+    }
+
+    const searchNoticeHandler = (e) => {
+        
+    }
+
+    const NoticeState = (e) => {
+        // if (search) {
+        //     setNoticeState(filterNotice)
+        // }
+        // else {
+        //     setNoticeState(allNotice)
+        // }
     }
 
 
@@ -158,22 +242,24 @@ const NoticeList = () => {
                     
                     <Stack spacing={3} justifyContent="center" alignItems="center">
                         <TableContainer component={Paper} >
-                            <Table  size="small" aria-label="a dense table" style={{minWidth:'1500px'}}>
+                            <Table  size="medium" aria-label="a dense table" style={{minWidth:'1000px'}}>
                                 <TableHead>
                                 <TableRow>
-                                    <TableCell width='50'>#</TableCell>
-                                    <TableCell align="center" width='40%'>제목</TableCell> 
-                                    <TableCell align="center" width='40%'>내용</TableCell>
+                                    <TableCell width='10%'>#</TableCell>
+                                    <TableCell align="center" width='70%'>제목</TableCell> 
+                                    {/*<TableCell align="center" width='40%'>내용</TableCell>*/}
                                     <TableCell align="center" width='20%'>작성일</TableCell>
                                 </TableRow>
                                 </TableHead>
                                 <TableBody>
+
                                 {Object.values(allNotice).map((row,idx) => (
+                                    
                                     <TableRow key={idx} value={row.num} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         onClick={(e, num) => onClick(e, row.num)}>
                                     <TableCell component="th" scope="row" value={row.num}>{row.num}</TableCell>
-                                    <TableCell align="center"value={row.num}>{row.title}</TableCell>
-                                    <TableCell align="center" value={row.num}>{row.content}</TableCell>
+                                    <TableCell align="left" value={row.num}>{row.title}</TableCell>
+                                    {/*<TableCell align="center" value={row.num} >{row.content}</TableCell>*/}
                                     <TableCell align="center" value={row.num}>{row.created_at}</TableCell>
                                 
                                     </TableRow>
@@ -186,12 +272,19 @@ const NoticeList = () => {
                         <Pagination count={pageCount} page={page} onChange={handleChange} color="primary" /> 
                     </div> 
                        
-                    
-                <SearchBar /> 
+                <div>
+                    <SearchBar /> 
+                </div>    
                 </Stack>
+
+                {/**관리자 등급일 경우에만 버튼 출력
+                 * 현재는 member num = 3 (임시 관리자계정) 일 때만 출력되도록 함 (미구현)
+                 */}
+                 { isAdmin && 
                 <div className='newNotice'>
                         <button type='button' onClick={noticeForm}>공지사항 작성</button>
                     </div> 
+                    }
 
             {/* ! */}
               {/* 

@@ -10,12 +10,31 @@
 			values (#{name},#{id},#{password},#{email},#{tel},#{birthday},#{zoncode},#{address1},#{address2},now(),1)
 	</insert>
 	<select id="login" resultType="int" parameterType="Map">
-		select count(*) from member where id=#{id} and password=#{password}
+		select num from member where id=#{id} and password=#{password}
 	</select>
 	<select id="getLoginInfo" parameterType="String" resultType="Map">
 		select num, name, type from member where id=#{id}
 	</select>
+	
 	<select id="getOneUserData" resultType="member">
-	select name,id,email,tel,birthday,zoncode,address1,address2,type,registered_at,num from member where id=#{id}
+	select * from member where num=#{num}
 	</select>
+	<insert id="profilePhotoInsert" parameterType="profile">
+			insert into profile_photo (member_num, file_name) values (#{member_num}, #{file_name})
+	</insert>
+	
+	   	<select id="findPhoto" parameterType="int" resultType="String">
+		select file_name from profile_photo where member_num=#{member_num}
+	</select>
+	
+	<update id="updateProfile" parameterType="profile">
+		update profile_photo set file_name=#{file_name}
+		where member_num=#{member_num}
+	</update>
+	
+	<select id="chkAdmin" resultType="int">
+		select `type` from member where num=#{num}
+	</select>
+	
+	
 </mapper>

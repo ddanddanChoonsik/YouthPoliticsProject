@@ -13,12 +13,12 @@ import lombok.Data;
 public class NoticeDto {
 	private int num;
 	private int member_num;
-	private String name;
+//	private String name;
 	private String title;
 	private String content;
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Timestamp created_at;
-	private int notice_num;
+	//private int notice_num;
 //	private String file_name;
 	
 }

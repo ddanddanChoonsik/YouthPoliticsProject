@@ -37,6 +37,7 @@ const NoticeDetail = () => {
 
     return (
         <div id='detail'>
+            <br/>
             <div className='noticeDetail' >
                 <div className='noticeTitle'>
                 {/*제목 / 작성일*/}
@@ -48,7 +49,10 @@ const NoticeDetail = () => {
                     </div>
                 </div>
                 <div className='noticeContent'>
-                    {detailNotice.content}
+                    <div className='content' dangerouslySetInnerHTML={{__html:detailNotice.content}}>
+                        {/*{detailNotice.content}*/}
+                    </div>
+                    
                 </div>
                 <div className='return'>
                     <button onClick={() => navi(`/notice/list`)}>

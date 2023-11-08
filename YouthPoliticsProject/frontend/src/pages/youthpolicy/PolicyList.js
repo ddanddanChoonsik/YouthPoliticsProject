@@ -38,6 +38,8 @@ const PolicyList = () => {
      const params = useParams();
      const [page, setPage] = useState(1);
      const [onedata,setOneData] =useState();
+     const loginnum = localStorage.usernum; //typeof string
+     const member_num = parseInt(loginnum);
 
 
      // //api 호출 (pagination 총값도 가져와야함)
@@ -131,12 +133,12 @@ const PolicyList = () => {
 
                                 //bookmark
                                 let bookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/bookmark";
-                                let selectBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/getbookmark";
+                                let selectBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/getbookmark?member_num="+loginnum;
                                 const [checkit,setCheckIt]=useState([]);
 
 
                                 const starChange = (e,r)=>{   
-                                    let deleteBookMarkUrl = process.env.REACT_APP_SPRING_URL+"policy/deletebookmark?bizId="+r.bizId;
+                                    let deleteBookMarkUrl = process.env.REACT_APP_SPRING_URL+`policy/deletebookmark?bizId=${r.bizId}&member_num=${loginnum}`;
                                     let rbizId = r.bizId;
                                     let checked = e.target.checked;
                                     //  console.log("checkedvalue:",checked);
@@ -145,7 +147,8 @@ const PolicyList = () => {
                                     if(checked){
                                         axios.post(bookMarkUrl,{
                                             bookmark: checked,
-                                            bizId:rbizId
+                                            bizId:rbizId,
+                                            member_num:member_num
                                         }).then(res=>{
                                             alert("즐겨찾기 추가 성공");
                                             setCheckVal(true);
@@ -180,6 +183,7 @@ const PolicyList = () => {
                              const selectStar =()=>{     
                                 let dataArr = [];
                                  axios.get(selectBookMarkUrl).then(res=>{
+                                    console.log(`${loginnum}의 즐겨찾기:`+res.data.length+"개");
                                     // setBookArr(res.data);
                                     // console.log("북마크된값 가져오기 :",res.data);
                                 for(let i=0; i< res.data.length;i++){
@@ -227,13 +231,17 @@ const PolicyList = () => {
     return (
         <div id='policy'>
                 <div className='policyList'>
-                    <div className='policyfillter'>
+
+                   {/* <div className='policyfillter'>
                 {toggle && <PolicyFilter />}
-                </div>
+                </div>*/}
                 <div className='policyList0'>
-                    <Switch  checked={toggle} onChange={(e)=>fillterHandleChange(e)} inputProps={{ 'aria-label': 'controlled' }} />
+
+                    {/*toggle===true?<PolicyFilter />:""*/}
+
+                    {/* <Switch  checked={toggle} onChange={(e)=>fillterHandleChange(e)} inputProps={{ 'aria-label': 'controlled' }} />*/}
                     {/* <Checkbox   sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/> */}
-                    <Stack spacing={3} justifyContent="center" alignItems="center">
+                    {/*<Stack spacing={3} justifyContent="center" alignItems="center">*/}
                         
                  {/* test ui */}
                  <div className='policyList1'>
