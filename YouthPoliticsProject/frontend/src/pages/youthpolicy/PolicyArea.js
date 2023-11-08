@@ -46,7 +46,7 @@ const PolicyArea = () => {
         setSelectAddr(addr);
        setSelectSpcName(spcName);
        //console.log("index:",index);
-       console.log("mui list"); //2
+       //console.log("mui list"); //2
        kakaomap();
      };
 
@@ -56,7 +56,6 @@ const PolicyArea = () => {
             //kakaomapscript();
      }
 
-
      const [myloc,setMyLoc]=useState('');
      //내위치 찾기(위도,경도)->내위치 주소로 가져오기
      const currentLocation = (position) =>{
@@ -64,13 +63,11 @@ const PolicyArea = () => {
 
 			let lat = position.coords.latitude; // 위도
 			let lng = position.coords.longitude; // 경도
-
             const locPosition = new kakao.maps.LatLng(lat, lng);
-            console.log("locPosition:",locPosition); // 결과 잘나옴
+            //console.log("locPosition:",locPosition); // 결과 잘나옴 위도 경도
 
             function getAddr(lat,lng){
                 let geocoder = new kakao.maps.services.Geocoder();
-
                 let coord = new kakao.maps.LatLng(lat, lng);
                 let callback = function(result, status) {
                     if (status === kakao.maps.services.Status.OK) {
@@ -78,22 +75,22 @@ const PolicyArea = () => {
                         const myaddr=result[0].address.address_name;
                         setMyLoc(myaddr);
                         console.log("좌표로 내위치 주소찾기:",myaddr);
+                        
+                        //지역코드 넘겨서 같은 시군구에 있는 청년공간 가져오기.
+
                     }
                 }
                 geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
             }
             getAddr(lat,lng);
 
-                    })
+            })
 
         return true;
      }
 
-     //청년공간 내 위치 반경 마커
-
-
      //카카오 지도
-    const kakaomap = (setMyLoc) => {
+    const kakaomap = (myloc) => {
         const mapContainer = document.getElementById('map'); // 지도를 표시할 div 
         const mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -105,24 +102,22 @@ const PolicyArea = () => {
             // 주소-좌표 변환 객체를 생성합니다
             const geocoder = new kakao.maps.services.Geocoder();
 
+            //지도 위에 내위치로 돌아갈 버튼을 생성합니다.
+        
             // 주소로 좌표를 검색합니다
-            geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr, function(result, status) {
-                //console.log("selectAddr",selectAddr);
-
+            geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr,function(result, status) {
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
                 
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
                 // 결과값으로 받은 위치를 마커로 표시합니다
                 var marker = new kakao.maps.Marker({
                     map: map,
                     position: coords
                 });
-
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:fit-content;text-align:center;height:fit-content;">${selectSpcName==undefined?"내위치":selectSpcName}</div>`
+                    content: `<div style="width:fit-content;text-align:center;height:fit-content;"> + ${selectSpcName==undefined?"내위치":selectSpcName} + </div>`
                 });
                 infowindow.open(map, marker);
 
@@ -132,7 +127,6 @@ const PolicyArea = () => {
         
         }); 
     }
-
 
     useEffect(()=>{
         youthAreaApi();        
@@ -147,11 +141,9 @@ const PolicyArea = () => {
         <div>   
             <div className='space-area'>  
             <div className='space'>
-            <span>청년공간</span>
-           <span>
-            {resultList.length} 개 
-            <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i class="fa-solid fa-filter" />&nbsp;Filter</Button>
-            <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i class="fa-solid fa-rotate" />&nbsp;Refresh</Button>
+            <span>청년공간 ( {resultList.length}개 )</span>
+           <span> 
+            {/* <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i className="fa-solid fa-rotate" />&nbsp;Refresh</Button> */}
            </span>
            <div className='space-item'>
             <List
@@ -175,7 +167,7 @@ const PolicyArea = () => {
                                             <ListItemText primary= {row.spcName} secondary={row.address}/>
                                             {/* <ListItemText secondary={row.address}/> */}
                                         </ListItem>
-                                        <ListItemButton class="fa-solid fa-location-dot" style={{color: '#0f67ff'}} onChange={(event)=>handleMap(row.address,row.spcName)} onClick={(event)=>handleMap(row.address,row.spcName)}/>
+                                        <ListItemButton className="fa-solid fa-location-dot" style={{color: '#0f67ff'}} onChange={(event)=>handleMap(row.address,row.spcName)} onClick={(event)=>handleMap(row.address,row.spcName)}/>
                                     </ListItemButton>
                                     //     <div className='space-item' onClick={(e)=>findArea(e)} value={row.spcName}>
                                     //     <ul>
@@ -206,8 +198,13 @@ const PolicyArea = () => {
                     </List>
                     </div>
                     </div>
-                <div id='map'></div>
+                <div id='map'>
+                    <div style={{zIndex:'10',position:'absolute',height:'fitContent',top:'1%',left:'1%'}}>
+                    <Button variant="outlined" style={{width:'fit-content',textAlign:'right',backgroundColor:'white'}} onClick={(event)=>handleMap(myloc,"내위치")}><i className="fa-solid fa-location-dot" />&nbsp;내 위치로</Button>
+                    </div>
                 </div>
+                </div>
+
                  {/* <List
                     sx={{
                         width: '100%',
