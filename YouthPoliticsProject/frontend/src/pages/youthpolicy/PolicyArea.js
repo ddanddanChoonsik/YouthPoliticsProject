@@ -54,6 +54,7 @@ const PolicyArea = () => {
      }
 
      const [myloc,setMyLoc]=useState('');
+     const [locPolyCenter,setLocPolyCenter]=useState('');
      //내위치 찾기(위도,경도) -> 내위치 주소로 가져오기!
      const currentLocation = (position) =>{
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -77,7 +78,9 @@ const PolicyArea = () => {
                             state:myState,    //myState
                             city:myCity   //myCity
                         }).then(res=>{
-                            console.log("response:",res.data);
+                            console.log("response:",res.data); //잘들어옴.
+                            setLocPolyCenter(res.data);
+
                         }).catch(err=>{
                             console.log("err:",err);
                         })
@@ -145,8 +148,9 @@ const PolicyArea = () => {
         <div>   
             <div className='space-area'>  
             <div className='space'>
-            <span>청년공간 ( {resultList.length}개 )</span>
-           <span> 
+            <span>청년공간 ( {resultList.length}개 )</span><br/>
+           <span style={{color:'#999999',fontSize:'15px'}}> 
+            {myloc}
             {/* <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i className="fa-solid fa-rotate" />&nbsp;Refresh</Button> */}
            </span>
            <div className='space-item'>
