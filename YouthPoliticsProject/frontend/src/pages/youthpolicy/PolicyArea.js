@@ -79,8 +79,10 @@ const PolicyArea = () => {
                             city:myCity   //myCity
                         }).then(res=>{
                             console.log("response:",res.data); //잘들어옴.
-                            setLocPolyCenter(res.data);
-
+                            let myArray=[{spcName:'내 위치',address:myaddr}];
+                            let result=myArray.concat(res.data);
+                            console.log("청년공간+내위치=>",result);
+                            setLocPolyCenter(result);
                         }).catch(err=>{
                             console.log("err:",err);
                         })
@@ -106,12 +108,10 @@ const PolicyArea = () => {
             // 지도를 생성합니다    
             const map = new kakao.maps.Map(mapContainer, mapOption);
 
-            // 주소-좌표 변환 객체를 생성합니다
+            // 주소->좌표 변환 객체를 생성합니다
             const geocoder = new kakao.maps.services.Geocoder();
-
-            //지도 위에 내위치로 돌아갈 버튼을 생성합니다.
         
-            // 주소로 좌표를 검색합니다
+            // 주소로 좌표를 검색합니다 (리스트목록중 클릭한 주소.)
             geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr,function(result, status) {
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
