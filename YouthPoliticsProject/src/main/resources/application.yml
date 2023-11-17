@@ -4,29 +4,9 @@ spring:
   devtools:
     livereload:
       enabled: true
-      
-# mysql (임시 데이터베이스 설정 // local)
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url:x
-#    username: x
-#    password: x
-    
-# mysql (aws)
-  datasource:
-    driver-class-name:x
-    url: x
-    username: x
-    password: x
    
 # mybatis
 mybatis:
   type-aliases-package: data.mapper,data.dto
   mapper-locations:
   - /mapper/**/*.xml
-
-jwt:
-  secretKey: dF1bgWRrerOOrIL3jQoQjY0sjqNmpMlf
-  minute: 30 # 30분
-aes:
-  key: Ew8lSGXFq90EfWVqyYCaUr0Tq58SeyYd
