@@ -4,9 +4,10 @@ import '../../styles/policyarea.css';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-// import ListSubheader from '@mui/material/ListSubheader';-
+// import ListSubheader from '@mui/material/ListSubheader';
 import Button from '@mui/material/Button';
 import ListItemButton from '@mui/material/ListItemButton';
+
 const PolicyArea = () => {
 
     const url='http://localhost:3001/space';
@@ -48,10 +49,10 @@ const PolicyArea = () => {
        kakaomap();
      };
 
-     const handleMap = (addr,spcName) =>{
-             setSelectAddr(addr);
-            setSelectSpcName(spcName);
-     }
+    //  const handleMap = (addr,spcName) =>{
+    //          setSelectAddr(addr);
+    //         setSelectSpcName(spcName);
+    //  }
 
      const [myloc,setMyLoc]=useState('');
      const [locPolyCenter,setLocPolyCenter]=useState('');
@@ -105,34 +106,61 @@ const PolicyArea = () => {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 2 // 지도의 확대 레벨
             };  
-            // 지도를 생성합니다    
+            // 지도를 생성합니다     
             const map = new kakao.maps.Map(mapContainer, mapOption);
 
             // 주소->좌표 변환 객체를 생성합니다
             const geocoder = new kakao.maps.services.Geocoder();
-        
-            // 주소로 좌표를 검색합니다 (리스트목록중 클릭한 주소.)
-            geocoder.addressSearch(selectAddr==undefined?myloc:selectAddr,function(result, status) {
-            // 정상적으로 검색이 완료됐으면 
-            if (status === kakao.maps.services.Status.OK) {
+            
+             // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+            var bounds = new kakao.maps.LatLngBounds(); //추가한 코드
+
+            locPolyCenter&&locPolyCenter.forEach(function (position) { //추가한 코드
+                // 주소로 좌표를 검색합니다
+                geocoder.addressSearch(position.address, function(result, status) {
+            
+                  // 정상적으로 검색이 완료됐으면
+                  if (status === kakao.maps.services.Status.OK) {
+            
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                      map: map,
+                      position: coords
+                    });
+                    marker.setMap(map); //추가한 코드
                 
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao.maps.Marker({
-                    map: map,
-                    position: coords
-                });
+                     // LatLngBounds 객체에 좌표를 추가합니다
+                    bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.-
+
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: `<div style="width:fit-content;text-align:center;height:fit-content;"> + ${selectSpcName==undefined?"내위치":selectSpcName} + </div>`
+                    content: `<span style="text-align:center">
+                     + ${position.spcName} + </span>`,
+                     
                 });
+                
                 infowindow.open(map, marker);
-
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
+               
+                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                // map.setCenter(coords); //제거한 코드
+                setBounds(); //추가한 코드
             } 
         
         }); 
+    });
+
+    const setBounds=()=> { //추가한 함수
+        // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+        // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+        map.setBounds(bounds);
+      }
+
+    }
+
+    const addrSearch=(e)=>{
+        console.log("검색글씨 바뀌는거 확인중:",e.target.value);
     }
 
     useEffect(()=>{
@@ -140,8 +168,8 @@ const PolicyArea = () => {
         currentLocation();
     },[])
 
-    useEffect(()=>{
-        kakaomap(myloc);
+    useEffect(()=>{        
+        kakaomap();
     },[selectSpcName,myloc])
 
     return (
@@ -149,10 +177,19 @@ const PolicyArea = () => {
             <div className='space-area'>  
             <div className='space'>
             <span>청년공간 ( {resultList.length}개 )</span><br/>
-           <span style={{color:'#999999',fontSize:'15px'}}> 
+            <span>
+            <form>
+              <input type='text' maxLength='20' className='search_input' name='search' placeholder='검색어를 입력해주세요.' onChange={addrSearch}/>
+              {/* onChange={(e)=>{addrSearch(e.target.value)}} */}
+              <input type='submit' value='검색' className='serach_submit'/>
+            </form>
+            </span>
+
+           {/*<span style={{color:'#999999',fontSize:'15px'}}> 
             {myloc}
-            {/* <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i className="fa-solid fa-rotate" />&nbsp;Refresh</Button> */}
-           </span>
+             <Button variant="outlined" style={{width:'fit-content',textAlign:'right'}}><i className="fa-solid fa-rotate" />&nbsp;Refresh</Button> 
+           </span>*/}
+
            <div className='space-item'>
             <List
                 sx={{
@@ -175,7 +212,7 @@ const PolicyArea = () => {
                                             <ListItemText primary= {row.spcName} secondary={row.address}/>
                                             {/* <ListItemText secondary={row.address}/> */}
                                         </ListItem>
-                                        <ListItemButton className="fa-solid fa-location-dot" style={{color: '#0f67ff'}} onChange={(event)=>handleMap(row.address,row.spcName)} onClick={(event)=>handleMap(row.address,row.spcName)}/>
+                                        {/* <ListItemButton className="fa-solid fa-location-dot" style={{color: '#0f67ff'}} onChange={(event)=>handleMap(row.address,row.spcName)} onClick={(event)=>handleMap(row.address,row.spcName)}/> */}
                                     </ListItemButton>
                                     //     <div className='space-item' onClick={(e)=>findArea(e)} value={row.spcName}>
                                     //     <ul>
@@ -207,9 +244,9 @@ const PolicyArea = () => {
                     </div>
                     </div>
                 <div id='map'>
-                    <div style={{zIndex:'10',position:'absolute',height:'fitContent',top:'1%',left:'1%'}}>
+                    {/* <div style={{zIndex:'10',position:'absolute',height:'fitContent',top:'1%',left:'1%'}}>
                     <Button variant="outlined" style={{width:'fit-content',textAlign:'right',backgroundColor:'white'}} onClick={(event)=>handleMap(myloc,"내위치")}><i className="fa-solid fa-location-dot" />&nbsp;내 위치로</Button>
-                    </div>
+                    </div> */}
                 </div>
                 </div>
 
